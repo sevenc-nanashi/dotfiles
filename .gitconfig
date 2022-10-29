@@ -1,0 +1,41 @@
+[user]
+	name = sevenc-nanashi
+	email = sevenc7c@sevenc7c.com
+	signingkey = 8EA980D9E38854E3A3E94F78D5D32B3B16612592
+[credential]
+	helper = store --file ~/.git_credentials
+[color]
+	ui = true
+[core]
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+  editor = nvim
+  filemode = false
+	symlinks = true
+	whitespace = cr-at-eol
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = false
+[alias]
+	sl = !"git log --pretty=\"%C(yellow)%h%C(brightyellow)) %C(brightcyan)%an%C(cyan) %C(cyan)- %C(reset)%s%C(brightgreen)%d\""
+	pushf = push --force-with-lease
+	cmerge = !"fn(){ git merge $1 && git commit --amend -m \"Merge: $1 -> $(git rev-parse --abbrev-ref HEAD)\"; }; fn"
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ >> .gitignore ;}; gi"
+	change-commits = "!f() { VAR1=$1; VAR='$'$1; OLD=$2; NEW=$3; echo \"Are you sure for replace $VAR  $OLD => $NEW ?(Y/N)\";read OK;if [ \"$OK\" = 'Y' ] ; then shift 3; git filter-branch  --env-filter \"if [ \\\"${VAR}\\\" = '$OLD' ]; then export $VAR1='$NEW';echo 'to $NEW'; fi\" $@; fi;};  f "
+[push]
+	default = current
+[advice]
+	detachedHead = false
+[pull]
+	default = current
+	rebase = false
+[http]
+	postBuffer = 524288000

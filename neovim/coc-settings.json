@@ -1,0 +1,35 @@
+{
+  "diagnostic.warningSign": "●",
+  "diagnostic.errorSign": "●",
+  "diagnostic.infoSign": "●",
+  "diagnostic.hintSign": "!",
+  "python.formatting.provider": "black",
+  "tsserver.locale": "ja",
+  "rpc.idleText": "にゃーん",
+  "rpc.lowerDetailsEditing": "@ {workspace_folder}",
+  "rpc.largeImage": "言語：{LANG}",
+  "rpc.detailsIdling": "(-ω-) なにもしていない",
+  "rpc.detailsEditing": "{file_name} を編集中",
+  "rpc.lowerDetailsNotFound": "どこか",
+  "rpc.detailsViewing": "{file_name} を閲覧中",
+  "rpc.lowerDetailsIdling": "にゃーん",
+  "rpc.lowerDetailsViewing": "@ {workspace_folder}",
+  "rpc.workspaceElapsedTime": true,
+  "tsserver.log": "verbose",
+  "tsserver.trace.server": "verbose",
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualText": true,
+  "//languageserver": {
+    "syntax_tree": {
+      "command": "stree",
+      "args": ["lsp"],
+      "trace.server": "verbose",
+      "filetypes": ["ruby"]
+    },
+    "steep": {
+      "command": "steep",
+      "args": ["langserver"],
+      "filetypes": ["ruby"]
+    }
+  }
+}
