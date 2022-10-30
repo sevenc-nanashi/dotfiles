@@ -119,7 +119,6 @@ autocmd FileType python call s:set_tab_width(4)
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
-autocmd TermOpen * DisableWhitespace
 
 set fileformats=unix,mac,dos
 let $PATH .= ';C:/develop/luals/bin'
