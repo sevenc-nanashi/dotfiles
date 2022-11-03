@@ -1,5 +1,8 @@
 require("toggleterm").setup{
   start_in_insert = false,
+  on_open = function(term)
+    vim.cmd("PinBuffer")
+  end,
 }
 require("trouble").setup {}
 require 'nvim-treesitter.install'.compilers = { "clang" }
@@ -36,25 +39,25 @@ require'lspconfig'.sumneko_lua.setup {
 }
 --]]
 -- Treesitter config
-local status, ts = pcall(require, "nvim-treesitter.configs")
-if (not status) then return end
+-- local status, ts = pcall(require, "nvim-treesitter.configs")
+-- if (not status) then return end
 
-ts.setup {
-  highlight = {
-    enable = true,
-    disable = {},
-  },
-  indent = {
-    enable = true,
-    disable = {},
-  },
-  autotag = {
-    enable = true,
-  },
-}
+-- ts.setup {
+--   highlight = {
+--     enable = true,
+--     disable = {},
+--   },
+--   indent = {
+--     enable = true,
+--     disable = {},
+--   },
+--   autotag = {
+--     enable = true,
+--   },
+-- }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
+-- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+-- parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
 --[[
 -- null-ls
@@ -81,5 +84,5 @@ prettier.setup({
 })
 
 --]]
-require('nvim-ts-autotag').setup()
+-- require('nvim-ts-autotag').setup()
 

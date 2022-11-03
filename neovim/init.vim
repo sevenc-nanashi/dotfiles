@@ -70,6 +70,7 @@ call dein#add('Yggdroot/indentLine')
 " call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('ldelossa/gh.nvim')
 call dein#add('ldelossa/litee.nvim')
+call dein#add('stevearc/stickybuf.nvim')
  "call dein#add('bronson/vim-trailing-whitespace')
 " Required:
 call dein#end()
@@ -119,6 +120,7 @@ autocmd FileType python call s:set_tab_width(4)
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
+autocmd BufNew *term://* PinBuffer
 
 set fileformats=unix,mac,dos
 let $PATH .= ';C:/develop/luals/bin'
@@ -127,14 +129,34 @@ lua require('nvimrc')
 
 " command! -nargs=+ Search :exe 'vimgrep /<q-args>/j ' .. fnameescape(g:rootfinder#find(expand('%:p:h'))) .. '/**/*'
 command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
-colo hatsunemiku_light
+
+if !exists('g:colo_init')
+  colo hatsunemiku_light
+  let g:airline_theme = 'hatsunemiku_light'
+  let g:colo_init = 1
+endif
+
+function! s:switch_color() abort
+  if g:colo_init == 1
+    colo hatsunemiku
+    AirlineTheme hatsunemiku
+    let g:colo_init = 2
+  else
+    colo hatsunemiku_light
+    AirlineTheme hatsunemiku_light
+    let g:colo_init = 1
+  endif
+endfunction
+
+command! -nargs=0 SwitchColor call s:switch_color()
+
+
 " let g:lightline = {
 "       \ 'colorscheme': 'hatsunemiku_light',
 "       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
 "       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
 "       \ }
 set noshowmode
-let g:airline_theme = 'hatsunemiku_light'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
