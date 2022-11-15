@@ -6,14 +6,14 @@ endif
 
 
 " Required:
-exe 'set runtimepath+=' . $USERPROFILE . '\.cache\dein\repos\github.com\Shougo\dein.vim'
+exe 'set runtimepath+=' . $USERPROFILE . $HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim'
 
 " Required:
-call dein#begin($USERPROFILE . '\.cache\dein')
+call dein#begin($USERPROFILE . $HOME . '/.cache/dein')
 
 " Let dein manage dein
 " Required:
-call dein#add($USERPROFILE . '\.cache\dein\repos\github.com\Shougo\dein.vim')
+call dein#add($USERPROFILE . $HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 " Add or remove your plugins here like this:
 "call dein#add('Shougo/neosnippet.vim')
@@ -90,11 +90,13 @@ endif
 
 "End dein Scripts-------------------------
 
-set shell=pwsh
-let &shellcmdflag = '-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-set shellquote= shellxquote=
+if has('win32') || has ('win64')
+  set shell=pwsh
+  let &shellcmdflag = '-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+  let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  set shellquote= shellxquote=
+end
 " autocmd TermOpen * startinsert
 set encoding=utf-8
 set fileencoding=utf-8

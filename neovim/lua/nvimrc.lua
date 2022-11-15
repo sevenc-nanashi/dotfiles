@@ -7,7 +7,7 @@ require("toggleterm").setup{
 require("trouble").setup {}
 require 'nvim-treesitter.install'.compilers = { "clang" }
 
---[[
+--[=[
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -37,7 +37,7 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
---]]
+--]=]
 -- Treesitter config
 -- local status, ts = pcall(require, "nvim-treesitter.configs")
 -- if (not status) then return end
@@ -59,7 +59,7 @@ require'lspconfig'.sumneko_lua.setup {
 -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 -- parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
---[[
+--[=[
 -- null-ls
 local null_ls = require("null-ls")
 
@@ -75,7 +75,7 @@ null_ls.setup({
   end,
 })
 
---[[ 
+--[=[ 
 -- prettier
 local prettier = require("prettier")
 
@@ -83,6 +83,6 @@ prettier.setup({
     bin = "C:/Users/.../AppData/Roaming/npm/prettier.cmd"
 })
 
---]]
+--]=]
 -- require('nvim-ts-autotag').setup()
 
