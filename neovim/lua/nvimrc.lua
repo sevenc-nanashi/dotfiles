@@ -76,19 +76,10 @@ null_ls.setup({
   end,
 })
 
---[=[ 
--- prettier
 local prettier = require("prettier")
 
 prettier.setup({
     bin = "C:/Users/.../AppData/Roaming/npm/prettier.cmd"
 })
-
-<<<<<<< Updated upstream
---]=]
--- require('nvim-ts-autotag').setup()
-=======
---]]
-require('nvim-ts-autotag').setup()
->>>>>>> Stashed changes
+]=]
 
