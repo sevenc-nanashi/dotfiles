@@ -5,6 +5,7 @@
   "diagnostic.hintSign": "!",
   "python.formatting.provider": "black",
   "tsserver.locale": "ja",
+  "css.lint.unknownAtRules": "ignore",
   "rpc.idleText": "にゃーん",
   "rpc.lowerDetailsEditing": "@ {workspace_folder}",
   "rpc.largeImage": "言語：{LANG}",
@@ -19,7 +20,7 @@
   "tsserver.trace.server": "verbose",
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualText": true,
-  "//languageserver": {
+  "languageserver": {
     "syntax_tree": {
       "command": "stree",
       "args": ["lsp"],

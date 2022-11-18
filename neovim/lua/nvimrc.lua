@@ -1,11 +1,12 @@
 require("toggleterm").setup{
   start_in_insert = false,
   on_open = function(term)
-    vim.cmd("PinBuffer")
+    vim.cmd("PinBuffer!")
   end,
 }
 require("trouble").setup {}
 require 'nvim-treesitter.install'.compilers = { "clang" }
+require('nvim-ts-autotag').setup()
 
 --[=[
 require("mason").setup()
@@ -83,6 +84,11 @@ prettier.setup({
     bin = "C:/Users/.../AppData/Roaming/npm/prettier.cmd"
 })
 
+<<<<<<< Updated upstream
 --]=]
 -- require('nvim-ts-autotag').setup()
+=======
+--]]
+require('nvim-ts-autotag').setup()
+>>>>>>> Stashed changes
 
