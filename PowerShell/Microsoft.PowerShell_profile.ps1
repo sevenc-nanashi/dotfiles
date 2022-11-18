@@ -2,7 +2,7 @@
   Remove-Item alias:iex -Force
   Remove-Item alias:ri -Force
 }
-[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8
+[Console]::InputEncoding = [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 Set-Alias rb ruby
 Set-Alias ipy ipython
 Set-Alias vim "E:\vim82-kaoriya-win32\vim.exe"
@@ -93,7 +93,7 @@ function global:ffgif {
   Param(
     [parameter(mandatory)][string]$path,
     [parameter(mandatory)][string]$dist,
-    [int32]$fps=10
+    [int32]$fps = 10
   )
   ffmpeg -i $path -filter_complex "[0:v] fps=$fps,split [a][b];[a] palettegen [p];[b][p] paletteuse" $dist
 }
@@ -145,11 +145,18 @@ function global:mklink {
     [parameter(mandatory)][string]$to
   )
   $fromItem = Get-Item $from
-  if ($fromItem.PSIsContainer) {
-    cmd /c mklink /J $to $from
+  if ((Test-Path $to) -and (Get-Item $to).PSIsContainer) {
+    $toPath = Join-Path $to $fromItem.Name
   }
   else {
-    cmd /c mklink $to $from
+    $toPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($to)
+  }
+  $fromPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($from)
+  if ($fromItem.PSIsContainer) {
+    cmd /c mklink /J `"$toPath`" `"$fromPath`"
+  }
+  else {
+    cmd /c mklink `"$toPath`" `"$fromPath`"
   }
 }
 

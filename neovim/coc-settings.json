@@ -20,6 +20,8 @@
   "tsserver.trace.server": "verbose",
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualText": true,
+  "powershell.integratedConsole.showOnStartup": false,
+
   "languageserver": {
     "syntax_tree": {
       "command": "stree",
