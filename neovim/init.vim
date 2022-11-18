@@ -23,7 +23,7 @@ call dein#add('vim-airline/vim-airline')
 " call dein#add('itchyny/lightline.vim')
 call dein#add('ryanoasis/vim-devicons')
 " call dein#add('sevenc-nanashi/vim-colors-hatsunemiku')
-call dein#add('4513echo/vim-colors-hatsunemiku')
+call dein#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
 call dein#add('akinsho/toggleterm.nvim')
 call dein#add('lambdalisue/fern.vim')
 call dein#add('lambdalisue/fern-renderer-nerdfont.vim')
@@ -71,7 +71,11 @@ call dein#add('Yggdroot/indentLine')
 call dein#add('ldelossa/gh.nvim')
 call dein#add('ldelossa/litee.nvim')
 call dein#add('stevearc/stickybuf.nvim')
- "call dein#add('bronson/vim-trailing-whitespace')
+call dein#add('tyru/capture.vim')
+call dein#add('ntpeters/vim-better-whitespace')
+"call dein#add('bronson/vim-trailing-whitespace')
+"
+call dein#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 " Required:
 call dein#end()
 
@@ -106,23 +110,24 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 function! s:set_tab_width(width)
-    exe 'setlocal tabstop=' . a:width
-    exe 'setlocal shiftwidth=' . a:width
+  exe 'setlocal tabstop=' . a:width
+  exe 'setlocal shiftwidth=' . a:width
 endfunction
 
 function! s:disable_lines_if_readonly() abort
-    if &modifiable == 0
-        IndentLinesDisable
-    endif
+  if &modifiable == 0
+    IndentLinesDisable
+  endif
 endfunction
 
 autocmd FileType python call s:set_tab_width(4)
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
+autocmd TermOpen * DisableWhitespace
 autocmd BufNew *term://* PinBuffer
 
-set fileformats=unix,mac,dos
+set fileformats=unix,dos
 let $PATH .= ';C:/develop/luals/bin'
 lua package.loaded["nvimrc"] = nil
 lua require('nvimrc')
@@ -158,7 +163,7 @@ command! -nargs=0 SwitchColor call s:switch_color()
 "       \ }
 set noshowmode
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -245,7 +250,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 noremap <silent> <A-S-F> <Cmd>Format<CR>
@@ -269,38 +274,39 @@ inoremap <silent><expr> <c-space> coc#refresh()
 noremap <silent> <c-/> <Cmd>'<,'>Comment<CR>
 noremap! <silent> <c-/> <Cmd>'<,'>Comment<CR>
 command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 RegBuf :enew | put! +
 " inoremap <silent><expr> <TAB>
 " \ ddc#map#pum_visible() ? '<C-n>' :
 " \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
 " \ '<TAB>' : ddc#map#manual_complete()
 
 function! s:init_fern() abort
-    noremap <buffer> <C-K><C-A> <Cmd>q<CR>
-    nmap <buffer><expr> <Plug>(fern-my-open-or-toggle-expand)
-                \ fern#smart#leaf(
-                \   "\<Plug>(fern-action-open:edit)",
-                \   "\<Plug>(fern-action-expand)",
-                \   "\<Plug>(fern-action-collapse)",
-                \ )
+  noremap <buffer> <C-K><C-A> <Cmd>q<CR>
+  nmap <buffer><expr> <Plug>(fern-my-open-or-toggle-expand)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:edit)",
+        \   "\<Plug>(fern-action-expand)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
 
-    nmap <buffer> <CR> <Plug>(fern-my-open-or-toggle-expand)
-    " nmap <buffer> <LeftMouse> <Plug>(fern-my-open-or-toggle-expand)
-    nmap <buffer> <S-CR> <Plug>(fern-action-open-or-enter)
-    nmap <buffer> <Z> <Nop>
-    " execute "normal \<Plug>(fern-action-hidden:set)"
+  nmap <buffer> <CR> <Plug>(fern-my-open-or-toggle-expand)
+  " nmap <buffer> <LeftMouse> <Plug>(fern-my-open-or-toggle-expand)
+  nmap <buffer> <S-CR> <Plug>(fern-action-open-or-enter)
+  nmap <buffer> <Z> <Nop>
+  " execute "normal \<Plug>(fern-action-hidden:set)"
 endfunction
 let g:fern#default_hidden=1
 " let g:fern#renderer#nerdfont#leading = ' '
 let g:fern#renderer#nerdfont#indent_markers = 1
 augroup my-glyph-palette
-autocmd! *
-autocmd FileType fern call glyph_palette#apply()
-autocmd FileType nerdtree,startify call glyph_palette#apply()
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 
 augroup fern-custom
-autocmd! *
-autocmd FileType fern call s:init_fern()
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
 augroup END
 
 set signcolumn=yes
