@@ -7,7 +7,8 @@ require("toggleterm").setup{
 require("trouble").setup {}
 require 'nvim-treesitter.install'.compilers = { "clang" }
 require('nvim-ts-autotag').setup()
-
+require('litee.lib').setup()
+require('litee.gh').setup()
 --[=[
 require("mason").setup()
 require("mason-lspconfig").setup()

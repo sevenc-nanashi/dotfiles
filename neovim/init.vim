@@ -19,8 +19,9 @@ call dein#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
 "call dein#add('Shougo/neosnippet.vim')
 call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 " call dein#add('neoclide/coc.nvim', { 'rev': '5d472ec' })
-call dein#add('vim-airline/vim-airline')
-" call dein#add('itchyny/lightline.vim')
+" call dein#add('vim-airline/vim-airline')
+call dein#add('itchyny/lightline.vim')
+call dein#add('taohexxx/lightline-buffer')
 call dein#add('ryanoasis/vim-devicons')
 " call dein#add('sevenc-nanashi/vim-colors-hatsunemiku')
 call dein#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
@@ -158,44 +159,100 @@ endfunction
 command! -nargs=0 SwitchColor call s:switch_color()
 
 
-" let g:lightline = {
-"       \ 'colorscheme': 'hatsunemiku_light',
-"       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-"       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-"       \ }
-set noshowmode
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
+let g:lightline = {
+      \ 'tabline': {
+      \   'left': [ [ 'bufferinfo' ],
+      \             [ 'separator' ],
+      \             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
+      \   'right': [ [ 'close' ], ],
+      \ },
+      \ 'active': {
+		  \   'left': [
+      \     [ 'mode', 'paste' ],
+		  \     [ 'Branch', 'Diff', 'readonly', 'filename', 'modified' ]
+      \   ],
+      \ },
+      \ 'component_expand': {
+      \   'buffercurrent': 'lightline#buffer#buffercurrent',
+      \   'bufferbefore': 'lightline#buffer#bufferbefore',
+      \   'bufferafter': 'lightline#buffer#bufferafter',
+      \ },
+      \ 'component_type': {
+      \   'buffercurrent': 'tabsel',
+      \   'bufferbefore': 'raw',
+      \   'bufferafter': 'raw',
+      \ },
+      \ 'component_function': {
+      \   'bufferinfo': 'lightline#buffer#bufferinfo',
+      \   'Branch': 'fugitive#Head',
+      \   'Diff': 'll_diff',
+      \ },
+      \ 'component': {
+      \   'separator': '',
+      \ },
+      \ 'colorscheme': 'hatsunemiku_light',
+      \ }
+function! s:ll_diff() abort
+  if fugitive#Head() == ''
+    return ''
+  endif
+  let diff = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', diff.added, diff.modified, diff.removed)
+endfunction
+command! LightlineReload call LightlineReload()
 
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.maxlinenr = '㏑'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+set noshowmode
+let g:lightline_buffer_enable_devicons = 1
+let g:lightline_buffer_show_bufnr = 1
+let g:lightline_buffer_fname_mod = ':t'
+let g:lightline_buffer_excludes = ['vimfiler']
+let g:lightline_buffer_maxflen = 30
+let g:lightline_buffer_minflen = 16
+let g:lightline_buffer_minfextlen = 3
+let g:lightline_buffer_reservelen = 20
+let g:lightline_buffer_show_bufnr = 0
+let g:lightline_buffer_separator_left_icon = '  '
+let g:lightline_buffer_separator_right_icon = '  '
+let g:lightline_buffer_active_buffer_left_icon = ' '
+let g:lightline_buffer_active_buffer_right_icon = ' '
+
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#tabline#enabled = 1
+
+" let g:airline_symbols.crypt = '🔒'
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.maxlinenr = '㏑'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.spell = 'Ꞩ'
+" let g:airline_symbols.notexists = '∄'
+" let g:airline_symbols.whitespace = 'Ξ'
 
 " powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = ' '
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = ' '
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.maxlinenr = ''
 
 let g:indentLine_char = '▏ '
 set directory=~/.vim/tmpfiles
@@ -212,6 +269,7 @@ let g:fern#renderer = "nerdfont"
 
 set mouse=a
 set updatetime=300
+set showtabline=2
 nnoremap U <C-R>
 inoremap <S-Insert> <C-r><C-p>+
 cnoremap <S-Insert> <C-r>+
@@ -230,8 +288,12 @@ noremap W b
 "   \  'Gemfile',
 "   \  'Cargo.toml',
 "   \]
-function! OpenFern()
-  let root = g:rootfinder#find(expand('%:p:h'))
+function! OpenFern() abort
+  let current_file = expand('%:p:h')
+  if current_file[:6] == "term://"
+    let current_file = current_file[7:]
+  endif
+  let root = g:rootfinder#find(current_file)
   if len(root) < 1
     let root = '.'
   endif
@@ -243,10 +305,44 @@ noremap <C-K><C-A> <Cmd>call OpenFern()<CR>
 noremap <C-K><C-S> <Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>
 noremap <C-K><C-D> <Cmd>TroubleToggle<CR>
 noremap <C-Tab> <Cmd>bn<CR>
-noremap <C-S-W> <Cmd>bd<CR>
+noremap <C-S-W> <Cmd>bn<bar>bd#<CR>
 noremap <C-S-Tab> <Cmd>bp<CR>
-nmap <silent> <C-.> <Plug>(coc-codeaction)
 
+nnoremap <silent> <M-Left> <Cmd>bp<CR>
+nnoremap <silent> <M-Right> <Cmd>bn<CR>
+nmap <silent> <C-.> <Plug>(coc-codeaction)
+for i in range(1, 9)
+  exe 'nnoremap <silent><M-' . i % 10 . '> :exe "b " . <SID>get_buffer_id(' . i . ')<CR>'
+endfor
+
+function! s:get_buffer_id(index) abort
+  let counter = 0
+  for i in range(1, bufnr('$'))
+    if !buflisted(i)
+      continue
+    endif
+    if getbufvar(i, '&readonly') || !getbufvar(i, '&modifiable')
+      continue
+    endif
+    let counter += 1
+    if counter == a:index
+      return i
+    endif
+  endfor
+  return ""
+endfunction
+
+
+function! s:set_normal_mappings() abort
+  nnoremap <buffer> <CR> a<CR><ESC>
+endfunction
+augroup mappings
+  autocmd!
+  autocmd BufWinEnter *
+    \  if &modifiable
+    \|   call s:set_normal_mappings()
+    \| endif
+augroup END
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'

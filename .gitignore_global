@@ -20,3 +20,5 @@ typeprof.rbs
 web-ext-artifacts
 .ignore
 .vim
+.yarn
+.yarnrc.yml
