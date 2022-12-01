@@ -4,7 +4,9 @@ require("toggleterm").setup{
     vim.cmd("PinBuffer!")
   end,
 }
-require("trouble").setup {}
+require("trouble").setup {
+  mode = "coc_workspace_diagnostics",
+}
 require 'nvim-treesitter.install'.compilers = { "clang" }
 require('nvim-ts-autotag').setup()
 require('litee.lib').setup()

@@ -21,18 +21,13 @@
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualText": true,
   "powershell.integratedConsole.showOnStartup": false,
-
+  "solargraph.diagnostics": true,
   "languageserver": {
-    "syntax_tree": {
-      "command": "stree",
-      "args": ["lsp"],
-      "trace.server": "verbose",
-      "filetypes": ["ruby"]
-    },
     "steep": {
       "command": "steep",
       "args": ["langserver"],
       "filetypes": ["ruby"]
     }
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

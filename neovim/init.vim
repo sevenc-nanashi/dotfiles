@@ -22,6 +22,7 @@ call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 " call dein#add('vim-airline/vim-airline')
 call dein#add('itchyny/lightline.vim')
 call dein#add('taohexxx/lightline-buffer')
+call dein#add('josa42/vim-lightline-coc')
 call dein#add('ryanoasis/vim-devicons')
 " call dein#add('sevenc-nanashi/vim-colors-hatsunemiku')
 call dein#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
@@ -40,7 +41,7 @@ call dein#add('mhinz/vim-startify')
 " call dein#add('Stoozy/vimcord')
 " call dein#add('leonardssh/coc-discord-rpc')
 " call dein#add('hrsh7th/nvim-cmp')
-call dein#add('folke/trouble.nvim')
+call dein#add('sevenc-nanashi/trouble.nvim')
 call dein#add('kyazdani42/nvim-web-devicons')
 " call dein#add('Shougo/ddc-nvim-lsp')
 " call dein#add('Shougo/ddc.vim')
@@ -74,6 +75,7 @@ call dein#add('ldelossa/litee.nvim')
 call dein#add('stevearc/stickybuf.nvim')
 call dein#add('tyru/capture.vim')
 call dein#add('ntpeters/vim-better-whitespace')
+call dein#add('tpope/vim-surround')
 "call dein#add('bronson/vim-trailing-whitespace')
 "
 call dein#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
@@ -140,24 +142,23 @@ command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
 
 if !exists('g:colo_init')
   colo hatsunemiku_light
-  let g:airline_theme = 'hatsunemiku_light'
   let g:colo_init = 1
 endif
 
 function! s:switch_color() abort
   if g:colo_init == 1
     colo hatsunemiku
-    AirlineTheme hatsunemiku
+    let g:lightline.colorscheme = 'hatsunemiku'
     let g:colo_init = 2
   else
     colo hatsunemiku_light
-    AirlineTheme hatsunemiku_light
+    let g:lightline.colorscheme = 'hatsunemiku_light'
     let g:colo_init = 1
   endif
+  LightlineReload
 endfunction
 
 command! -nargs=0 SwitchColor call s:switch_color()
-
 
 let g:lightline = {
       \ 'tabline': {
@@ -169,36 +170,69 @@ let g:lightline = {
       \ 'active': {
 		  \   'left': [
       \     [ 'mode', 'paste' ],
-		  \     [ 'Branch', 'Diff', 'readonly', 'filename', 'modified' ]
+		  \     [ 'Branch', 'Diff', 'readonly', 'filename', 'modified' ],
+      \     [ 'line', 'coc_status' ],
       \   ],
+      \   'right': [
+      \     [ 'lineinfo' ],
+      \     [ 'coc_errors', 'coc_warnings', 'coc_info','coc_hints', 'fileformat', 'fileencoding', 'filetype' ]
+      \   ]
       \ },
       \ 'component_expand': {
       \   'buffercurrent': 'lightline#buffer#buffercurrent',
       \   'bufferbefore': 'lightline#buffer#bufferbefore',
       \   'bufferafter': 'lightline#buffer#bufferafter',
+      \   'coc_status': 'lightline#coc#status',
+      \   'coc_warnings': 'lightline#coc#warnings',
+      \   'coc_errors': 'lightline#coc#errors',
+      \   'coc_info': 'lightline#coc#info',
+      \   'coc_hints': 'lightline#coc#hints',
       \ },
       \ 'component_type': {
       \   'buffercurrent': 'tabsel',
       \   'bufferbefore': 'raw',
       \   'bufferafter': 'raw',
+      \   'coc_status': 'raw',
+      \   'coc_warnings': 'warning',
+      \   'coc_errors': 'error',
+      \   'coc_info': 'info',
+      \   'coc_hints': 'hint',
+      \   'coc_none': 'raw'
       \ },
       \ 'component_function': {
       \   'bufferinfo': 'lightline#buffer#bufferinfo',
       \   'Branch': 'fugitive#Head',
-      \   'Diff': 'll_diff',
-      \ },
-      \ 'component': {
-      \   'separator': '',
+      \   'Diff': 'LlDiff',
+      \   'line': 'LlLine',
+      \   'coc_status': 'lightline#coc#status',
+      \   'coc_none': 'LlCocNone',
       \ },
       \ 'colorscheme': 'hatsunemiku_light',
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': " ", 'right': "" }
       \ }
-function! s:ll_diff() abort
+let g:lightline#coc#indicator_warnings = '!'
+let g:lightline#coc#indicator_errors = '!'
+let g:lightline#coc#indicator_info = 'i'
+let g:lightline#coc#indicator_hints = '?'
+let g:lightline#coc#indicator_ok = '-'
+function! LlDiff() abort
   if fugitive#Head() == ''
     return ''
   endif
-  let diff = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', diff.added, diff.modified, diff.removed)
+  let [added, modified, removed] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', added, modified, removed)
 endfunction
+function! LlLine() abort
+  return "\ue621"
+endfunction
+function! LlCocNone() abort
+  if (get(b:, 'coc_diagnostic_info', {}) == {})
+    return '-'
+  endif
+  return ''
+endfunction
+
 command! LightlineReload call LightlineReload()
 
 function! LightlineReload()
@@ -364,10 +398,10 @@ nmap <silent><expr> <F2> CocActionAsync('rename')
 imap <silent><expr> <F2> CocActionAsync('rename')
 nmap <silent><expr> <M-.> CocActionAsync('doHover')
 imap <silent><expr> <M-.> CocActionAsync('doHover')
-nmap <silent> <M-N> <Cmd>call CocAction('diagnosticNext')<CR>
-imap <silent> <M-N> <Cmd>call CocAction('diagnosticNext')<CR>
-nmap <silent> <M-S-N> <Cmd>call CocAction('diagnosticPrevious')<CR>
-imap <silent> <M-S-N> <Cmd>call CocAction('diagnosticPrevious')<CR>
+noremap <silent> <M-D> <Cmd>call CocAction('diagnosticNext')<CR>
+inoremap <silent> <M-D> <Cmd>call CocAction('diagnosticNext')<CR>
+nnoremap <silent> <M-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
+inoremap <silent> <M-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 noremap <silent> <c-/> <Cmd>'<,'>Comment<CR>
 noremap! <silent> <c-/> <Cmd>'<,'>Comment<CR>
