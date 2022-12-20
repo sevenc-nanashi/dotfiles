@@ -22,11 +22,13 @@
   "diagnostic.virtualText": true,
   "powershell.integratedConsole.showOnStartup": false,
   "solargraph.diagnostics": true,
+  "scss.lint.unknownAtRules": "ignore",
   "languageserver": {
     "steep": {
       "command": "steep",
       "args": ["langserver"],
-      "filetypes": ["ruby"]
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Steepfile"]
     }
   },
   "snippets.ultisnips.pythonPrompt": false

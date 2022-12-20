@@ -6,84 +6,94 @@ endif
 
 
 " Required:
-exe 'set runtimepath+=' . $HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim'
+" exe 'set runtimepath+=' . $HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim'
 
-" Required:
-call dein#begin($HOME . '/.cache/dein')
-
-" Let dein manage dein
-" Required:
-call dein#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-" Add or remove your plugins here like this:
-"call dein#add('Shougo/neosnippet.vim')
-call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
-" call dein#add('neoclide/coc.nvim', { 'rev': '5d472ec' })
-" call dein#add('vim-airline/vim-airline')
-call dein#add('itchyny/lightline.vim')
-call dein#add('taohexxx/lightline-buffer')
-call dein#add('josa42/vim-lightline-coc')
-call dein#add('ryanoasis/vim-devicons')
-" call dein#add('sevenc-nanashi/vim-colors-hatsunemiku')
-call dein#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
-call dein#add('akinsho/toggleterm.nvim')
-call dein#add('lambdalisue/fern.vim')
-call dein#add('lambdalisue/fern-renderer-nerdfont.vim')
-call dein#add('lambdalisue/nerdfont.vim')
-call dein#add('lambdalisue/fern-hijack.vim')
-call dein#add('lambdalisue/fern-git-status.vim')
-call dein#add('lambdalisue/fern-mapping-git.vim')
-call dein#add('vim-scripts/dbext.vim')
-" call dein#add('neovim/nvim-lspconfig')
-call dein#add('github/copilot.vim')
-call dein#add('mhinz/vim-startify')
-" call dein#add('andweeb/presence.nvim')
-" call dein#add('Stoozy/vimcord')
-" call dein#add('leonardssh/coc-discord-rpc')
-" call dein#add('hrsh7th/nvim-cmp')
-call dein#add('sevenc-nanashi/trouble.nvim')
-call dein#add('kyazdani42/nvim-web-devicons')
-" call dein#add('Shougo/ddc-nvim-lsp')
-" call dein#add('Shougo/ddc.vim')
-call dein#add('vim-denops/denops.vim')
-call dein#add('windwp/nvim-ts-autotag')
-call dein#add('lambdalisue/glyph-palette.vim')
-" call dein#add('jose-elias-alvarez/null-ls.nvim')
-" call dein#add('nvim-lua/plenary.nvim')
-" call dein#add('williamboman/mason.nvim')
-" call dein#add('williamboman/mason-lspconfig.nvim')
-" call dein#add('MunifTanjim/prettier.nvim')
-call dein#add('tpope/vim-commentary')
-" call dein#add('jiangmiao/auto-pairs')
-call dein#add('Raimondi/delimitMate')
-call dein#add('LeafCage/vimhelpgenerator')
-call dein#add('sevenc-nanashi/rootfinder.vim')
-call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
-call dein#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
-call dein#add('junegunn/fzf.vim')
-call dein#add('pepo-le/win-ime-con.nvim')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-endwise')
-call dein#add('alvan/vim-closetag')
-call dein#add('tyru/open-browser.vim')
-call dein#add('jason0x43/vim-wildgitignore')
-call dein#add('Yggdroot/indentLine')
-" call dein#add('bronson/vim-trailing-whitespace')
-call dein#add('ldelossa/gh.nvim')
-call dein#add('ldelossa/litee.nvim')
-call dein#add('stevearc/stickybuf.nvim')
-call dein#add('tyru/capture.vim')
-call dein#add('ntpeters/vim-better-whitespace')
-call dein#add('tpope/vim-surround')
-"call dein#add('bronson/vim-trailing-whitespace')
 "
-call dein#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
+packadd vim-jetpack
 " Required:
-call dein#end()
+call jetpack#begin($HOME . '/.cache/jetpack')
 
-autocmd Filetype json setl conceallevel=0
-let g:dein#auto_recache = 1
+" Let jetpack manage dein
+" Required:
+" call jetpack#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
+" Add or remove your plugins here like this:
+"call jetpack#add('Shougo/neosnippet.vim')
+call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
+" call jetpack#add('neoclide/coc.nvim', { 'rev': '5d472ec' })
+" call jetpack#add('vim-airline/vim-airline')
+call jetpack#add('itchyny/lightline.vim')
+call jetpack#add('taohexxx/lightline-buffer')
+call jetpack#add('josa42/vim-lightline-coc')
+call jetpack#add('ryanoasis/vim-devicons')
+" call jetpack#add('sevenc-nanashi/vim-colors-hatsunemiku')
+" call jetpack#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
+call jetpack#add('sainnhe/edge')
+call jetpack#add('chriskempson/base16-vim')
+call jetpack#add('sevenc-nanashi/toggleterm.nvim')
+call jetpack#add('lambdalisue/fern.vim')
+call jetpack#add('lambdalisue/fern-renderer-nerdfont.vim')
+call jetpack#add('lambdalisue/nerdfont.vim')
+call jetpack#add('lambdalisue/fern-hijack.vim')
+call jetpack#add('lambdalisue/fern-git-status.vim')
+call jetpack#add('lambdalisue/fern-mapping-git.vim')
+call jetpack#add('vim-scripts/dbext.vim')
+" call jetpack#add('neovim/nvim-lspconfig')
+call jetpack#add('github/copilot.vim')
+call jetpack#add('mhinz/vim-startify')
+" call jetpack#add('andweeb/presence.nvim')
+" call jetpack#add('Stoozy/vimcord')
+" call jetpack#add('leonardssh/coc-discord-rpc')
+" call jetpack#add('hrsh7th/nvim-cmp')
+call jetpack#add('sevenc-nanashi/trouble.nvim')
+call jetpack#add('kyazdani42/nvim-web-devicons')
+" call jetpack#add('Shougo/ddc-nvim-lsp')
+" call jetpack#add('Shougo/ddc.vim')
+call jetpack#add('vim-denops/denops.vim')
+call jetpack#add('windwp/nvim-ts-autotag')
+call jetpack#add('lambdalisue/glyph-palette.vim')
+" call jetpack#add('jose-elias-alvarez/null-ls.nvim')
+" call jetpack#add('nvim-lua/plenary.nvim')
+" call jetpack#add('williamboman/mason.nvim')
+" call jetpack#add('williamboman/mason-lspconfig.nvim')
+" call jetpack#add('MunifTanjim/prettier.nvim')
+call jetpack#add('tpope/vim-commentary')
+" call jetpack#add('jiangmiao/auto-pairs')
+call jetpack#add('Raimondi/delimitMate')
+call jetpack#add('LeafCage/vimhelpgenerator')
+call jetpack#add('sevenc-nanashi/rootfinder.vim')
+call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
+call jetpack#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
+call jetpack#add('junegunn/fzf.vim')
+call jetpack#add('pepo-le/win-ime-con.nvim')
+call jetpack#add('airblade/vim-gitgutter')
+call jetpack#add('tpope/vim-fugitive')
+call jetpack#add('tpope/vim-endwise')
+call jetpack#add('alvan/vim-closetag')
+call jetpack#add('tyru/open-browser.vim')
+call jetpack#add('jason0x43/vim-wildgitignore')
+call jetpack#add('Yggdroot/indentLine')
+" call jetpack#add('bronson/vim-trailing-whitespace')
+call jetpack#add('ldelossa/gh.nvim')
+call jetpack#add('ldelossa/litee.nvim')
+call jetpack#add('stevearc/stickybuf.nvim')
+call jetpack#add('tyru/capture.vim')
+call jetpack#add('ntpeters/vim-better-whitespace')
+call jetpack#add('tpope/vim-surround')
+"call jetpack#add('bronson/vim-trailing-whitespace')
+call jetpack#add('nvim-lua/plenary.nvim')
+call jetpack#add('nvim-telescope/telescope.nvim')
+call jetpack#add('phaazon/hop.nvim')
+call jetpack#add('sevenc-nanashi/force_16term.nvim')
+call jetpack#add('kana/vim-submode')
+"call jetpack#add('delphinus/cellwidths.nvim')
+"
+call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
+" Required:
+call jetpack#end()
+
+set conceallevel=0
+let g:jetpack#auto_recache = 1
+let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
 
 " Required:
@@ -91,20 +101,15 @@ filetype plugin indent on
 syntax enable
 
 " If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
+for name in jetpack#names()
+  if !jetpack#tap(name)
+    call jetpack#sync()
+    break
+  endif
+endfor
 "End dein Scripts-------------------------
 
-if has('win32') || has ('win64')
-  set shell=pwsh
-  let &shellcmdflag = '-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-  let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  set shellquote= shellxquote=
-end
-" autocmd TermOpen * startinsert
+
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
@@ -130,35 +135,14 @@ autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
 autocmd TermOpen * DisableWhitespace
-autocmd BufNew *term://* PinBuffer
+autocmd BufNew *term://* PinBuffer!
 
 set fileformats=unix,dos
-let $PATH .= ';C:/develop/luals/bin'
 lua package.loaded["nvimrc"] = nil
 lua require('nvimrc')
 
 " command! -nargs=+ Search :exe 'vimgrep /<q-args>/j ' .. fnameescape(g:rootfinder#find(expand('%:p:h'))) .. '/**/*'
 command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
-
-if !exists('g:colo_init')
-  colo hatsunemiku_light
-  let g:colo_init = 1
-endif
-
-function! s:switch_color() abort
-  if g:colo_init == 1
-    colo hatsunemiku
-    let g:lightline.colorscheme = 'hatsunemiku'
-    let g:colo_init = 2
-  else
-    colo hatsunemiku_light
-    let g:lightline.colorscheme = 'hatsunemiku_light'
-    let g:colo_init = 1
-  endif
-  LightlineReload
-endfunction
-
-command! -nargs=0 SwitchColor call s:switch_color()
 
 let g:lightline = {
       \ 'tabline': {
@@ -170,12 +154,13 @@ let g:lightline = {
       \ 'active': {
 		  \   'left': [
       \     [ 'mode', 'paste' ],
-		  \     [ 'Branch', 'Diff', 'readonly', 'filename', 'modified' ],
-      \     [ 'line', 'coc_status' ],
+		  \     [ 'Filename', 'GitSeparator', 'Branch', 'Diff' ],
+      \     [ 'coc_status' ],
       \   ],
       \   'right': [
       \     [ 'lineinfo' ],
-      \     [ 'coc_errors', 'coc_warnings', 'coc_info','coc_hints', 'fileformat', 'fileencoding', 'filetype' ]
+      \     [ 'coc_errors', 'coc_warnings', 'coc_info', 'coc_hints', 'coc_none'],
+      \     [ 'filetype', 'fileformat', 'fileencoding' ]
       \   ]
       \ },
       \ 'component_expand': {
@@ -195,26 +180,27 @@ let g:lightline = {
       \   'coc_status': 'raw',
       \   'coc_warnings': 'warning',
       \   'coc_errors': 'error',
-      \   'coc_info': 'info',
-      \   'coc_hints': 'hint',
-      \   'coc_none': 'raw'
+      \   'GitSeparator': 'raw',
       \ },
       \ 'component_function': {
       \   'bufferinfo': 'lightline#buffer#bufferinfo',
-      \   'Branch': 'fugitive#Head',
+      \   'Branch': 'LlBranch',
       \   'Diff': 'LlDiff',
       \   'line': 'LlLine',
+      \   'Filename': 'LlFilename',
+      \   'GitSeparator': 'LlGitSeparator',
       \   'coc_status': 'lightline#coc#status',
       \   'coc_none': 'LlCocNone',
       \ },
-      \ 'colorscheme': 'hatsunemiku_light',
-      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-      \ 'subseparator': { 'left': " ", 'right': "" }
+      \ 'colorscheme': 'edge',
+      \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
+      \ 'subseparator': { 'left': "", 'right': "" }
       \ }
-let g:lightline#coc#indicator_warnings = '!'
-let g:lightline#coc#indicator_errors = '!'
-let g:lightline#coc#indicator_info = 'i'
-let g:lightline#coc#indicator_hints = '?'
+
+let g:lightline#coc#indicator_warnings = "\uf06a "
+let g:lightline#coc#indicator_errors = "\uf057 "
+let g:lightline#coc#indicator_info = "\uf05a "
+let g:lightline#coc#indicator_hints = "\uf059 "
 let g:lightline#coc#indicator_ok = '-'
 function! LlDiff() abort
   if fugitive#Head() == ''
@@ -223,11 +209,48 @@ function! LlDiff() abort
   let [added, modified, removed] = GitGutterGetHunkSummary()
   return printf('+%d ~%d -%d', added, modified, removed)
 endfunction
+
 function! LlLine() abort
   return "\ue621"
 endfunction
+
+function! LlGitSeparator() abort
+  if fugitive#Head() == ''
+    return ''
+  endif
+  return "\ue0b5"
+endfunction
+
+function! LlBranch() abort
+  if fugitive#Head() == ''
+    return ""
+  endif
+  return "\ue725 " .. fugitive#Head()
+endfunction
+
+function! LlFilename() abort
+  let l:fname = expand('%:t')
+  if l:fname == ''
+    let l:fname = '-'
+  endif
+  if &modified
+    let l:fname = l:fname . ' +'
+  endif
+  if &readonly
+    let l:fname = "\uf720 " .. l:fname
+  else
+    let l:fname = "\uf713 " .. l:fname
+  endif
+  return l:fname
+endfunction
+
 function! LlCocNone() abort
-  if (get(b:, 'coc_diagnostic_info', {}) == {})
+  let l:diagnostics = get(b:, 'coc_diagnostic_info', {})
+  if l:diagnostics == {} ||
+        \  (l:diagnostics.error == 0 &&
+        \   l:diagnostics.warning == 0 &&
+        \   l:diagnostics.information == 0 &&
+        \   l:diagnostics.hint == 0)
     return '-'
   endif
   return ''
@@ -235,12 +258,38 @@ endfunction
 
 command! LightlineReload call LightlineReload()
 
+
 function! LightlineReload()
   call lightline#init()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
 set noshowmode
+
+let g:vimhelpgenerator_defaultlanguage = "en"
+let g:edge_disable_italic_comment = 1
+colorscheme edge
+
+function! s:switch_color() abort
+  if g:colo_init == 2
+    set background=dark
+    let g:colo_init = 1
+  else
+    set background=light
+    let g:colo_init = 2
+  endif
+  colorscheme edge
+  call force_16term#change_color()
+  autocmd OptionSet background execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/edge.vim')
+  LightlineReload
+endfunction
+command! -nargs=0 SwitchColor call s:switch_color()
+
+if !exists('g:colo_init')
+  let g:colo_init = 0
+  call s:switch_color()
+endif
+
 let g:lightline_buffer_enable_devicons = 1
 let g:lightline_buffer_show_bufnr = 1
 let g:lightline_buffer_fname_mod = ':t'
@@ -249,8 +298,7 @@ let g:lightline_buffer_maxflen = 30
 let g:lightline_buffer_minflen = 16
 let g:lightline_buffer_minfextlen = 3
 let g:lightline_buffer_reservelen = 20
-let g:lightline_buffer_show_bufnr = 0
-let g:lightline_buffer_separator_left_icon = '  '
+let g:lightline_buffer_separator_left_icon = "\ue0b5 "
 let g:lightline_buffer_separator_right_icon = '  '
 let g:lightline_buffer_active_buffer_left_icon = ' '
 let g:lightline_buffer_active_buffer_right_icon = ' '
@@ -288,7 +336,6 @@ let g:lightline_buffer_active_buffer_right_icon = ' '
 " let g:airline_symbols.linenr = '☰'
 " let g:airline_symbols.maxlinenr = ''
 
-let g:indentLine_char = '▏ '
 set directory=~/.vim/tmpfiles
 set backupdir=~/.vim/tmpfiles
 set undodir=~/.vim/tmpfiles
@@ -308,6 +355,20 @@ nnoremap U <C-R>
 inoremap <S-Insert> <C-r><C-p>+
 cnoremap <S-Insert> <C-r>+
 tnoremap <S-Insert> <C-\><C-n>"+pi
+
+noremap <Space>b <Cmd>Telescope buffers<CR>
+noremap <Space>f <Cmd>Telescope find_files<CR>
+noremap <Space>G <Cmd>Telescope live_grep<CR>
+noremap <Space>h <Cmd>Telescope help_tags<CR>
+noremap <Space>gf <Cmd>Telescope git_files<CR>
+noremap <Space>gb <Cmd>Telescope git_branches<CR>
+noremap <Space>gs <Cmd>Telescope git_status<CR>
+noremap <Space>ss <Cmd>Telescope lsp_document_symbols<CR>
+noremap <Space>sS <Cmd>Telescope lsp_workspace_symbols<CR>
+noremap <Space>sd <Cmd>Telescope lsp_document_diagnostics<CR>
+noremap <Space>sD <Cmd>Telescope lsp_workspace_diagnostics<CR>
+noremap <Space>w <Cmd>HopWord<CR>
+noremap <Space>l <Cmd>HopLineStart<CR>
 nmap gx <Plug>(openbrowser-smart-search)
 noremap W b
 " let g:findroot_patterns = [
@@ -333,11 +394,14 @@ function! OpenFern() abort
   endif
   execute 'Fern ' .. fnameescape(root) .. ' -drawer -width=40'
 endfunction
+
 noremap <C-K><C-A> <Cmd>call OpenFern()<CR>
 " noremap <C-K><C-A> <Cmd>Fern . -drawer -width=40<CR>
 " noremap <C-K><C-S> <Cmd>ToggleTerm size=20 git_dir=. direction=horizontal<CR>
 noremap <C-K><C-S> <Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>
 noremap <C-K><C-D> <Cmd>TroubleToggle<CR>
+noremap <C-K><C-X> <Cmd>call <SID>switch_color()<CR>
+
 noremap <C-Tab> <Cmd>bn<CR>
 noremap <C-S-W> <Cmd>bn<bar>bd#<CR>
 noremap <C-S-Tab> <Cmd>bp<CR>
@@ -370,7 +434,7 @@ endfunction
 function! s:set_normal_mappings() abort
   nnoremap <buffer> <CR> a<CR><ESC>
 endfunction
-augroup mappings
+augroup my_config
   autocmd!
   autocmd BufWinEnter *
     \  if &modifiable
@@ -398,10 +462,10 @@ nmap <silent><expr> <F2> CocActionAsync('rename')
 imap <silent><expr> <F2> CocActionAsync('rename')
 nmap <silent><expr> <M-.> CocActionAsync('doHover')
 imap <silent><expr> <M-.> CocActionAsync('doHover')
-noremap <silent> <M-D> <Cmd>call CocAction('diagnosticNext')<CR>
-inoremap <silent> <M-D> <Cmd>call CocAction('diagnosticNext')<CR>
-nnoremap <silent> <M-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
-inoremap <silent> <M-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
+noremap <silent> <C-D> <Cmd>call CocAction('diagnosticNext')<CR>
+inoremap <silent> <C-D> <Cmd>call CocAction('diagnosticNext')<CR>
+nnoremap <silent> <C-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
+inoremap <silent> <C-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 noremap <silent> <c-/> <Cmd>'<,'>Comment<CR>
 noremap! <silent> <c-/> <Cmd>'<,'>Comment<CR>
@@ -425,6 +489,7 @@ function! s:init_fern() abort
   " nmap <buffer> <LeftMouse> <Plug>(fern-my-open-or-toggle-expand)
   nmap <buffer> <S-CR> <Plug>(fern-action-open-or-enter)
   nmap <buffer> <Z> <Nop>
+  PinBuffer!
   " execute "normal \<Plug>(fern-action-hidden:set)"
 endfunction
 let g:fern#default_hidden=1
@@ -432,7 +497,7 @@ let g:fern#default_hidden=1
 let g:fern#renderer#nerdfont#indent_markers = 1
 augroup my-glyph-palette
   autocmd! *
-  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType fern call glyph_palette#apply() | hi GlyphPalette7 guifg=#aaaaaa
   autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 
@@ -461,3 +526,23 @@ match Ignore /\r$/
 " call ddc#enable()
 let $FZF_DEFAULT_OPTS='--no-unicode'
 
+function! ReRoot() abort
+  let s:root = rootfinder#find(getcwd())
+  if len(s:root) > 0
+    execute 'cd' fnameescape(s:root)
+    echo 'Root: ' s:root
+  else
+    echo 'Root not found'
+  endif
+endfunction
+
+if exists('g:cwd_changed')
+  call ReRoot()
+  let g:cwd_changed = 0
+endif
+
+command! -nargs=0 ReRoot call ReRoot()
+
+let g:copilot_filetypes = {
+    \ '*': v:true,
+    \ }

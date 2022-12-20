@@ -3,6 +3,7 @@ require("toggleterm").setup{
   on_open = function(term)
     vim.cmd("PinBuffer!")
   end,
+  cmd = "pwsh -NoLogo",
 }
 require("trouble").setup {
   mode = "coc_workspace_diagnostics",
@@ -11,6 +12,7 @@ require 'nvim-treesitter.install'.compilers = { "clang" }
 require('nvim-ts-autotag').setup()
 require('litee.lib').setup()
 require('litee.gh').setup()
+require'hop'.setup()
 --[=[
 require("mason").setup()
 require("mason-lspconfig").setup()

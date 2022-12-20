@@ -129,15 +129,27 @@ function global:docker-export {
 }
 
 function global:rbswitch {
+  Param(
+    [switch]$x64,
+    [switch]$x86
+  )
+  
   $original_path = $env:PATH
-  if ($original_path.ToLower().contains("\ruby31-x64\")) {
-    $env:PATH = $original_path.ToLower().replace("\ruby31-x64\", "\ruby31\")
+  if ($x64) {
+  } elseif ($x86) {
+    $x64 = $false
+  } else {
+    $x64 = -not $original_path.ToLower().contains("\ruby31-x64\")
+  }
+  if ($x64) {
+    $env:PATH = $original_path.ToLower().replace("\ruby31\", "\ruby31-x64\")
   }
   else {
-    $env:PATH = $original_path.ToLower().replace("\ruby31\", "\ruby31-x64\")
+    $env:PATH = $original_path.ToLower().replace("\ruby31-x64\", "\ruby31\")
   }
   Write-Output "Switched: $(ruby -v)"
 }
+rbswitch -x64
 
 function global:mklink {
   Param(
