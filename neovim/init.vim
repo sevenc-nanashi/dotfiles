@@ -62,8 +62,6 @@ call jetpack#add('Raimondi/delimitMate')
 call jetpack#add('LeafCage/vimhelpgenerator')
 call jetpack#add('sevenc-nanashi/rootfinder.vim')
 call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
-call jetpack#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
-call jetpack#add('junegunn/fzf.vim')
 call jetpack#add('pepo-le/win-ime-con.nvim')
 call jetpack#add('airblade/vim-gitgutter')
 call jetpack#add('tpope/vim-fugitive')
@@ -85,7 +83,8 @@ call jetpack#add('nvim-telescope/telescope.nvim')
 call jetpack#add('phaazon/hop.nvim')
 call jetpack#add('sevenc-nanashi/force_16term.nvim')
 call jetpack#add('kana/vim-submode')
-"call jetpack#add('delphinus/cellwidths.nvim')
+call jetpack#add('fannheyward/telescope-coc.nvim')
+call jetpack#add('delphinus/cellwidths.nvim')
 "
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 " Required:
@@ -280,10 +279,11 @@ function! s:switch_color() abort
   endif
   colorscheme edge
   call force_16term#change_color()
-  autocmd OptionSet background execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/edge.vim')
   LightlineReload
 endfunction
 command! -nargs=0 SwitchColor call s:switch_color()
+
+autocmd OptionSet background execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/edge.vim')
 
 if !exists('g:colo_init')
   let g:colo_init = 0
@@ -363,10 +363,11 @@ noremap <Space>h <Cmd>Telescope help_tags<CR>
 noremap <Space>gf <Cmd>Telescope git_files<CR>
 noremap <Space>gb <Cmd>Telescope git_branches<CR>
 noremap <Space>gs <Cmd>Telescope git_status<CR>
-noremap <Space>ss <Cmd>Telescope lsp_document_symbols<CR>
-noremap <Space>sS <Cmd>Telescope lsp_workspace_symbols<CR>
-noremap <Space>sd <Cmd>Telescope lsp_document_diagnostics<CR>
-noremap <Space>sD <Cmd>Telescope lsp_workspace_diagnostics<CR>
+noremap <Space>ss <Cmd>Telescope coc document_symbols<CR>
+noremap <Space>sS <Cmd>Telescope coc workspace_symbols<CR>
+noremap <Space>sd <Cmd>Telescope coc document_diagnostics<CR>
+noremap <Space>sD <Cmd>Telescope coc workspace_diagnostics<CR>
+noremap <Space>c <Cmd>Telescope coc commands<CR>
 noremap <Space>w <Cmd>HopWord<CR>
 noremap <Space>l <Cmd>HopLineStart<CR>
 nmap gx <Plug>(openbrowser-smart-search)
@@ -489,6 +490,7 @@ function! s:init_fern() abort
   " nmap <buffer> <LeftMouse> <Plug>(fern-my-open-or-toggle-expand)
   nmap <buffer> <S-CR> <Plug>(fern-action-open-or-enter)
   nmap <buffer> <Z> <Nop>
+  setl nonumber
   PinBuffer!
   " execute "normal \<Plug>(fern-action-hidden:set)"
 endfunction
@@ -536,7 +538,7 @@ function! ReRoot() abort
   endif
 endfunction
 
-if exists('g:cwd_changed')
+if !exists('g:cwd_changed')
   call ReRoot()
   let g:cwd_changed = 0
 endif
@@ -546,3 +548,7 @@ command! -nargs=0 ReRoot call ReRoot()
 let g:copilot_filetypes = {
     \ '*': v:true,
     \ }
+
+if filereadable(expand('~/.nvimrc.local'))
+  source ~/.nvimrc.local
+endif

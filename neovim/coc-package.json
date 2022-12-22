@@ -18,7 +18,8 @@
     "coc-ruby-syntax-tree": "https://github.com/yaegassy/coc-ruby-syntax-tree",
     "@yaegassy/coc-tailwindcss3": ">=0.4.5",
     "coc-powershell": ">=0.1.4",
-    "coc-snippets": ">=3.1.4"
+    "coc-snippets": ">=3.1.4",
+    "coc-lua": ">=1.0.1"
   },
   "disabled": [],
   "locked": [],

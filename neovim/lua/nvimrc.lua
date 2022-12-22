@@ -13,6 +13,15 @@ require('nvim-ts-autotag').setup()
 require('litee.lib').setup()
 require('litee.gh').setup()
 require'hop'.setup()
+require("telescope").setup({
+  pickers = {
+    find_files = {
+      file_ignore_patterns = { "^.git", "^node_modules" },
+      hidden = true
+    }
+  }
+})
+
 --[=[
 require("mason").setup()
 require("mason-lspconfig").setup()
