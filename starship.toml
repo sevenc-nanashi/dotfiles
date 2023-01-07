@@ -27,6 +27,7 @@ symbol = " "
 
 [git_status]
 stashed = ""
+deleted = "X"
 
 [golang]
 symbol = " "

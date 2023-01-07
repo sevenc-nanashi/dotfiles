@@ -5,7 +5,6 @@
 [Console]::InputEncoding = [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 Set-Alias rb ruby
 Set-Alias ipy ipython
-Set-Alias vim "E:\vim82-kaoriya-win32\vim.exe"
 function bfg {
   java -jar ~\Documents\PowerShell\resources\bfg-1.14.0.jar $args
 }
@@ -13,7 +12,6 @@ function global:badb {
   & "C:\Program Files\BlueStacks_nxt\HD-Adb.exe" $args
 }
 $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
-$env:PATH += ";C:\Program Files (x86)\GitHub CLI"
 $env:ChocolateyInstall = "C:\ProgramData\chocolatey"
 $env:RUBY_DLL_PATH = 'C:/Program Files/PostgreSQL/13/bin/'
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
@@ -58,6 +56,10 @@ function global:mcd {
 
 function global:npr {
   npm run $args
+}
+
+function global:pop {
+  poetry poe $args
 }
 
 function global:Show-Toast {

@@ -1,8 +1,8 @@
 {
-  "diagnostic.warningSign": "●",
-  "diagnostic.errorSign": "●",
-  "diagnostic.infoSign": "●",
-  "diagnostic.hintSign": "!",
+  "diagnostic.warningSign": "!",
+  "diagnostic.errorSign": "X",
+  "diagnostic.infoSign": "i",
+  "diagnostic.hintSign": "?",
   "python.formatting.provider": "black",
   "tsserver.locale": "ja",
   "css.lint.unknownAtRules": "ignore",
@@ -27,9 +27,14 @@
     "steep": {
       "command": "steep",
       "args": ["langserver"],
-      "filetypes": ["ruby"],
+      "filetypes": ["ruby", "rbs"],
       "rootPatterns": ["Steepfile"]
     }
   },
+  "rust-analyzer.server.extraEnv": {
+    "FFMPEG_DIR": "C:/tools/ffmpeg"
+  },
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "syntaxTree.advanced.commandPath": "C:/develop/Ruby31/bin/stree.bat",
   "snippets.ultisnips.pythonPrompt": false
 }

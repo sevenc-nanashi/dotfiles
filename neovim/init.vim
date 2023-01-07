@@ -84,6 +84,9 @@ call jetpack#add('phaazon/hop.nvim')
 call jetpack#add('sevenc-nanashi/force_16term.nvim')
 call jetpack#add('kana/vim-submode')
 call jetpack#add('fannheyward/telescope-coc.nvim')
+call jetpack#add('monaqa/dial.nvim')
+
+call jetpack#add('lambdalisue/mr.vim')
 call jetpack#add('delphinus/cellwidths.nvim')
 "
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
@@ -267,7 +270,6 @@ set noshowmode
 
 let g:vimhelpgenerator_defaultlanguage = "en"
 let g:edge_disable_italic_comment = 1
-colorscheme edge
 
 function! s:switch_color() abort
   if g:colo_init == 2
@@ -352,6 +354,7 @@ set mouse=a
 set updatetime=300
 set showtabline=2
 nnoremap U <C-R>
+noremap <C-S-O> <C-I>
 inoremap <S-Insert> <C-r><C-p>+
 cnoremap <S-Insert> <C-r>+
 tnoremap <S-Insert> <C-\><C-n>"+pi
@@ -370,6 +373,12 @@ noremap <Space>sD <Cmd>Telescope coc workspace_diagnostics<CR>
 noremap <Space>c <Cmd>Telescope coc commands<CR>
 noremap <Space>w <Cmd>HopWord<CR>
 noremap <Space>l <Cmd>HopLineStart<CR>
+nmap  <C-a>  <Plug>(dial-increment)
+nmap  <C-x>  <Plug>(dial-decrement)
+vmap  <C-a>  <Plug>(dial-increment)
+vmap  <C-x>  <Plug>(dial-decrement)
+vmap g<C-a> g<Plug>(dial-increment)
+vmap g<C-x> g<Plug>(dial-decrement)
 nmap gx <Plug>(openbrowser-smart-search)
 noremap W b
 " let g:findroot_patterns = [
@@ -413,6 +422,8 @@ nmap <silent> <C-.> <Plug>(coc-codeaction)
 for i in range(1, 9)
   exe 'nnoremap <silent><M-' . i % 10 . '> :exe "b " . <SID>get_buffer_id(' . i . ')<CR>'
 endfor
+
+command! -nargs=0 -bang Bdelete :bn<bar>bd<bang>#
 
 function! s:get_buffer_id(index) abort
   let counter = 0
