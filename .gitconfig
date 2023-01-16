@@ -30,6 +30,7 @@
 	cmerge = !"fn(){ git merge $1 -m \"Merge: $1 -> $(git rev-parse --abbrev-ref HEAD)\"; }; fn"
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ >> .gitignore ;}; gi"
 	change-commits = "!f() { VAR1=$1; VAR='$'$1; OLD=$2; NEW=$3; echo \"Are you sure for replace $VAR  $OLD => $NEW ?(Y/N)\";read OK;if [ \"$OK\" = 'Y' ] ; then shift 3; git filter-branch  --env-filter \"if [ \\\"${VAR}\\\" = '$OLD' ]; then export $VAR1='$NEW';echo 'to $NEW'; fi\" $@; fi;};  f "
+	sync = "git pull && git push"
 [push]
 	default = current
 [advice]

@@ -1,7 +1,7 @@
 require("toggleterm").setup({
 	start_in_insert = false,
 	on_open = function(term)
-		vim.cmd("PinBuffer!")
+		-- vim.cmd("PinBuffer!")
 	end,
 	cmd = "pwsh -NoLogo",
 })

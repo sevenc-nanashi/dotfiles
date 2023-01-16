@@ -73,7 +73,7 @@ call jetpack#add('Yggdroot/indentLine')
 " call jetpack#add('bronson/vim-trailing-whitespace')
 call jetpack#add('ldelossa/gh.nvim')
 call jetpack#add('ldelossa/litee.nvim')
-call jetpack#add('stevearc/stickybuf.nvim')
+" call jetpack#add('stevearc/stickybuf.nvim')
 call jetpack#add('tyru/capture.vim')
 call jetpack#add('ntpeters/vim-better-whitespace')
 call jetpack#add('tpope/vim-surround')
@@ -112,6 +112,16 @@ endfor
 "End dein Scripts-------------------------
 
 
+command! -nargs=0 ReRoot call ReRoot()
+
+let g:copilot_filetypes = {
+    \ '*': v:true,
+    \ }
+
+if filereadable(expand('~/.nvimrc.local'))
+  source ~/.nvimrc.local
+endif
+
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
@@ -137,7 +147,7 @@ autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
 autocmd TermOpen * DisableWhitespace
-autocmd BufNew *term://* PinBuffer!
+" autocmd BufNew *term://* PinBuffer!
 
 set fileformats=unix,dos
 lua package.loaded["nvimrc"] = nil
@@ -502,7 +512,7 @@ function! s:init_fern() abort
   nmap <buffer> <S-CR> <Plug>(fern-action-open-or-enter)
   nmap <buffer> <Z> <Nop>
   setl nonumber
-  PinBuffer!
+  " PinBuffer!
   " execute "normal \<Plug>(fern-action-hidden:set)"
 endfunction
 let g:fern#default_hidden=1
@@ -552,14 +562,4 @@ endfunction
 if !exists('g:cwd_changed')
   call ReRoot()
   let g:cwd_changed = 0
-endif
-
-command! -nargs=0 ReRoot call ReRoot()
-
-let g:copilot_filetypes = {
-    \ '*': v:true,
-    \ }
-
-if filereadable(expand('~/.nvimrc.local'))
-  source ~/.nvimrc.local
 endif
