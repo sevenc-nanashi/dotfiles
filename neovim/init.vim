@@ -88,6 +88,10 @@ call jetpack#add('monaqa/dial.nvim')
 
 call jetpack#add('lambdalisue/mr.vim')
 call jetpack#add('delphinus/cellwidths.nvim')
+call jetpack#add('nvim-telescope/telescope-frecency.nvim')
+call jetpack#add('kkharji/sqlite.lua')
+call jetpack#add('Shougo/vimproc.vim', {'build' : 'make'})
+" call jetpack#add('yuki-yano/highlight-undo.nvim')
 "
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 " Required:
@@ -110,9 +114,6 @@ for name in jetpack#names()
   endif
 endfor
 "End dein Scripts-------------------------
-
-
-command! -nargs=0 ReRoot call ReRoot()
 
 let g:copilot_filetypes = {
     \ '*': v:true,
@@ -158,8 +159,7 @@ command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
 
 let g:lightline = {
       \ 'tabline': {
-      \   'left': [ [ 'bufferinfo' ],
-      \             [ 'separator' ],
+      \   'left': [ [ 'RootName' ],
       \             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
       \   'right': [ [ 'close' ], ],
       \ },
@@ -193,11 +193,13 @@ let g:lightline = {
       \   'coc_warnings': 'warning',
       \   'coc_errors': 'error',
       \   'GitSeparator': 'raw',
+      \   'RootName': 'tabsel',
       \ },
       \ 'component_function': {
       \   'bufferinfo': 'lightline#buffer#bufferinfo',
       \   'Branch': 'LlBranch',
       \   'Diff': 'LlDiff',
+      \   'RootName': 'LlRootName',
       \   'line': 'LlLine',
       \   'Filename': 'LlFilename',
       \   'GitSeparator': 'LlGitSeparator',
@@ -256,6 +258,14 @@ function! LlFilename() abort
   return l:fname
 endfunction
 
+
+function! LlRootName() abort
+  let l:root = rootfinder#find(expand('%:p:h'))
+  if l:root == ''
+    return "\ue5fe -"
+  endif
+  return "\ue5fe " . fnamemodify(l:root, ':t')
+endfunction
 function! LlCocNone() abort
   let l:diagnostics = get(b:, 'coc_diagnostic_info', {})
   if l:diagnostics == {} ||
@@ -290,7 +300,9 @@ function! s:switch_color() abort
     let g:colo_init = 2
   endif
   colorscheme edge
-  call force_16term#change_color()
+  if exists('g:terminal_color_0')
+    call force_16term#change_color()
+  endif
   LightlineReload
 endfunction
 command! -nargs=0 SwitchColor call s:switch_color()
@@ -363,7 +375,7 @@ let g:fern#renderer = "nerdfont"
 set mouse=a
 set updatetime=300
 set showtabline=2
-nnoremap U <C-R>
+noremap U <C-R>
 noremap <C-S-O> <C-I>
 inoremap <S-Insert> <C-r><C-p>+
 cnoremap <S-Insert> <C-r>+
@@ -456,12 +468,34 @@ endfunction
 function! s:set_normal_mappings() abort
   nnoremap <buffer> <CR> a<CR><ESC>
 endfunction
+function! s:on_enter() abort
+  if g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][1] != "#48b0d5"
+    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][1] = "#48b0d5"
+    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][0] = "#ffffff"
+    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][4] = ""
+    let g:lightline#colorscheme#edge#palette["tabline"]["left"][0] = extend(g:lightline#colorscheme#edge#palette["tabline"]["left"][0], ["bold"])
+    LightlineReload
+  endif
+  if &modifiable
+    call s:set_normal_mappings()
+    let s:before_cwd = getcwd()
+    let s:root = rootfinder#find(getcwd())
+    if s:root != s:before_cwd || !exists("s:root_theme_loaded")
+      let s:root_theme_loaded = 1
+      execute 'cd ' .. s:root
+      echo 'Root changed: ' .. s:root
+      if filereadable(s:root .. "/.vim/theme.txt")
+        let s:theme = readfile(s:root .. "/.vim/theme.txt")
+        let g:lightline#colorscheme#edge#palette["tabline"]["left"][0][0] = s:theme[0]
+        let g:lightline#colorscheme#edge#palette["tabline"]["left"][0][1] = s:theme[1]
+      endif
+      LightlineReload
+    endif
+  endif
+endfunction
 augroup my_config
   autocmd!
-  autocmd BufWinEnter *
-    \  if &modifiable
-    \|   call s:set_normal_mappings()
-    \| endif
+  autocmd BufEnter * call s:on_enter()
 augroup END
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -515,6 +549,7 @@ function! s:init_fern() abort
   " PinBuffer!
   " execute "normal \<Plug>(fern-action-hidden:set)"
 endfunction
+
 let g:fern#default_hidden=1
 " let g:fern#renderer#nerdfont#leading = ' '
 let g:fern#renderer#nerdfont#indent_markers = 1
@@ -559,7 +594,16 @@ function! ReRoot() abort
   endif
 endfunction
 
-if !exists('g:cwd_changed')
-  call ReRoot()
-  let g:cwd_changed = 0
+
+function! Scouter(file, ...)
+let pat = '^\s*$\|^\s*"'
+let lines = readfile(a:file)
+if !a:0 || !a:1
+  let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
 endif
+return len(filter(lines,'v:val !~ pat'))
+endfunction
+command! -bar -bang -nargs=? -complete=file Scouter
+\        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+command! -bar -bang -nargs=? -complete=file GScouter
+\        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)

@@ -13,6 +13,13 @@ require("nvim-ts-autotag").setup()
 require("litee.lib").setup()
 require("litee.gh").setup()
 require("hop").setup()
+require("telescope").load_extension("frecency")
+-- require("highlight-undo").setup({
+-- 	mappings = {
+-- 		undo = "u",
+-- 		redo = "U",
+-- 	},
+-- })
 local ignore_patterns = { "%.git", "node_modules", "%.venv", "__pycache__", "dist", "build", "target", "out" }
 require("telescope").setup({
 	pickers = {
@@ -35,7 +42,7 @@ require("cellwidths").setup({
 		cw.add(0x2190, 2)
 		cw.add(0x2713, 2)
 		cw.add(0x276f, 1)
-    cw.add(0x279c, 1)
+		cw.add(0x279c, 1)
 	end,
 })
 local augend = require("dial.augend")
