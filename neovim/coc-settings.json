@@ -19,6 +19,7 @@
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose",
   "diagnostic.virtualTextCurrentLineOnly": false,
+  "sumneko-lua.enableNvimLuaDev": true,
   "diagnostic.virtualText": true,
   "powershell.integratedConsole.showOnStartup": false,
   "solargraph.diagnostics": true,
@@ -29,6 +30,12 @@
       "args": ["langserver"],
       "filetypes": ["ruby", "rbs"],
       "rootPatterns": ["Steepfile"]
+    },
+    "ruby_syntax_lsp": {
+      "command": "ruby_syntax_lsp",
+      "args": [],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile"]
     }
   },
   "rust-analyzer.server.extraEnv": {

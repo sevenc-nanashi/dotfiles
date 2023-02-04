@@ -1,32 +1,13 @@
-
-"dein Scripts-----------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible
 endif
-
-
-" Required:
-" exe 'set runtimepath+=' . $HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim'
-
-"
 packadd vim-jetpack
-" Required:
 call jetpack#begin($HOME . '/.cache/jetpack')
-
-" Let jetpack manage dein
-" Required:
-" call jetpack#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
-" Add or remove your plugins here like this:
-"call jetpack#add('Shougo/neosnippet.vim')
 call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
-" call jetpack#add('neoclide/coc.nvim', { 'rev': '5d472ec' })
-" call jetpack#add('vim-airline/vim-airline')
-call jetpack#add('itchyny/lightline.vim')
-call jetpack#add('taohexxx/lightline-buffer')
-call jetpack#add('josa42/vim-lightline-coc')
+call jetpack#add('nvim-lualine/lualine.nvim')
+call jetpack#add('akinsho/bufferline.nvim')
+call jetpack#add('nvim-tree/nvim-web-devicons')
 call jetpack#add('ryanoasis/vim-devicons')
-" call jetpack#add('sevenc-nanashi/vim-colors-hatsunemiku')
-" call jetpack#add('4513echo/vim-colors-hatsunemiku', { 'rev': '359220478a4344db3f2c398b5e8fe6229bd6ca81' })
 call jetpack#add('sainnhe/edge')
 call jetpack#add('chriskempson/base16-vim')
 call jetpack#add('sevenc-nanashi/toggleterm.nvim')
@@ -37,47 +18,31 @@ call jetpack#add('lambdalisue/fern-hijack.vim')
 call jetpack#add('lambdalisue/fern-git-status.vim')
 call jetpack#add('lambdalisue/fern-mapping-git.vim')
 call jetpack#add('vim-scripts/dbext.vim')
-" call jetpack#add('neovim/nvim-lspconfig')
 call jetpack#add('github/copilot.vim')
 call jetpack#add('mhinz/vim-startify')
-" call jetpack#add('andweeb/presence.nvim')
-" call jetpack#add('Stoozy/vimcord')
-" call jetpack#add('leonardssh/coc-discord-rpc')
-" call jetpack#add('hrsh7th/nvim-cmp')
 call jetpack#add('sevenc-nanashi/trouble.nvim')
 call jetpack#add('kyazdani42/nvim-web-devicons')
-" call jetpack#add('Shougo/ddc-nvim-lsp')
-" call jetpack#add('Shougo/ddc.vim')
 call jetpack#add('vim-denops/denops.vim')
 call jetpack#add('windwp/nvim-ts-autotag')
 call jetpack#add('lambdalisue/glyph-palette.vim')
-" call jetpack#add('jose-elias-alvarez/null-ls.nvim')
-" call jetpack#add('nvim-lua/plenary.nvim')
-" call jetpack#add('williamboman/mason.nvim')
-" call jetpack#add('williamboman/mason-lspconfig.nvim')
-" call jetpack#add('MunifTanjim/prettier.nvim')
 call jetpack#add('tpope/vim-commentary')
-" call jetpack#add('jiangmiao/auto-pairs')
 call jetpack#add('Raimondi/delimitMate')
 call jetpack#add('LeafCage/vimhelpgenerator')
 call jetpack#add('sevenc-nanashi/rootfinder.vim')
 call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
 call jetpack#add('pepo-le/win-ime-con.nvim')
-call jetpack#add('airblade/vim-gitgutter')
+call jetpack#add('lewis6991/gitsigns.nvim')
 call jetpack#add('tpope/vim-fugitive')
 call jetpack#add('tpope/vim-endwise')
 call jetpack#add('alvan/vim-closetag')
 call jetpack#add('tyru/open-browser.vim')
 call jetpack#add('jason0x43/vim-wildgitignore')
 call jetpack#add('Yggdroot/indentLine')
-" call jetpack#add('bronson/vim-trailing-whitespace')
 call jetpack#add('ldelossa/gh.nvim')
 call jetpack#add('ldelossa/litee.nvim')
-" call jetpack#add('stevearc/stickybuf.nvim')
 call jetpack#add('tyru/capture.vim')
 call jetpack#add('ntpeters/vim-better-whitespace')
 call jetpack#add('tpope/vim-surround')
-"call jetpack#add('bronson/vim-trailing-whitespace')
 call jetpack#add('nvim-lua/plenary.nvim')
 call jetpack#add('nvim-telescope/telescope.nvim')
 call jetpack#add('phaazon/hop.nvim')
@@ -85,16 +50,19 @@ call jetpack#add('sevenc-nanashi/force_16term.nvim')
 call jetpack#add('kana/vim-submode')
 call jetpack#add('fannheyward/telescope-coc.nvim')
 call jetpack#add('monaqa/dial.nvim')
-
 call jetpack#add('lambdalisue/mr.vim')
 call jetpack#add('delphinus/cellwidths.nvim')
 call jetpack#add('nvim-telescope/telescope-frecency.nvim')
 call jetpack#add('kkharji/sqlite.lua')
 call jetpack#add('Shougo/vimproc.vim', {'build' : 'make'})
-" call jetpack#add('yuki-yano/highlight-undo.nvim')
-"
+call jetpack#add('folke/noice.nvim')
+call jetpack#add('rcarriga/nvim-notify')
+call jetpack#add('MunifTanjim/nui.nvim')
+call jetpack#add('Allianaab2m/vimskey')
+call jetpack#add('levouh/tint.nvim')
+
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
-" Required:
+
 call jetpack#end()
 
 set conceallevel=0
@@ -102,18 +70,15 @@ let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
 
-" Required:
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
 for name in jetpack#names()
   if !jetpack#tap(name)
     call jetpack#sync()
     break
   endif
 endfor
-"End dein Scripts-------------------------
 
 let g:copilot_filetypes = {
     \ '*': v:true,
@@ -127,6 +92,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
 set backspace=indent,eol,start
+set laststatus=3
 set number
 set expandtab
 
@@ -151,78 +117,12 @@ autocmd TermOpen * DisableWhitespace
 " autocmd BufNew *term://* PinBuffer!
 
 set fileformats=unix,dos
-lua package.loaded["nvimrc"] = nil
-lua require('nvimrc')
+" lua package.loaded["nvimrc"] = nil
+" lua require('nvimrc')
 
 " command! -nargs=+ Search :exe 'vimgrep /<q-args>/j ' .. fnameescape(g:rootfinder#find(expand('%:p:h'))) .. '/**/*'
 command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
 
-let g:lightline = {
-      \ 'tabline': {
-      \   'left': [ [ 'RootName' ],
-      \             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \   'right': [ [ 'close' ], ],
-      \ },
-      \ 'active': {
-		  \   'left': [
-      \     [ 'mode', 'paste' ],
-		  \     [ 'Filename', 'GitSeparator', 'Branch', 'Diff' ],
-      \     [ 'coc_status' ],
-      \   ],
-      \   'right': [
-      \     [ 'lineinfo' ],
-      \     [ 'coc_errors', 'coc_warnings', 'coc_info', 'coc_hints', 'coc_none'],
-      \     [ 'filetype', 'fileformat', 'fileencoding' ]
-      \   ]
-      \ },
-      \ 'component_expand': {
-      \   'buffercurrent': 'lightline#buffer#buffercurrent',
-      \   'bufferbefore': 'lightline#buffer#bufferbefore',
-      \   'bufferafter': 'lightline#buffer#bufferafter',
-      \   'coc_status': 'lightline#coc#status',
-      \   'coc_warnings': 'lightline#coc#warnings',
-      \   'coc_errors': 'lightline#coc#errors',
-      \   'coc_info': 'lightline#coc#info',
-      \   'coc_hints': 'lightline#coc#hints',
-      \ },
-      \ 'component_type': {
-      \   'buffercurrent': 'tabsel',
-      \   'bufferbefore': 'raw',
-      \   'bufferafter': 'raw',
-      \   'coc_status': 'raw',
-      \   'coc_warnings': 'warning',
-      \   'coc_errors': 'error',
-      \   'GitSeparator': 'raw',
-      \   'RootName': 'tabsel',
-      \ },
-      \ 'component_function': {
-      \   'bufferinfo': 'lightline#buffer#bufferinfo',
-      \   'Branch': 'LlBranch',
-      \   'Diff': 'LlDiff',
-      \   'RootName': 'LlRootName',
-      \   'line': 'LlLine',
-      \   'Filename': 'LlFilename',
-      \   'GitSeparator': 'LlGitSeparator',
-      \   'coc_status': 'lightline#coc#status',
-      \   'coc_none': 'LlCocNone',
-      \ },
-      \ 'colorscheme': 'edge',
-      \ 'separator': { 'left': "\ue0b4", 'right': "\ue0b6" },
-      \ 'subseparator': { 'left': "", 'right': "" }
-      \ }
-
-let g:lightline#coc#indicator_warnings = "\uf06a "
-let g:lightline#coc#indicator_errors = "\uf057 "
-let g:lightline#coc#indicator_info = "\uf05a "
-let g:lightline#coc#indicator_hints = "\uf059 "
-let g:lightline#coc#indicator_ok = '-'
-function! LlDiff() abort
-  if fugitive#Head() == ''
-    return ''
-  endif
-  let [added, modified, removed] = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', added, modified, removed)
-endfunction
 
 function! LlLine() abort
   return "\ue621"
@@ -278,14 +178,32 @@ function! LlCocNone() abort
   return ''
 endfunction
 
-command! LightlineReload call LightlineReload()
+" function! ReloadLightline()
+"   call lightline#init()
+"   call lightline#colorscheme()
+"   call lightline#update()
+" endfunction
+" command! -nargs=0 ReloadLightline call ReloadLightline()
 
-
-function! LightlineReload()
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
+function! ReloadLua()
+  let l:init_lua = stdpath('config') . '/lua/init.lua'
+  if filereadable(l:init_lua)
+    lua require('init')
+    lua package.loaded["init"] = nil
+  else
+    echoerr 'init.lua not found: ' . l:init_lua
+  endif
 endfunction
+command! -nargs=0 ReloadLua call ReloadLua()
+
+function! ReloadRc()
+  source $MYVIMRC
+  call ReloadLua()
+endfunction
+command! -nargs=0 ReloadRc call ReloadRc()
+
+call ReloadLua()
+
 set noshowmode
 
 let g:vimhelpgenerator_defaultlanguage = "en"
@@ -303,11 +221,9 @@ function! s:switch_color() abort
   if exists('g:terminal_color_0')
     call force_16term#change_color()
   endif
-  LightlineReload
+  " LightlineReload
 endfunction
 command! -nargs=0 SwitchColor call s:switch_color()
-
-autocmd OptionSet background execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/edge.vim')
 
 if !exists('g:colo_init')
   let g:colo_init = 0
@@ -327,39 +243,6 @@ let g:lightline_buffer_separator_right_icon = '  '
 let g:lightline_buffer_active_buffer_left_icon = ' '
 let g:lightline_buffer_active_buffer_right_icon = ' '
 
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-" let g:airline#extensions#whitespace#enabled = 0
-" let g:airline#extensions#tabline#enabled = 1
-
-" let g:airline_symbols.crypt = '🔒'
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.maxlinenr = ''
-" let g:airline_symbols.maxlinenr = '㏑'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.spell = 'Ꞩ'
-" let g:airline_symbols.notexists = '∄'
-" let g:airline_symbols.whitespace = 'Ξ'
-
-" powerline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = ' '
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.maxlinenr = ''
-
 set directory=~/.vim/tmpfiles
 set backupdir=~/.vim/tmpfiles
 set undodir=~/.vim/tmpfiles
@@ -369,8 +252,6 @@ set termguicolors
 set nowrap
 set clipboard+=unnamedplus
 let g:fern#renderer = "nerdfont"
-" set wildignore += */node_modules/*
-" set wildignore += */.git/*
 
 set mouse=a
 set updatetime=300
@@ -403,18 +284,6 @@ vmap g<C-a> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
 nmap gx <Plug>(openbrowser-smart-search)
 noremap W b
-" let g:findroot_patterns = [
-"   \  '.git/',
-"   \  '.gitignore',
-"   \  'Rakefile',
-"   \  'package.json',
-"   \  'manifest.json',
-"   \  'pyproject.toml',
-"   \  'setup.py',
-"   \  'requirements.txt',
-"   \  'Gemfile',
-"   \  'Cargo.toml',
-"   \]
 function! OpenFern() abort
   let current_file = expand('%:p:h')
   if current_file[:6] == "term://"
@@ -428,8 +297,6 @@ function! OpenFern() abort
 endfunction
 
 noremap <C-K><C-A> <Cmd>call OpenFern()<CR>
-" noremap <C-K><C-A> <Cmd>Fern . -drawer -width=40<CR>
-" noremap <C-K><C-S> <Cmd>ToggleTerm size=20 git_dir=. direction=horizontal<CR>
 noremap <C-K><C-S> <Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>
 noremap <C-K><C-D> <Cmd>TroubleToggle<CR>
 noremap <C-K><C-X> <Cmd>call <SID>switch_color()<CR>
@@ -468,69 +335,14 @@ endfunction
 function! s:set_normal_mappings() abort
   nnoremap <buffer> <CR> a<CR><ESC>
 endfunction
-function! s:on_enter() abort
-  if g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][1] != "#48b0d5"
-    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][1] = "#48b0d5"
-    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][0] = "#ffffff"
-    let g:lightline#colorscheme#edge#palette["tabline"]["tabsel"][0][4] = ""
-    let g:lightline#colorscheme#edge#palette["tabline"]["left"][0] = extend(g:lightline#colorscheme#edge#palette["tabline"]["left"][0], ["bold"])
-    LightlineReload
-  endif
-  if &modifiable
-    call s:set_normal_mappings()
-    let s:before_cwd = getcwd()
-    let s:root = rootfinder#find(getcwd())
-    if s:root != s:before_cwd || !exists("s:root_theme_loaded")
-      let s:root_theme_loaded = 1
-      execute 'cd ' .. s:root
-      echo 'Root changed: ' .. s:root
-      if filereadable(s:root .. "/.vim/theme.txt")
-        let s:theme = readfile(s:root .. "/.vim/theme.txt")
-        let g:lightline#colorscheme#edge#palette["tabline"]["left"][0][0] = s:theme[0]
-        let g:lightline#colorscheme#edge#palette["tabline"]["left"][0][1] = s:theme[1]
-      endif
-      LightlineReload
-    endif
-  endif
-endfunction
-augroup my_config
-  autocmd!
-  autocmd BufEnter * call s:on_enter()
-augroup END
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-noremap <silent> <A-S-F> <Cmd>Format<CR>
-"  noremap <silent> <A-S-F> <Cmd>lua vim.lsp.buf.format({
-"              \     filter = function(client) return client.name ~= "tsserver" end
-"              \ })<CR>
-" inoremap <silent> <C-Space> <Cmd>lua vim.lsp.buf.completion()<CR>
-" noremap <silent> <C-/> <Cmd>lua vim.lsp.buf.signature_help()<CR>
-
-nmap <silent><expr> <F12> CocActionAsync('jumpDefinition')
-imap <silent><expr> <F12> CocActionAsync('jumpDefinition')
-nmap <silent><expr> <F2> CocActionAsync('rename')
-imap <silent><expr> <F2> CocActionAsync('rename')
-nmap <silent><expr> <M-.> CocActionAsync('doHover')
-imap <silent><expr> <M-.> CocActionAsync('doHover')
-noremap <silent> <C-D> <Cmd>call CocAction('diagnosticNext')<CR>
-inoremap <silent> <C-D> <Cmd>call CocAction('diagnosticNext')<CR>
-nnoremap <silent> <C-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
-inoremap <silent> <C-S-D> <Cmd>call CocAction('diagnosticPrevious')<CR>
-inoremap <silent><expr> <c-space> coc#refresh()
-noremap <silent> <c-/> <Cmd>'<,'>Comment<CR>
-noremap! <silent> <c-/> <Cmd>'<,'>Comment<CR>
-command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 RegBuf :enew | put! +
-" inoremap <silent><expr> <TAB>
-" \ ddc#map#pum_visible() ? '<C-n>' :
-" \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-" \ '<TAB>' : ddc#map#manual_complete()
 
 function! s:init_fern() abort
   noremap <buffer> <C-K><C-A> <Cmd>q<CR>
@@ -566,22 +378,6 @@ augroup END
 
 set signcolumn=yes
 match Ignore /\r$/
-" let g:presence_editing_text        = "%sを編集中..."
-" let g:presence_file_explorer_text  = "%sの中を漁り中..."
-" let g:presence_git_commit_text     = "git commit中..."
-" let g:presence_plugin_manager_text = "プラグインを管理中..."
-" let g:presence_reading_text        = "%sを読書中..."
-" let g:presence_workspace_text      = "%sで作業中："
-" let g:presence_line_number_text    = "%s / %s行"
-" let g:presence_log_level           = "debug"
-" call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
-" call ddc#custom#patch_global('sourceOptions', {
-"       \ '_': { 'matchers': ['matcher_head'] },
-"       \ 'nvim-lsp': {
-"       \   'mark': 'L',
-"       \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
-"       \ })
-" call ddc#enable()
 let $FZF_DEFAULT_OPTS='--no-unicode'
 
 function! ReRoot() abort
