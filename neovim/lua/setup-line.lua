@@ -42,14 +42,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = "bufline",
 	pattern = "*",
 	callback = function()
-		if vim.bo.modifiable == false then
+		if vim.bo.modifiable == false or vim.fn.expand("%:t") == "" then
 			return
 		end
 		local current_buf = vim.fn.expand("%:p:h")
 		if current_buf == nil then
 			return
 		end
-		if string.match(current_buf, "^[a-zA-Z-]{2,}://") then
+		if string.match(current_buf, "[a-zA-Z0-9][a-zA-Z0-9]:") then
 			return
 		end
 		local root = vim.fn["rootfinder#find"](current_buf)
@@ -83,6 +83,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.api.nvim_set_current_dir(root)
 		Project.name = name
 		Project.root = root
+    vim.opt.titlestring = name .. " - %{expand('%:t')}"
 		if color_loaded then
 			print(
 				"Root changed to "
@@ -102,14 +103,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 local function setup_bufferline()
-	local function bg(light, dark)
-		if vim.opt.background:get() == "light" then
-			return light
-		else
-			return dark
-		end
-	end
-
 	require("bufferline").setup({
 		options = {
 			modified_icon = "!",

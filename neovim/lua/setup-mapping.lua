@@ -14,11 +14,13 @@ local function switch_color()
 	if vim.g.terminal_color_0 then
 		vim.fn["force_16term#change_color"]()
 	end
+	vim.g.terminal_color_15 = "#cccccc"
 	setup_bufferline()
 end
 
 if not vim.g.colo_init then
-  vim.g.edge_enable_italic = 0
+	vim.g.edge_enable_italic = 0
+	vim.g.edge_disable_italic_comment = 1
 	switch_color()
 end
 
@@ -90,11 +92,3 @@ vim.keymap.set("i", "<C-D>", "<Cmd>call CocAction('diagnosticNext')<CR>", { nore
 vim.keymap.set("n", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", { noremap = false, silent = true })
 vim.keymap.set("i", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", { noremap = false, silent = true })
 vim.keymap.set("i", "<C-Space>", "coc#refresh()", { noremap = true, silent = true, expr = true })
-
-vim.keymap.set("i", "<CR>", function()
-	if vim.fn["coc#pum#visible"]() == 1 then
-		return vim.fn["coc#pum#confirm"]()
-	else
-		vim.api.nvim_feedkeys("\r", "n", true)
-	end
-end, { noremap = false, silent = true, expr = true })

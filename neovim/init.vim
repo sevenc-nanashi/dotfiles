@@ -3,7 +3,7 @@ if &compatible
 endif
 packadd vim-jetpack
 call jetpack#begin($HOME . '/.cache/jetpack')
-call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
+call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'branch': 'release', 'build': 'yarn install --frozen-lockfile' })
 call jetpack#add('nvim-lualine/lualine.nvim')
 call jetpack#add('akinsho/bufferline.nvim')
 call jetpack#add('nvim-tree/nvim-web-devicons')
@@ -29,6 +29,7 @@ call jetpack#add('tpope/vim-commentary')
 call jetpack#add('Raimondi/delimitMate')
 call jetpack#add('LeafCage/vimhelpgenerator')
 call jetpack#add('sevenc-nanashi/rootfinder.vim')
+call jetpack#add('gpanders/editorconfig.nvim')
 call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
 call jetpack#add('pepo-le/win-ime-con.nvim')
 call jetpack#add('lewis6991/gitsigns.nvim')
@@ -58,7 +59,7 @@ call jetpack#add('Shougo/vimproc.vim', {'build' : 'make'})
 call jetpack#add('folke/noice.nvim')
 call jetpack#add('rcarriga/nvim-notify')
 call jetpack#add('MunifTanjim/nui.nvim')
-call jetpack#add('Allianaab2m/vimskey')
+call jetpack#add('Allianaab2m/vimskey', { 'branch': 'refactor'})
 call jetpack#add('levouh/tint.nvim')
 
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
@@ -196,11 +197,14 @@ function! ReloadLua()
 endfunction
 command! -nargs=0 ReloadLua call ReloadLua()
 
-function! ReloadRc()
-  source $MYVIMRC
-  call ReloadLua()
-endfunction
-command! -nargs=0 ReloadRc call ReloadRc()
+if !exists('g:reload_rc_initialized')
+  function! ReloadRc()
+    source $MYVIMRC
+    call ReloadLua()
+  endfunction
+  command! -nargs=0 ReloadRc call ReloadRc()
+  let g:reload_rc_initialized = 1
+endif
 
 call ReloadLua()
 
@@ -339,8 +343,8 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 command! -nargs=0 RegBuf :enew | put! +
 

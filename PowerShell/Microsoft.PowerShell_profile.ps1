@@ -21,6 +21,7 @@ $dauth = "Authorization: Bot $token"
 $dauth | Out-Null
 $env:PYTHONSTARTUP = "$HOME/.pythonrc"
 $global:venv_prev_path = ""
+$env:path = [System.Environment]::GetEnvironmentVariable("path", "machine") + ";" + [System.Environment]::GetEnvironmentVariable("path", "user")
 invoke-expression (get-content ~\Documents\PowerShell\commands\reload-commands.ps1 -Raw)
 
 Invoke-Expression -Command $(gh completion -s powershell | Out-String)
