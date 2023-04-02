@@ -3,6 +3,7 @@ if &compatible
 endif
 packadd vim-jetpack
 call jetpack#begin($HOME . '/.cache/jetpack')
+call jetpack#add('tani/vim-jetpack')
 call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'branch': 'release', 'build': 'yarn install --frozen-lockfile' })
 call jetpack#add('nvim-lualine/lualine.nvim')
 call jetpack#add('akinsho/bufferline.nvim')
@@ -31,6 +32,7 @@ call jetpack#add('LeafCage/vimhelpgenerator')
 call jetpack#add('sevenc-nanashi/rootfinder.vim')
 call jetpack#add('gpanders/editorconfig.nvim')
 call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
+call jetpack#add('nvim-treesitter/playground')
 call jetpack#add('pepo-le/win-ime-con.nvim')
 call jetpack#add('lewis6991/gitsigns.nvim')
 call jetpack#add('tpope/vim-fugitive')
@@ -61,11 +63,13 @@ call jetpack#add('rcarriga/nvim-notify')
 call jetpack#add('MunifTanjim/nui.nvim')
 call jetpack#add('Allianaab2m/vimskey', { 'branch': 'refactor'})
 call jetpack#add('levouh/tint.nvim')
+call jetpack#add('equalsraf/neovim-gui-shim')
 
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 
 call jetpack#end()
 
+set termguicolors
 set conceallevel=0
 let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
@@ -252,7 +256,6 @@ set backupdir=~/.vim/tmpfiles
 set undodir=~/.vim/tmpfiles
 
 
-set termguicolors
 set nowrap
 set clipboard+=unnamedplus
 let g:fern#renderer = "nerdfont"

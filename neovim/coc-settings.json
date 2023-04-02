@@ -37,6 +37,12 @@
       "args": [],
       "filetypes": ["ruby"],
       "rootPatterns": ["Gemfile"]
+    },
+    "syntax_tree": {
+      "command": "stree",
+      "args": ["lsp"],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile"]
     }
   },
   "rust-analyzer.server.extraEnv": {

@@ -2,7 +2,6 @@
   "dependencies": {
     "coc-copilot": ">=0.0.6",
     "coc-deno": ">=3.10.4",
-    "coc-discord-rpc": ">=5.1.2",
     "coc-eslint": ">=1.5.8",
     "coc-html": ">=1.7.0",
     "coc-json": ">=1.6.1",
@@ -27,5 +26,5 @@
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1672057890407
+  "lastUpdate": 1680415382906
 }
