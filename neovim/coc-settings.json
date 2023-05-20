@@ -23,6 +23,7 @@
   "diagnostic.virtualText": true,
   "powershell.integratedConsole.showOnStartup": false,
   "solargraph.diagnostics": true,
+  "solargraph.formatting": false,
   "typescript.format.enable": false,
   "scss.lint.unknownAtRules": "ignore",
   "languageserver": {
@@ -34,6 +35,12 @@
     },
     "ruby_syntax_lsp": {
       "command": "ruby_syntax_lsp",
+      "args": [],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile"]
+    },
+    "ruby-lsp": {
+      "command": "ruby-lsp",
       "args": [],
       "filetypes": ["ruby"],
       "rootPatterns": ["Gemfile"]
@@ -50,5 +57,6 @@
   },
   "rust-analyzer.checkOnSave.command": "clippy",
   "syntaxTree.advanced.commandPath": "C:/develop/Ruby31/bin/stree.bat",
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "svelte.ask-to-enable-ts-plugin": false
 }

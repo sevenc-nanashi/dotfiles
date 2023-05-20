@@ -35,6 +35,7 @@
 	ccmerge = !"f(){ git commit -am \"Merge: main -> $(git branch --show-current)\"; }; f"
 [push]
 	default = current
+	autoSetupRemote = true
 [advice]
 	detachedHead = false
 [pull]
