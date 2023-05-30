@@ -106,8 +106,8 @@ local function setup_bufferline()
   require("bufferline").setup({
     options = {
       modified_icon = "!",
-      close_icon = "",
-      buffer_close_icon = "",
+      close_icon = "×",
+      buffer_close_icon = "×",
       custom_areas = {
         left = function()
           local text
