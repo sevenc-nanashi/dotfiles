@@ -1,4 +1,5 @@
 ﻿if (Test-Path alias:iex) {
+  Remove-Item alias:ni -Force
   Remove-Item alias:iex -Force
   Remove-Item alias:ri -Force
 }

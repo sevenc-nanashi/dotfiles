@@ -29,5 +29,6 @@ config.keys = {
 	{ key = "LeftArrow", mods = "ALT", action = wezterm.action.ActivateTabRelative(-1) },
 	{ key = "RightArrow", mods = "ALT", action = wezterm.action.ActivateTabRelative(1) },
 }
+config.window_background_opacity = 0.8
 
 return config
