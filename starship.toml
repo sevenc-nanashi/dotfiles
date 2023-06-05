@@ -4,6 +4,12 @@ format = """$all$fill$time$line_break$character"""
 [aws]
 symbol = "  "
 
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
 [conda]
 symbol = " "
 
@@ -22,18 +28,29 @@ symbol = " "
 [elm]
 symbol = " "
 
-[git_branch]
+[fossil_branch]
 symbol = " "
 
-[git_status]
-stashed = ""
-deleted = "X"
+[git_branch]
+symbol = " "
 
 [golang]
 symbol = " "
 
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
+
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -41,29 +58,79 @@ symbol = " "
 [julia]
 symbol = " "
 
+[lua]
+symbol = " "
+
 [memory_usage]
 symbol = " "
+
+[meson]
+symbol = "喝 "
 
 [nim]
 symbol = " "
 
 [nix_shell]
-symbol = " "
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
 
 [package]
 symbol = " "
 
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
+[pijul_channel]
+symbol = "🪺 "
 
 [python]
-symbol = " "
+symbol = " "
+
+[rlang]
+symbol = "ﳒ "
 
 [ruby]
-symbol = " "
+symbol = " "
 
 [rust]
 symbol = " "
@@ -71,15 +138,15 @@ symbol = " "
 [scala]
 symbol = " "
 
-[shlvl]
-symbol = " "
-
-[swift]
-symbol = "ﯣ "
+[spack]
+symbol = "🅢 "
+[git_status]
+stashed = ""
+deleted = "X"
 
 [time]
 disabled = false
-format = '[ $time ]($style)'
+format = "[\uf43a $time ]($style)"
 
 [fill]
 symbol = " "
