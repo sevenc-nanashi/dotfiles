@@ -4,7 +4,7 @@
 現在工事中...
 
 ```
-curl https://github.com/sevenc-nanashi/dotfiles/raw/main/install.sh | bash
+curl https://github.com/sevenc-nanashi/dotfiles/raw/main/install.sh -L | bash
 ```
 
 ## ライセンス

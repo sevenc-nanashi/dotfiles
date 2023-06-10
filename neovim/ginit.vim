@@ -3,7 +3,7 @@
 let g:font_size = -1
 
 function s:modify_size(size, silent) abort
-  exe 'GuiFont!' 'FirgeNerd:h' .. a:size
+  exe 'GuiFont!' 'HackGen Console NF:h' .. a:size
   exe 'GuiLinespace' '4'
   if !a:silent
     echo 'Font size: ' .. a:size
