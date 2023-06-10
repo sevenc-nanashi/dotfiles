@@ -35,7 +35,7 @@ vim.keymap.set("", "<Space>G", "<Cmd>Telescope live_grep<CR>", { noremap = false
 vim.keymap.set("", "<Space>h", "<Cmd>Telescope help_tags<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>gf", "<Cmd>Telescope git_files<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>gb", "<Cmd>Telescope git_branches<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>gs", "<Cmd>Telescope git_status<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<space>gs", "<Cmd>Telescope git_status<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>ss", "<Cmd>Telescope coc document_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sS", "<Cmd>Telescope coc workspace_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sd", "<Cmd>Telescope coc document_diagnostics<CR>", { noremap = false, silent = false })
@@ -51,7 +51,18 @@ vim.keymap.set("v", "g<C-a>", "g<Plug>(dial-increment)", { noremap = true, silen
 vim.keymap.set("v", "g<C-x>", "g<Plug>(dial-decrement)", { noremap = true, silent = false })
 vim.keymap.set("n", "gx", "<Plug>(openbrowser-smart-search)", { noremap = true, silent = false })
 vim.keymap.set("", "W", "b", { noremap = false, silent = false })
-vim.keymap.set("", "<C-K><C-A>", "<Cmd>call OpenFern()<CR>", { noremap = false, silent = false })
+
+vim.keymap.set("", "<C-K><C-A>", function()
+  local current_file = vim.fn.expand("%:p:h")
+  if current_file:sub(1, 6) == "term://" then
+    current_file = current_file:sub(7)
+  end
+  local root = vim.fn["rootfinder#find"](current_file)
+  if #root < 1 then
+    root = "."
+  end
+  vim.cmd("Fern " .. vim.fn.fnameescape(root) .. " -drawer -width=40")
+end, { noremap = false, silent = false })
 vim.keymap.set(
 	"",
 	"<C-K><C-S>",

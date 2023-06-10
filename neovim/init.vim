@@ -126,69 +126,6 @@ set fileformats=unix,dos
 " lua require('nvimrc')
 
 " command! -nargs=+ Search :exe 'vimgrep /<q-args>/j ' .. fnameescape(g:rootfinder#find(expand('%:p:h'))) .. '/**/*'
-command! -nargs=1 Search noautocmd vimgrep /<args>/gj `git ls-files` | cw
-
-
-function! LlLine() abort
-  return "\ue621"
-endfunction
-
-function! LlGitSeparator() abort
-  if fugitive#Head() == ''
-    return ''
-  endif
-  return "\ue0b5"
-endfunction
-
-function! LlBranch() abort
-  if fugitive#Head() == ''
-    return ""
-  endif
-  return "\ue725 " .. fugitive#Head()
-endfunction
-
-function! LlFilename() abort
-  let l:fname = expand('%:t')
-  if l:fname == ''
-    let l:fname = '-'
-  endif
-  if &modified
-    let l:fname = l:fname . ' +'
-  endif
-  if &readonly
-    let l:fname = "\uf720 " .. l:fname
-  else
-    let l:fname = "\uf713 " .. l:fname
-  endif
-  return l:fname
-endfunction
-
-
-function! LlRootName() abort
-  let l:root = rootfinder#find(expand('%:p:h'))
-  if l:root == ''
-    return "\ue5fe -"
-  endif
-  return "\ue5fe " . fnamemodify(l:root, ':t')
-endfunction
-function! LlCocNone() abort
-  let l:diagnostics = get(b:, 'coc_diagnostic_info', {})
-  if l:diagnostics == {} ||
-        \  (l:diagnostics.error == 0 &&
-        \   l:diagnostics.warning == 0 &&
-        \   l:diagnostics.information == 0 &&
-        \   l:diagnostics.hint == 0)
-    return '-'
-  endif
-  return ''
-endfunction
-
-" function! ReloadLightline()
-"   call lightline#init()
-"   call lightline#colorscheme()
-"   call lightline#update()
-" endfunction
-" command! -nargs=0 ReloadLightline call ReloadLightline()
 
 function! ReloadLua()
   let l:init_lua = stdpath('config') . '/lua/init.lua'
@@ -238,19 +175,6 @@ if !exists('g:colo_init')
   call s:switch_color()
 endif
 
-let g:lightline_buffer_enable_devicons = 1
-let g:lightline_buffer_show_bufnr = 1
-let g:lightline_buffer_fname_mod = ':t'
-let g:lightline_buffer_excludes = ['vimfiler']
-let g:lightline_buffer_maxflen = 30
-let g:lightline_buffer_minflen = 16
-let g:lightline_buffer_minfextlen = 3
-let g:lightline_buffer_reservelen = 20
-let g:lightline_buffer_separator_left_icon = "\ue0b5 "
-let g:lightline_buffer_separator_right_icon = '  '
-let g:lightline_buffer_active_buffer_left_icon = ' '
-let g:lightline_buffer_active_buffer_right_icon = ' '
-
 set directory=~/.vim/tmpfiles
 set backupdir=~/.vim/tmpfiles
 set undodir=~/.vim/tmpfiles
@@ -263,58 +187,7 @@ let g:fern#renderer = "nerdfont"
 set mouse=a
 set updatetime=300
 set showtabline=2
-noremap U <C-R>
-noremap <C-S-O> <C-I>
-inoremap <S-Insert> <C-r><C-p>+
-cnoremap <S-Insert> <C-r>+
-tnoremap <S-Insert> <C-\><C-n>"+pi
 
-noremap <Space>b <Cmd>Telescope buffers<CR>
-noremap <Space>f <Cmd>Telescope find_files<CR>
-noremap <Space>G <Cmd>Telescope live_grep<CR>
-noremap <Space>h <Cmd>Telescope help_tags<CR>
-noremap <Space>gf <Cmd>Telescope git_files<CR>
-noremap <Space>gb <Cmd>Telescope git_branches<CR>
-noremap <Space>gs <Cmd>Telescope git_status<CR>
-noremap <Space>ss <Cmd>Telescope coc document_symbols<CR>
-noremap <Space>sS <Cmd>Telescope coc workspace_symbols<CR>
-noremap <Space>sd <Cmd>Telescope coc document_diagnostics<CR>
-noremap <Space>sD <Cmd>Telescope coc workspace_diagnostics<CR>
-noremap <Space>c <Cmd>Telescope coc commands<CR>
-noremap <Space>w <Cmd>HopWord<CR>
-noremap <Space>l <Cmd>HopLineStart<CR>
-nmap  <C-a>  <Plug>(dial-increment)
-nmap  <C-x>  <Plug>(dial-decrement)
-vmap  <C-a>  <Plug>(dial-increment)
-vmap  <C-x>  <Plug>(dial-decrement)
-vmap g<C-a> g<Plug>(dial-increment)
-vmap g<C-x> g<Plug>(dial-decrement)
-nmap gx <Plug>(openbrowser-smart-search)
-noremap W b
-function! OpenFern() abort
-  let current_file = expand('%:p:h')
-  if current_file[:6] == "term://"
-    let current_file = current_file[7:]
-  endif
-  let root = g:rootfinder#find(current_file)
-  if len(root) < 1
-    let root = '.'
-  endif
-  execute 'Fern ' .. fnameescape(root) .. ' -drawer -width=40'
-endfunction
-
-noremap <C-K><C-A> <Cmd>call OpenFern()<CR>
-noremap <C-K><C-S> <Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>
-noremap <C-K><C-D> <Cmd>TroubleToggle<CR>
-noremap <C-K><C-X> <Cmd>call <SID>switch_color()<CR>
-
-noremap <C-Tab> <Cmd>bn<CR>
-noremap <C-S-W> <Cmd>bn<bar>bd#<CR>
-noremap <C-S-Tab> <Cmd>bp<CR>
-
-nnoremap <silent> <M-Left> <Cmd>bp<CR>
-nnoremap <silent> <M-Right> <Cmd>bn<CR>
-nmap <silent> <C-.> <Plug>(coc-codeaction)
 for i in range(1, 9)
   exe 'nnoremap <silent><M-' . i % 10 . '> :exe "b " . <SID>get_buffer_id(' . i . ')<CR>'
 endfor
