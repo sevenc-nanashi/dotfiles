@@ -383,6 +383,11 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
+augroup on-qt-exit
+  autocmd! *
+  autocmd UILeave * qall!
+augroup END
+
 set signcolumn=yes
 match Ignore /\r$/
 let $FZF_DEFAULT_OPTS='--no-unicode'
