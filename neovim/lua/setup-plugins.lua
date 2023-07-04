@@ -41,7 +41,7 @@ require("telescope").setup({
   },
 })
 require("cellwidths").setup({
-  name = "user/default",
+  name = "user/my",
   fallback = function(cw)
     cw.load("default")
 
@@ -50,6 +50,10 @@ require("cellwidths").setup({
     cw.add(0x2713, 2)
     cw.add(0x276f, 1)
     cw.add(0x279c, 1)
+    cw.add(9650, 1)
+    cw.add(10004, 1)
+    cw.add(10007, 1)
+    cw.add(10008, 1)
   end,
 })
 local augend = require("dial.augend")
