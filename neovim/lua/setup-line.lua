@@ -173,6 +173,19 @@ end
 
 setup_bufferline()
 
+local function setup_tint()
+  if vim.o.background == "dark" then
+    require("tint").setup({
+      tint = -40,
+    })
+  else
+    require("tint").setup({
+      tint = 80,
+    })
+  end
+end
+
 return {
   setup_bufferline = setup_bufferline,
+  setup_tint = setup_tint,
 }

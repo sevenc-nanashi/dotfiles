@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local setup_bufferline = require("./setup-line").setup_bufferline
+local line = require("setup-line")
 
 local function switch_color()
 	if vim.g.colo_init == 2 then
@@ -15,7 +15,8 @@ local function switch_color()
 		vim.fn["force_16term#change_color"]()
 	end
 	vim.g.terminal_color_15 = "#cccccc"
-	setup_bufferline()
+	line.setup_bufferline()
+  line.setup_tint()
 end
 
 if not vim.g.colo_init then

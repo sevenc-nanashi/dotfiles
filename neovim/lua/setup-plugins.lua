@@ -81,9 +81,6 @@ require("gitsigns").setup({
   },
 })
 require("noice").setup({})
-require("tint").setup({
-  tint = 80,
-})
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.sus = {

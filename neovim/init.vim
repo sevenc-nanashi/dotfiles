@@ -62,7 +62,7 @@ call jetpack#add('folke/noice.nvim')
 call jetpack#add('rcarriga/nvim-notify')
 call jetpack#add('MunifTanjim/nui.nvim')
 call jetpack#add('Allianaab2m/vimskey', { 'branch': 'refactor'})
-call jetpack#add('levouh/tint.nvim')
+call jetpack#add('sevenc-nanashi/tint.nvim', { 'branch': 'patch-1'})
 call jetpack#add('equalsraf/neovim-gui-shim')
 
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
