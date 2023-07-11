@@ -5,8 +5,29 @@ require("lualine").setup({
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename", "g:coc_status" },
+    lualine_b = { "branch", "diff", "diagnostics", function()
+      local file = vim.fn.expand("%:p")
+      if not file.match(file, "^term://") then
+        return ""
+      end
+      local termid = file.match(file, "^term://.*//[0-9]+:[^;]*;#toggleterm#([0-9]+)$")
+      return "\u{ea85} " .. termid
+    end },
+    lualine_c = { function()
+      local file = vim.fn.expand("%:p")
+      if file.match(file, "^term://") then
+        local pwd = file.match(file, "^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
+        return "\u{e5fe} " .. pwd
+      elseif vim.bo.modifiable == false then
+        return "\u{f023} " .. file
+      elseif file == "" then
+        return "\u{f15b} -"
+      elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
+        return "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
+      else
+        return "\u{f15b} " .. file
+      end
+    end, "g:coc_status" },
     lualine_x = {
       function()
         return Project.root
