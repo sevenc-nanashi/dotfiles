@@ -15,6 +15,7 @@ require("lualine").setup({
     end },
     lualine_c = { function()
       local file = vim.fn.expand("%:p")
+      local modified = vim.bo.modified
       if file.match(file, "^term://") then
         local pwd = file.match(file, "^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
         return "\u{e5fe} " .. pwd
@@ -23,9 +24,17 @@ require("lualine").setup({
       elseif file == "" then
         return "\u{f15b} -"
       elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
-        return "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
+        local ret = "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
+        if modified then
+          ret = ret .. " \u{f03eb}"
+        end
+        return ret
       else
-        return "\u{f15b} " .. file
+        local ret = "\u{f15b} " .. file
+        if modified then
+          ret = ret .. " \u{f03eb}"
+        end
+        return ret
       end
     end, "g:coc_status" },
     lualine_x = {
