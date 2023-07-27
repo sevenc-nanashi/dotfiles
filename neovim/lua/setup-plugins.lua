@@ -5,7 +5,7 @@ if vim.g.terminal then
 else
   cmd = vim.o.shell
 end
-
+vim.g.snipewin_label_chars = "ASDFGHJKLQWERTYUIOPZXCVBNM"
 require("toggleterm").setup({
   start_in_insert = false,
   on_open = function(term)
@@ -18,7 +18,6 @@ require("trouble").setup({
 })
 require("nvim-ts-autotag").setup()
 require("litee.lib").setup()
-require("litee.gh").setup()
 require("hop").setup()
 require("telescope").load_extension("frecency")
 -- require("highlight-undo").setup({
@@ -51,6 +50,7 @@ require("cellwidths").setup({
     cw.add(0x276f, 1)
     cw.add(0x279c, 1)
     cw.add(9650, 1)
+    cw.add(10003, 1)
     cw.add(10004, 1)
     cw.add(10007, 1)
     cw.add(10008, 1)
@@ -113,4 +113,8 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+})
+require("catppuccin").setup({
+  flavour = "latte",
+  no_italic = true,
 })

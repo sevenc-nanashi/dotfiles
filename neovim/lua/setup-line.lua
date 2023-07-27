@@ -57,10 +57,10 @@ Project = {
 }
 
 local function redraw_bufferline()
-  local highlights = require("bufferline.highlights")
-  local config = require("bufferline.config")
-  highlights.reset_icon_hl_cache()
-  highlights.set_all(config.update_highlights())
+  -- local highlights = require("bufferline.highlights")
+  -- local config = require("bufferline.config")
+  -- highlights.reset_icon_hl_cache()
+  -- highlights.set_all(config.update_highlights())
 end
 
 vim.opt.title = true
@@ -84,7 +84,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
     local root = vim.fn["rootfinder#find"](current_buf)
     local color_loaded = false
-    if Project.root:len() > 0 and string.sub(root, 1, Project.root:len()) == Project.root then
+    if Project.root:len() == 0 or string.sub(root, 1, Project.root:len()) == Project.root then
       return
     end
     if
@@ -133,72 +133,32 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 local function setup_bufferline()
-  require("bufferline").setup({
-    options = {
-      modified_icon = "!",
-      close_icon = "×",
-      buffer_close_icon = "×",
-      custom_areas = {
-        left = function()
-          local text
-          if Project.name == "" then
-            text = "-"
-          else
-            text = Project.name
-          end
-          return {
-            {
-              text = " \u{e5fe} " .. text .. " ",
-              guifg = Project.color.fg,
-              guibg = Project.color.bg,
-              padding = 1,
-            },
-          }
-        end,
-      },
-    },
-    highlights = {
-      buffer_selected = {
-        fg = "#48b0d5",
-        bold = false,
-        italic = false,
-      },
-      duplicate_selected = {
-        fg = "#888888",
-        bold = false,
-        italic = false,
-      },
-      duplicate_visible = {
-        fg = "#888888",
-        bold = false,
-        italic = false,
-      },
-      duplicate = {
-        fg = "#888888",
-        bold = false,
-        italic = false,
-      },
-      close_button_selected = {
-        bold = false,
-        italic = false,
-      },
-      separator_selected = {
-        fg = "#fafafa",
-        bold = false,
-        italic = false,
-      },
-      indicator_selected = {
-        fg = "#48b0d5",
-        bold = false,
-        italic = false,
-      },
-      modified_selected = {
-        fg = "#48b0d5",
-        bold = false,
-        italic = false,
-      },
-    },
-  })
+  -- require("bufferline").setup({
+  --   options = {
+  --     modified_icon = "!",
+  --     close_icon = "×",
+  --     buffer_close_icon = "×",
+  --     custom_areas = {
+  --       left = function()
+  --         local text
+  --         if Project.name == "" then
+  --           text = "-"
+  --         else
+  --           text = Project.name
+  --         end
+  --         return {
+  --           {
+  --             text = " \u{e5fe} " .. text .. " ",
+  --             guifg = Project.color.fg,
+  --             guibg = Project.color.bg,
+  --             padding = 1,
+  --           },
+  --         }
+  --       end,
+  --     },
+  --   },
+  --   highlights = require("catppuccin.groups.integrations.bufferline").get()
+  -- })
 end
 
 setup_bufferline()

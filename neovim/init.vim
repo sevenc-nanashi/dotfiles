@@ -41,7 +41,6 @@ call jetpack#add('alvan/vim-closetag')
 call jetpack#add('tyru/open-browser.vim')
 call jetpack#add('jason0x43/vim-wildgitignore')
 call jetpack#add('Yggdroot/indentLine')
-call jetpack#add('ldelossa/gh.nvim')
 call jetpack#add('ldelossa/litee.nvim')
 call jetpack#add('tyru/capture.vim')
 call jetpack#add('ntpeters/vim-better-whitespace')
@@ -64,16 +63,39 @@ call jetpack#add('MunifTanjim/nui.nvim')
 call jetpack#add('Allianaab2m/vimskey', { 'branch': 'refactor'})
 call jetpack#add('sevenc-nanashi/tint.nvim', { 'branch': 'patch-1'})
 call jetpack#add('equalsraf/neovim-gui-shim')
-
+call jetpack#add('catppuccin/nvim')
+call jetpack#add('hrsh7th/vim-eft')
+call jetpack#add('preservim/vim-colors-pencil')
+call jetpack#add('4513ECHO/vim-snipewin')
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 
 call jetpack#end()
 
 set termguicolors
 set conceallevel=0
+set showtabline=0
 let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
+
+" eft
+nmap ; <Plug>(eft-repeat)
+xmap ; <Plug>(eft-repeat)
+omap ; <Plug>(eft-repeat)
+
+nmap f <Plug>(eft-f)
+xmap f <Plug>(eft-f)
+omap f <Plug>(eft-f)
+nmap F <Plug>(eft-F)
+xmap F <Plug>(eft-F)
+omap F <Plug>(eft-F)
+
+nmap t <Plug>(eft-t)
+xmap t <Plug>(eft-t)
+omap t <Plug>(eft-t)
+nmap T <Plug>(eft-T)
+xmap T <Plug>(eft-T)
+omap T <Plug>(eft-T)
 
 filetype plugin indent on
 syntax enable
@@ -186,7 +208,6 @@ let g:fern#renderer = "nerdfont"
 
 set mouse=a
 set updatetime=300
-set showtabline=2
 
 for i in range(1, 9)
   exe 'nnoremap <silent><M-' . i % 10 . '> :exe "b " . <SID>get_buffer_id(' . i . ')<CR>'

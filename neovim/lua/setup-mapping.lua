@@ -44,6 +44,7 @@ vim.keymap.set("", "<Space>sD", "<Cmd>Telescope coc workspace_diagnostics<CR>", 
 vim.keymap.set("", "<Space>c", "<Cmd>Telescope coc commands<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>w", "<Cmd>HopWord<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>l", "<Cmd>HopLineStart<CR>", { noremap = false, silent = false })
+vim.keymap.set("n", "<Space>W", "<Plug>(snipewin)", { noremap = false, silent = false })
 vim.keymap.set("n", "<C-a>", "<Plug>(dial-increment)", { noremap = true, silent = false })
 vim.keymap.set("n", "<C-x>", "<Plug>(dial-decrement)", { noremap = true, silent = false })
 vim.keymap.set("v", "<C-a>", "<Plug>(dial-increment)", { noremap = true, silent = false })

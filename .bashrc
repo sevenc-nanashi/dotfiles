@@ -153,6 +153,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     eval $(thefuck --alias f)
     eval "$(github-copilot-cli alias -- "$0")"
+    EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
     setxkbmap -model jp109 -layout jp
 
