@@ -19,7 +19,6 @@ require("trouble").setup({
 require("nvim-ts-autotag").setup()
 require("litee.lib").setup()
 require("hop").setup()
-require("telescope").load_extension("frecency")
 -- require("highlight-undo").setup({
 -- 	mappings = {
 -- 		undo = "u",
@@ -49,6 +48,7 @@ require("cellwidths").setup({
     cw.add(0x2713, 2)
     cw.add(0x276f, 1)
     cw.add(0x279c, 1)
+    cw.add(8250, 1)
     cw.add(9650, 1)
     cw.add(10003, 1)
     cw.add(10004, 1)
@@ -90,6 +90,14 @@ parser_config.sus = {
     branch = "main",
   },
   filetype = "sus"
+}
+parser_config.rbs = {
+  install_info = {
+    url = "https://github.com/apexatoll/tree-sitter-rbs.git",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "rbs"
 }
 require("nvim-treesitter.configs").setup({
   playground = {

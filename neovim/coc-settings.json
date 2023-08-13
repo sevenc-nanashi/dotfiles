@@ -47,8 +47,8 @@
     },
     "syntax_tree": {
       "command": "stree",
-      "args": ["lsp"],
-      "filetypes": ["ruby"],
+      "args": ["lsp", "--plugins", "rbs"],
+      "filetypes": ["ruby", "rbs"],
       "rootPatterns": ["Gemfile"]
     }
   },
@@ -56,7 +56,6 @@
     "FFMPEG_DIR": "C:/tools/ffmpeg"
   },
   "rust-analyzer.checkOnSave.command": "clippy",
-  "syntaxTree.advanced.commandPath": "C:/develop/Ruby31/bin/stree.bat",
   "snippets.ultisnips.pythonPrompt": false,
   "svelte.ask-to-enable-ts-plugin": false
 }

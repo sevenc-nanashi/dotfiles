@@ -54,7 +54,6 @@ call jetpack#add('fannheyward/telescope-coc.nvim')
 call jetpack#add('monaqa/dial.nvim')
 call jetpack#add('lambdalisue/mr.vim')
 call jetpack#add('delphinus/cellwidths.nvim')
-call jetpack#add('nvim-telescope/telescope-frecency.nvim')
 call jetpack#add('kkharji/sqlite.lua')
 call jetpack#add('Shougo/vimproc.vim', {'build' : 'make'})
 call jetpack#add('folke/noice.nvim')
@@ -68,6 +67,8 @@ call jetpack#add('hrsh7th/vim-eft')
 call jetpack#add('preservim/vim-colors-pencil')
 call jetpack#add('4513ECHO/vim-snipewin')
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
+call jetpack#add('lifepillar/vim-colortemplate')
+call jetpack#add('chrisbra/Colorizer')
 
 call jetpack#end()
 
@@ -77,6 +78,7 @@ set showtabline=0
 let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
+let g:snipewin_label_font = 'asciian_inverted'
 
 " eft
 nmap ; <Plug>(eft-repeat)

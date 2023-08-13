@@ -148,6 +148,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export DISCORD_BOT_TOKEN=$(cat ~/.secrets/discord_bot_token.txt)
 
     export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:$HOME/.local/opt/gradle/bin
 
     alias npr='npm run'
 
