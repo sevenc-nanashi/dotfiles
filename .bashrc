@@ -272,6 +272,14 @@ function rex() {
   return $?
 }
 
+function cab() {
+  echo "Co-Authored-By: $1 <$1@users.noreply.github.com>"
+}
+
+function rgsed() {
+  rg -l "$1" | xargs sed -i "s/$1/$2/g"
+}
+
 if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
