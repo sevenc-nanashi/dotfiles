@@ -17,7 +17,7 @@ symbol = " "
 symbol = " "
 
 [directory]
-read_only = " "
+read_only = "󰌾"
 
 [docker_context]
 symbol = " "
@@ -115,7 +115,7 @@ Unknown = " "
 Windows = " "
 
 [package]
-symbol = " "
+symbol = "󰏗 "
 
 [pijul_channel]
 symbol = "🪺 "

@@ -13,3 +13,9 @@ ln -s ~/dotfiles/neovim/ ~/.config/nvim
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
 ln -s ~/dotfiles/starship.toml ~/.config/starship.toml
+
+mkdir -p ~/.config/coc/extensions
+ln -s ~/dotfiles/neovim/coc-package.json ~/.config/coc/extensions/package.json
+cd ~/.config/coc/extensions
+npm install
+cd ~

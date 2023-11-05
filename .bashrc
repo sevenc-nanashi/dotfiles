@@ -122,6 +122,8 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     }
     export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 
+    . "$HOME/.cargo/env"
+
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -137,8 +139,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export DENO_INSTALL="/home/sevenc7c/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
 
-    . "$HOME/.cargo/env"
-
     export GOPATH=$HOME/go
     export GOBIN=$GOPATH/bin
     export PATH=$PATH:$GOBIN
@@ -151,6 +151,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export PATH=$PATH:$HOME/.local/opt/gradle/bin
 
     alias npr='npm run'
+
+    # bun
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH=$BUN_INSTALL/bin:$PATH
 
     eval $(thefuck --alias f)
     eval "$(github-copilot-cli alias -- "$0")"
@@ -228,6 +232,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     fi
 
     alias py='python3'
+    alias rb='ruby'
 fi
 
 function nvim-qt() {
@@ -238,7 +243,7 @@ function nvim-qt() {
     done
     echo "Using port $RANDOM_PORT"
     cat - <<CMD | parallel
-      /mnt/c/windows/system32/cmd.exe /c "nvim-qt --server 127.0.0.1:$RANDOM_PORT" 2> /dev/null &
+      /mnt/c/windows/system32/cmd.exe /c "nvim-qt --server 192.168.54.75:$RANDOM_PORT" 2> /dev/null &
       nvim --listen "0.0.0.0:$RANDOM_PORT" --headless "$@" &
 CMD
 }
@@ -283,4 +288,3 @@ function rgsed() {
 if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
-
