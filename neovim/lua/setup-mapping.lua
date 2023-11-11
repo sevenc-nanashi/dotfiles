@@ -15,7 +15,6 @@ local function switch_color()
 		vim.fn["force_16term#change_color"]()
 	end
 	vim.g.terminal_color_15 = "#cccccc"
-	line.setup_bufferline()
   line.setup_tint()
 end
 
