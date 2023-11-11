@@ -21,7 +21,6 @@ require("lualine").setup({
         return "\u{e5fe} " .. pwd
       elseif file:match("^fern://") then
         local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
-        print(pwd)
         return "\u{e5fe} " .. pwd
       elseif vim.bo.modifiable == false then
         return "\u{f023} " .. file
