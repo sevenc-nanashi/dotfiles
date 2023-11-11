@@ -40,6 +40,6 @@
 	detachedHead = false
 [pull]
 	default = current
-	rebase = false
+	rebase = true
 [http]
 	postBuffer = 524288000
