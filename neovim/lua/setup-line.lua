@@ -7,17 +7,21 @@ require("lualine").setup({
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics", function()
       local file = vim.fn.expand("%:p")
-      if not file.match(file, "^term://") then
-        return ""
+      if file.match(file, "^term://") then
+        local termid = file.match(file, "^term://.*//[0-9]+:[^;]*;#toggleterm#([0-9]+)$")
+        return "\u{ea85} " .. termid
       end
-      local termid = file.match(file, "^term://.*//[0-9]+:[^;]*;#toggleterm#([0-9]+)$")
-      return "\u{ea85} " .. termid
+      return ""
     end },
     lualine_c = { function()
       local file = vim.fn.expand("%:p")
       local modified = vim.bo.modified
-      if file.match(file, "^term://") then
-        local pwd = file.match(file, "^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
+      if file:match("^term://") then
+        local pwd = file:match("^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
+        return "\u{e5fe} " .. pwd
+      elseif file:match("^fern://") then
+        local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
+        print(pwd)
         return "\u{e5fe} " .. pwd
       elseif vim.bo.modifiable == false then
         return "\u{f023} " .. file
@@ -55,13 +59,6 @@ Project = {
   root = "",
   color = { fg = "#ffffff", bg = "#888888", loaded = false },
 }
-
-local function redraw_bufferline()
-  -- local highlights = require("bufferline.highlights")
-  -- local config = require("bufferline.config")
-  -- highlights.reset_icon_hl_cache()
-  -- highlights.set_all(config.update_highlights())
-end
 
 vim.opt.title = true
 
@@ -105,7 +102,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
     if root == Project.root and vim.fn.getcwd() == Project.root then
       if color_loaded then
         print("Color loaded, fg: " .. Project.color.fg .. ", bg: " .. Project.color.bg)
-        redraw_bufferline()
       end
       return
     end
@@ -127,41 +123,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
     else
       print("Root changed to " .. root)
     end
-    redraw_bufferline()
     require("lualine").refresh()
   end,
 })
-
-local function setup_bufferline()
-  -- require("bufferline").setup({
-  --   options = {
-  --     modified_icon = "!",
-  --     close_icon = "×",
-  --     buffer_close_icon = "×",
-  --     custom_areas = {
-  --       left = function()
-  --         local text
-  --         if Project.name == "" then
-  --           text = "-"
-  --         else
-  --           text = Project.name
-  --         end
-  --         return {
-  --           {
-  --             text = " \u{e5fe} " .. text .. " ",
-  --             guifg = Project.color.fg,
-  --             guibg = Project.color.bg,
-  --             padding = 1,
-  --           },
-  --         }
-  --       end,
-  --     },
-  --   },
-  --   highlights = require("catppuccin.groups.integrations.bufferline").get()
-  -- })
-end
-
-setup_bufferline()
 
 local function setup_tint()
   if vim.o.background == "dark" then
@@ -176,6 +140,5 @@ local function setup_tint()
 end
 
 return {
-  setup_bufferline = setup_bufferline,
   setup_tint = setup_tint,
 }

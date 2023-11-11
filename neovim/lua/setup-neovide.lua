@@ -4,7 +4,6 @@ local current_size = -1
 local function change_size(size, silent)
   vim.o.guifont = "Firple:h" .. size
   vim.o.linespace = 4
-  vim.g.neovide_cursor_animation_length = 0
   if not silent then
     vim.cmd("echo 'Font size: " .. size .. "'")
   end
@@ -21,3 +20,8 @@ local function init()
 end
 
 init()
+
+if not vim.g.initialized then
+  vim.g.initialized = true
+  vim.g.neovide_cursor_animation_length = 0
+end

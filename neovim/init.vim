@@ -154,8 +154,8 @@ set fileformats=unix,dos
 function! ReloadLua()
   let l:init_lua = stdpath('config') . '/lua/init.lua'
   if filereadable(l:init_lua)
-    lua require('init')
     lua package.loaded["init"] = nil
+    lua require('init')
   else
     echoerr 'init.lua not found: ' . l:init_lua
   endif
