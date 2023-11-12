@@ -57,5 +57,6 @@
   },
   "rust-analyzer.checkOnSave.command": "clippy",
   "snippets.ultisnips.pythonPrompt": false,
-  "svelte.ask-to-enable-ts-plugin": false
+  "svelte.ask-to-enable-ts-plugin": false,
+  "svelte.enable-ts-plugin": false
 }

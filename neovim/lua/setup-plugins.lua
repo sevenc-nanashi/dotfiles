@@ -80,7 +80,13 @@ require("gitsigns").setup({
     changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
   },
 })
-require("noice").setup({})
+require("noice").setup({
+  messages = {
+    view = "mini",
+    view_error = "mini",
+    view_warn = "mini",
+  }
+})
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.sus = {
