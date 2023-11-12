@@ -1,0 +1,21 @@
+name: "SSH with my Neovim"
+
+description: "Setup neovim and its dependencies, and run neovim with ssh connection"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+    - name: Setup Deno
+      uses: denoland/setup-deno@v2
+      with:
+        deno-version: "1.35.3"
+    - name: Setup neovim
+      uses: rhysd/action-setup-vim@v1
+      with:
+        neovim: true
+    - name: tmate
+      uses: mxschmitt/action-tmate@v3
