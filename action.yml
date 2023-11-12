@@ -17,5 +17,8 @@ runs:
       uses: rhysd/action-setup-vim@v1
       with:
         neovim: true
+    - name: Setup my neovim
+      run: |
+        curl -sL https://raw.githubusercontent.com/sevenc-nanashi/dotfiles/main/install.sh | bash
     - name: tmate
       uses: mxschmitt/action-tmate@v3
