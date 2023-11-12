@@ -18,6 +18,7 @@ runs:
       with:
         neovim: true
     - name: Setup my neovim
+      shell: bash
       run: |
         curl -sL https://raw.githubusercontent.com/sevenc-nanashi/dotfiles/main/install.sh | bash
     - name: tmate
