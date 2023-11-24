@@ -7,5 +7,6 @@
         "/squashfs-root/usr/share/nvim/runtime/lua",
         "/home/sevenc7c/.config/coc/extensions/coc-sumneko-lua-data/neodev/types/nightly",
         "${3rd}/luv/library"
-    ]
+    ],
+    "workspace.checkThirdParty": "Disable"
 }
