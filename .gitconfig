@@ -41,5 +41,8 @@
 [pull]
 	default = current
 	rebase = true
+	autostash = true
 [http]
 	postBuffer = 524288000
+[rebase]
+	autoStash = true
