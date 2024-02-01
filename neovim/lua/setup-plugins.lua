@@ -120,3 +120,4 @@ require("catppuccin").setup({
   flavour = "latte",
   no_italic = true,
 })
+require("full_visual_line").setup({})
