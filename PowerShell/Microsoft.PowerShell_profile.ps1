@@ -191,3 +191,4 @@ function Invoke-Starship-PreCommand {
 Import-Module posh-git
 Import-Module posh-cargo
 
+ Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m" }

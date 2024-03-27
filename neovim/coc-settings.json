@@ -29,6 +29,12 @@
   "codeLens.position": "eol",
   "scss.lint.unknownAtRules": "ignore",
   "languageserver": {
+    "csharp-ls": {
+      "command": "csharp-ls",
+      "args": [],
+      "filetypes": ["cs"],
+      "rootPatterns": ["*.csproj"]
+    },
     "steep": {
       "command": "steep",
       "args": ["langserver", "--jobs", "2"],
