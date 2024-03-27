@@ -70,6 +70,10 @@ call jetpack#add('4513ECHO/vim-snipewin')
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('lifepillar/vim-colortemplate')
 call jetpack#add('chrisbra/Colorizer')
+call jetpack#add('pwntester/octo.nvim')
+call jetpack#add('lambdalisue/vim-findent')
+call jetpack#add('raimon49/requirements.txt.vim')
+call jetpack#add('HiPhish/nvim-ts-rainbow2')
 
 call jetpack#end()
 
@@ -126,20 +130,12 @@ set laststatus=3
 set number
 set expandtab
 
-set tabstop=2
-set shiftwidth=2
-function! s:set_tab_width(width)
-  exe 'setlocal tabstop=' . a:width
-  exe 'setlocal shiftwidth=' . a:width
-endfunction
-
 function! s:disable_lines_if_readonly() abort
   if &modifiable == 0
     IndentLinesDisable
   endif
 endfunction
 
-autocmd FileType python call s:set_tab_width(4)
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 autocmd FileType * call s:disable_lines_if_readonly()
 autocmd TermOpen * IndentLinesDisable
@@ -299,6 +295,10 @@ function! ReRoot() abort
   endif
 endfunction
 
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
 
 function! Scouter(file, ...)
 let pat = '^\s*$\|^\s*"'
@@ -312,3 +312,9 @@ command! -bar -bang -nargs=? -complete=file Scouter
 \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
 command! -bar -bang -nargs=? -complete=file GScouter
 \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
+augroup findent
+  autocmd!
+  autocmd FileType javascript Findent
+  autocmd FileType json Findent
+  autocmd FileType typescript Findent
+augroup END

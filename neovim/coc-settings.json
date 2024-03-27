@@ -25,6 +25,8 @@
   "solargraph.diagnostics": true,
   "solargraph.formatting": false,
   "typescript.format.enable": false,
+  "codeLens.enable": true,
+  "codeLens.position": "eol",
   "scss.lint.unknownAtRules": "ignore",
   "languageserver": {
     "steep": {
@@ -49,7 +51,8 @@
       "command": "stree",
       "args": ["lsp", "--plugins", "rbs"],
       "filetypes": ["ruby", "rbs"],
-      "rootPatterns": ["Gemfile"]
+      "rootPatterns": ["Gemfile"],
+      "trace.server": "verbose"
     }
   },
   "rust-analyzer.server.extraEnv": {
@@ -58,5 +61,9 @@
   "rust-analyzer.checkOnSave.command": "clippy",
   "snippets.ultisnips.pythonPrompt": false,
   "svelte.ask-to-enable-ts-plugin": false,
-  "svelte.enable-ts-plugin": false
+  "svelte.enable-ts-plugin": false,
+  "perl.p::ls.enable": true,
+  "diagnostic-languageserver.linters": {
+    "yaml": "actionlint"
+  }
 }

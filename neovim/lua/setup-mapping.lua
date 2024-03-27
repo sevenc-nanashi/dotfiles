@@ -1,27 +1,50 @@
 ---@diagnostic disable: undefined-global
 
 local line = require("setup-line")
+local bit = require('bit')
 
 local function switch_color()
-	if vim.g.colo_init == 2 then
-		vim.opt.background = "dark"
-		vim.g.colo_init = 1
-	else
-		vim.opt.background = "light"
-		vim.g.colo_init = 2
-	end
-	vim.cmd.colorscheme("edge")
-	if vim.g.terminal_color_0 then
-		vim.fn["force_16term#change_color"]()
-	end
-	vim.g.terminal_color_15 = "#cccccc"
+  if vim.g.colo_init == 2 then
+    vim.opt.background = "dark"
+    vim.g.colo_init = 1
+  else
+    vim.opt.background = "light"
+    vim.g.colo_init = 2
+  end
+  vim.cmd.colorscheme("edge")
+  if vim.g.terminal_color_0 then
+    vim.fn["force_16term#change_color"]()
+  end
+
+
+  for i, color in ipairs({
+    'Red',
+    'Yellow',
+    'Green',
+    "Cyan",
+    'Blue',
+    'Purple'
+  }) do
+    local current_color = vim.api.nvim_get_hl(0, { name = color }).fg
+    local red = bit.rshift(bit.band(current_color, 0xff0000), 16)
+    local green = bit.rshift(bit.band(current_color, 0x00ff00), 8)
+    local blue = bit.band(current_color, 0x0000ff)
+    local dimmed
+    if vim.o.background == "dark" then
+      dimmed = string.format("#%02x%02x%02x", red / 2 + 128, green / 2 + 128, blue / 2 + 128)
+    else
+      dimmed = string.format("#%02x%02x%02x", red * (2 / 3), green * (2 / 3), blue * (2 / 3))
+    end
+    vim.api.nvim_set_hl(0, 'Rainbow' .. i, { fg = dimmed })
+  end
+  vim.g.terminal_color_15 = "#cccccc"
   line.setup_tint()
 end
 
 if not vim.g.colo_init then
-	vim.g.edge_enable_italic = 0
-	vim.g.edge_disable_italic_comment = 1
-	switch_color()
+  vim.g.edge_enable_italic = 0
+  vim.g.edge_disable_italic_comment = 1
+  switch_color()
 end
 
 vim.keymap.set("", "U", "<C-R>", { noremap = false, silent = false })
@@ -65,10 +88,10 @@ vim.keymap.set("", "<C-K><C-A>", function()
   vim.cmd("Fern " .. vim.fn.fnameescape(root) .. " -drawer -width=40")
 end, { noremap = false, silent = false })
 vim.keymap.set(
-	"",
-	"<C-K><C-S>",
-	'<Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>',
-	{ noremap = false, silent = false }
+  "",
+  "<C-K><C-S>",
+  '<Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>',
+  { noremap = false, silent = false }
 )
 vim.keymap.set("", "<C-K><C-D>", "<Cmd>TroubleToggle<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
@@ -79,25 +102,29 @@ vim.keymap.set("n", "<M-Left>", "<Cmd>bp<CR>", { noremap = false, silent = true 
 vim.keymap.set("n", "<M-Right>", "<Cmd>bn<CR>", { noremap = false, silent = true })
 vim.keymap.set("n", "<C-.>", "<Plug>(coc-codeaction)", { noremap = true, silent = true })
 vim.keymap.set("", "<A-S-F>", function()
-	vim.fn.CocAction("format")
+  vim.fn.CocAction("format")
+  vim.cmd("Findent")
 end, { noremap = false, silent = true })
 vim.keymap.set("n", "<F12>", function()
-	vim.fn.CocActionAsync("jumpDefinition")
+  vim.fn.CocActionAsync("jumpDefinition")
 end, { noremap = true, silent = true })
 vim.keymap.set("i", "<F12>", function()
-	vim.fn.CocActionAsync("jumpDefinition")
+  vim.fn.CocActionAsync("jumpDefinition")
 end, { noremap = true, silent = true })
 vim.keymap.set("n", "<F2>", function()
-	vim.fn.CocActionAsync("rename")
+  vim.fn.CocActionAsync("rename")
 end, { noremap = true, silent = true })
 vim.keymap.set("i", "<F2>", function()
-	vim.fn.CocActionAsync("rename")
+  vim.fn.CocActionAsync("rename")
 end, { noremap = true, silent = true })
 vim.keymap.set("n", "<M-.>", function()
-	vim.fn.CocActionAsync("doHover")
+  vim.fn.CocActionAsync("doHover")
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "K", function()
+  vim.fn.CocActionAsync("doHover")
 end, { noremap = true, silent = true })
 vim.keymap.set("i", "<M-.>", function()
-	vim.fn.CocActionAsync("doHover")
+  vim.fn.CocActionAsync("doHover")
 end, { noremap = true, silent = true })
 vim.keymap.set("", "<C-D>", "<Cmd>call CocAction('diagnosticNext')<CR>", { noremap = false, silent = true })
 vim.keymap.set("i", "<C-D>", "<Cmd>call CocAction('diagnosticNext')<CR>", { noremap = false, silent = true })

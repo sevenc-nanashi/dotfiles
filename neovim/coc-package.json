@@ -15,7 +15,7 @@
     "@yaegassy/coc-volar": ">=0.25.9",
     "coc-yaml": ">=1.9.0",
     "coc-ruby-syntax-tree": "https://github.com/yaegassy/coc-ruby-syntax-tree",
-    "@yaegassy/coc-tailwindcss3": ">=0.4.5",
+    "@yaegassy/coc-tailwindcss3": ">=0.5.7",
     "coc-powershell": ">=0.1.4",
     "coc-snippets": ">=3.1.4",
     "coc-toml": ">=1.2.5",
@@ -27,7 +27,12 @@
     "coc-sh": ">=1.1.1",
     "coc-java": ">=1.14.1",
     "coc-kotlin": ">=0.1.0",
-    "coc-groovy": ">=1.3.0"
+    "coc-groovy": ">=1.3.0",
+    "coc-perl": ">=2.1.2",
+    "coc-typos": ">=0.3.2",
+    "coc-biome": ">=1.4.1",
+    "coc-cmake": ">=0.2.1",
+    "coc-diagnostic": ">=0.24.1"
   },
   "disabled": [],
   "locked": [],

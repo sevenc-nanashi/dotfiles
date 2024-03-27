@@ -24,6 +24,7 @@
 [gpg]
 	program = gpg
 [commit]
+        verbose = true
 	gpgsign = false
 [alias]
 	sl = !"git log --pretty=\"%C(yellow)%h%C(brightyellow)) %C(brightcyan)%an%C(cyan) %C(cyan)- %C(reset)%s%C(brightgreen)%d\""

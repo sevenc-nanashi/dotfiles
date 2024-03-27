@@ -115,6 +115,19 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  rainbow = {
+    enable = true,
+    query = 'rainbow-parens',
+    strategy = require('ts-rainbow').strategy.global,
+    hlgroups = {
+      'Rainbow1',
+      'Rainbow2',
+      'Rainbow3',
+      'Rainbow4',
+      'Rainbow5',
+      'Rainbow6',
+    }
+  }
 })
 require("catppuccin").setup({
   flavour = "latte",

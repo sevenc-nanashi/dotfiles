@@ -126,6 +126,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+local first_init = true
 local function setup_tint()
   if vim.o.background == "dark" then
     require("tint").setup({
@@ -135,6 +136,11 @@ local function setup_tint()
     require("tint").setup({
       tint = 80,
     })
+  end
+  if first_init then
+    first_init = false
+  else
+    require("tint").refresh()
   end
 end
 
