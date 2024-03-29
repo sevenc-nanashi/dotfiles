@@ -33,7 +33,8 @@ local function switch_color()
     if vim.o.background == "dark" then
       dimmed = string.format("#%02x%02x%02x", red / 2 + 128, green / 2 + 128, blue / 2 + 128)
     else
-      dimmed = string.format("#%02x%02x%02x", red * (2 / 3), green * (2 / 3), blue * (2 / 3))
+      local ratio = 3 / 4
+      dimmed = string.format("#%02x%02x%02x", red * ratio, green * ratio, blue * ratio)
     end
     vim.api.nvim_set_hl(0, 'Rainbow' .. i, { fg = dimmed })
   end

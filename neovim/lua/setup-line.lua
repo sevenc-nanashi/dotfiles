@@ -1,3 +1,4 @@
+local devicons = require("nvim-web-devicons")
 require("lualine").setup({
   options = {
     component_separators = { left = '|', right = '|' },
@@ -40,16 +41,42 @@ require("lualine").setup({
         return ret
       end
     end, "g:coc_status" },
-    lualine_x = {
+    lualine_x = {},
+    lualine_y = {
       function()
         return Project.root
       end,
       "encoding",
-      "fileformat",
-      "filetype",
+      function()
+        local format = vim.bo.fileformat
+        if format == "unix" then
+          return "LF"
+        elseif format == "dos" then
+          return "CRLF"
+        elseif format == "mac" then
+          return "CR"
+        else
+          return format
+        end
+      end,
+      function()
+        local ft = vim.bo.filetype
+        local icon
+        if ft == "fern" then
+          icon = "\u{e5fe}"
+        elseif ft == "toggleterm" then
+          icon = "\u{ea85}"
+        else
+          icon = devicons.get_icon_by_filetype(ft)
+        end
+        if #(vim.api.nvim_get_runtime_file("parser/" .. ft .. ".so", false)) > 0 then
+          local captalized = ft:gsub("^%l", string.upper)
+          return string.format("%%#DevIcon%s#%s %s(TS)", captalized, icon or "-", ft)
+        end
+        return string.format("%s %s", icon or "-", ft)
+      end,
     },
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
+    lualine_z = {}
   },
 })
 

@@ -57,7 +57,6 @@
       "command": "stree",
       "args": ["lsp", "--plugins", "rbs"],
       "filetypes": ["ruby", "rbs"],
-      "rootPatterns": ["Gemfile"],
       "trace.server": "verbose"
     }
   },
