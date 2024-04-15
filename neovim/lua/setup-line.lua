@@ -127,7 +127,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
     if root == Project.root and vim.fn.getcwd() == Project.root then
       if color_loaded then
-        print("Color loaded, fg: " .. Project.color.fg .. ", bg: " .. Project.color.bg)
+        vim.notify("Color loaded, fg: " .. Project.color.fg .. ", bg: " .. Project.color.bg)
       end
       return
     end
@@ -137,7 +137,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     Project.root = root
     vim.opt.titlestring = name .. " - %{expand('%:t')}"
     if color_loaded then
-      print(
+      vim.notify(
         "Root changed to "
         .. root
         .. " (color loaded, fg: "
@@ -147,7 +147,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
         .. ")"
       )
     else
-      print("Root changed to " .. root)
+      vim.notify("Root changed to " .. root)
     end
     require("lualine").refresh()
   end,

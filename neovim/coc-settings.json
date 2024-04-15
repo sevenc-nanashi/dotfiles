@@ -53,12 +53,12 @@
       "filetypes": ["ruby"],
       "rootPatterns": ["Gemfile"]
     },
-    "syntax_tree": {
-      "command": "stree",
-      "args": ["lsp", "--plugins", "rbs"],
-      "filetypes": ["ruby", "rbs"],
-      "trace.server": "verbose"
-    }
+    "rubocop": {
+      "command": "rubocop",
+      "args": ["--lsp"],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile"]
+    },
   },
   "rust-analyzer.server.extraEnv": {
     "FFMPEG_DIR": "C:/tools/ffmpeg"

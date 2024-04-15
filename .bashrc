@@ -301,6 +301,8 @@ if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
 
+set -o vi
+
 PATH="/home/sevenc7c/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/sevenc7c/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/sevenc7c/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;

@@ -75,6 +75,8 @@ call jetpack#add('lambdalisue/vim-findent')
 call jetpack#add('raimon49/requirements.txt.vim')
 call jetpack#add('HiPhish/nvim-ts-rainbow2')
 
+call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
+
 call jetpack#end()
 
 set termguicolors

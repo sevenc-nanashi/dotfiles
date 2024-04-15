@@ -65,6 +65,7 @@ require("dial.config").augends:register_group({
       word = true,
       cyclic = true,
     }),
+    augend.semver.new(),
     augend.case.new({
       types = { "snake_case", "camelCase", "kebab-case", "PascalCase" },
       cyclic = true,
