@@ -13,9 +13,6 @@ require("toggleterm").setup({
   end,
   cmd = cmd,
 })
-require("trouble").setup({
-  mode = "coc_workspace_diagnostics",
-})
 require("nvim-ts-autotag").setup()
 require("litee.lib").setup()
 require("hop").setup()
