@@ -14,35 +14,57 @@ require("lualine").setup({
       end
       return ""
     end },
-    lualine_c = { function()
-      local file = vim.fn.expand("%:p")
-      local modified = vim.bo.modified
-      if file:match("^term://") then
-        local pwd = file:match("^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
-        return "\u{e5fe} " .. pwd
-      elseif file:match("^fern://") then
-        local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
-        return "\u{e5fe} " .. pwd
-      elseif vim.bo.modifiable == false then
-        return "\u{f023} " .. file
-      elseif file == "" then
-        return "\u{f15b} -"
-      elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
-        local ret = "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
-        if modified then
-          ret = ret .. " \u{f03eb}"
+    lualine_c = {
+      function()
+        local f = require 'nvim-treesitter'.statusline({
+          indicator_size = 300,
+          type_patterns = { "class", "function", "method", "interface", "type_spec", "table", "for_statement", "for_in_statement" }
+        })
+        local context = string.format("%s", f) -- convert to string, it may be a empty ts node
+
+        if context == "vim.NIL" then
+          return ""
         end
-        return ret
-      else
-        local ret = "\u{f15b} " .. file
-        if modified then
-          ret = ret .. " \u{f03eb}"
-        end
-        return ret
+        return context
       end
-    end, "g:coc_status" },
-    lualine_x = {},
+    },
+    lualine_x = {
+      "g:coc_status",
+      function()
+        local reg = vim.fn.reg_recording()
+        if reg == "" then return "" end
+        return "Recording: " .. reg
+      end
+    },
     lualine_y = {
+
+      function()
+        local file = vim.fn.expand("%:p")
+        local modified = vim.bo.modified
+        if file:match("^term://") then
+          local pwd = file:match("^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
+          return "\u{e5fe} " .. pwd
+        elseif file:match("^fern://") then
+          local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
+          return "\u{e5fe} " .. pwd
+        elseif vim.bo.modifiable == false then
+          return "\u{f023} " .. file
+        elseif file == "" then
+          return "\u{f15b} -"
+        elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
+          local ret = "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
+          if modified then
+            ret = ret .. " \u{f03eb}"
+          end
+          return ret
+        else
+          local ret = "\u{f15b} " .. file
+          if modified then
+            ret = ret .. " \u{f03eb}"
+          end
+          return ret
+        end
+      end,
       function()
         return Project.root
       end,

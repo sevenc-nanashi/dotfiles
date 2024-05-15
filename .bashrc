@@ -133,9 +133,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
 
-    export PATH=$HOME/.rbenv/bin:$PATH
-    eval "$(rbenv init -)"
-
     export DENO_INSTALL="/home/sevenc7c/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
 
@@ -163,6 +160,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     setxkbmap -model jp109 -layout jp
 
     alias gotop='/home/sevenc7c/gotop/gotop'
+    source "$HOME/.rye/env"
 
     if type -t ble-face >/dev/null; then
       ble-face argument_error=fg=red,bg=225
@@ -233,6 +231,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     alias py='python3'
     alias rb='ruby'
+
+    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+    export PATH="$PATH:$HOME/.rvm/bin"
+    source $HOME/.rvm/scripts/rvm
 fi
 
 function nvim-qt() {

@@ -25,15 +25,13 @@ require("hop").setup()
 -- 		redo = "U",
 -- 	},
 -- })
-local ignore_patterns = { "%.git", "node_modules", "%.venv", "__pycache__", "dist", "build", "target", "out" }
 require("telescope").setup({
   pickers = {
     find_files = {
-      file_ignore_patterns = ignore_patterns,
       hidden = true,
     },
     live_grep = {
-      file_ignore_patterns = { "package-lock%.json", ".*%.lock", ".*%.min.js", unpack(ignore_patterns) },
+      file_ignore_patterns = { "package-lock%.json", ".*%.lock", ".*%.min.js" },
       hidden = true,
     },
   },
