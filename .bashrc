@@ -135,6 +135,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     export DENO_INSTALL="/home/sevenc7c/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
+    eval "$(deno completions bash)"
 
     export GOPATH=$HOME/go
     export GOBIN=$GOPATH/bin

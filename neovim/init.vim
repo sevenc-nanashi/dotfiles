@@ -71,7 +71,7 @@ call jetpack#add('chrisbra/Colorizer')
 call jetpack#add('pwntester/octo.nvim')
 call jetpack#add('lambdalisue/vim-findent')
 call jetpack#add('raimon49/requirements.txt.vim')
-call jetpack#add('HiPhish/nvim-ts-rainbow2')
+call jetpack#add('HiPhish/rainbow-delimiters.nvim')
 
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', {'do': 'yarn install --frozen-lockfile'})
