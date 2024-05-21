@@ -141,6 +141,14 @@ require('rainbow-delimiters.setup').setup {
     'Rainbow6',
   },
 }
+require("ibl").setup { indent = { highlight = {
+  'RainbowDim1',
+  'RainbowDim2',
+  'RainbowDim3',
+  'RainbowDim4',
+  'RainbowDim5',
+  'RainbowDim6',
+} } }
 require("catppuccin").setup({
   flavour = "latte",
   no_italic = true,

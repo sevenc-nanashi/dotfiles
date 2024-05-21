@@ -17,7 +17,15 @@ local function switch_color()
   end
 
 
-  for i, color in ipairs({
+  vim.g.terminal_color_15 = "#cccccc"
+  line.setup_tint()
+end
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  for i, color_name in ipairs({
     'Red',
     'Yellow',
     'Green',
@@ -25,22 +33,24 @@ local function switch_color()
     'Blue',
     'Purple'
   }) do
-    local current_color = vim.api.nvim_get_hl(0, { name = color }).fg
+    local current_color = vim.api.nvim_get_hl(0, { name = color_name }).fg
     local red = bit.rshift(bit.band(current_color, 0xff0000), 16)
     local green = bit.rshift(bit.band(current_color, 0x00ff00), 8)
     local blue = bit.band(current_color, 0x0000ff)
-    local dimmed
+
+    local color, dimmed
     if vim.o.background == "dark" then
-      dimmed = string.format("#%02x%02x%02x", red / 2 + 128, green / 2 + 128, blue / 2 + 128)
+      color = string.format("#%02x%02x%02x", red / 2 + 128, green / 2 + 128, blue / 2 + 128)
+      dimmed = string.format("#%02x%02x%02x", red / 4 + 64, green / 4 + 64, blue / 4 + 64)
     else
       local ratio = 3 / 4
-      dimmed = string.format("#%02x%02x%02x", red * ratio, green * ratio, blue * ratio)
+      color = string.format("#%02x%02x%02x", red * ratio, green * ratio, blue * ratio)
+      dimmed = string.format("#%02x%02x%02x", red / 4 + 192, green / 4 + 192, blue / 4 + 192)
     end
-    vim.api.nvim_set_hl(0, 'Rainbow' .. i, { fg = dimmed })
+    vim.api.nvim_set_hl(0, 'Rainbow' .. i, { fg = color })
+    vim.api.nvim_set_hl(0, 'RainbowDim' .. i, { fg = dimmed })
   end
-  vim.g.terminal_color_15 = "#cccccc"
-  line.setup_tint()
-end
+end)
 
 if not vim.g.colo_init then
   vim.g.edge_enable_italic = 0
