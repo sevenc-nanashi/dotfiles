@@ -1,4 +1,7 @@
-﻿if (Test-Path alias:iex) {
+﻿if ($PSVersionTable.PSVersion.Major -ne 7) {
+  Exit
+}
+if (Test-Path alias:iex) {
   Remove-Item alias:ni -Force
   Remove-Item alias:iex -Force
   Remove-Item alias:ri -Force

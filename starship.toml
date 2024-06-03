@@ -1,5 +1,5 @@
 command_timeout = 10000
-format = """$all$fill$time$line_break$character"""
+format = """$all$line_break$character"""
 
 [aws]
 symbol = "  "
@@ -143,7 +143,6 @@ deleted = "X"
 
 [time]
 disabled = false
-format = "[\uf43a $time ]($style)"
 
 [fill]
 symbol = " "

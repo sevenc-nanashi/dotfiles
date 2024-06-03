@@ -9,7 +9,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	autocrlf = input
-  editor = nvim
   filemode = false
 	symlinks = true
 	whitespace = cr-at-eol
