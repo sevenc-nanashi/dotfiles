@@ -5,6 +5,13 @@ if vim.g.terminal then
 else
   cmd = vim.o.shell
 end
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.glsl", "*.vert", "*.frag", "*.geom", "*.comp" },
+  command = "setlocal filetype=glslx",
+})
+vim.treesitter.language.register("glsl", "glslx")
+
 vim.g.snipewin_label_chars = "ASDFGHJKLQWERTYUIOPZXCVBNM"
 require("toggleterm").setup({
   start_in_insert = false,
@@ -69,11 +76,11 @@ require("dial.config").augends:register_group({
 })
 require("gitsigns").setup({
   signs = {
-    add = { hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-    change = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+    add = { text = "+" },
+    change = { text = "~" },
+    delete = { text = "_" },
+    topdelete = { text = "‾" },
+    changedelete = { text = "~" },
   },
 })
 require("noice").setup({
@@ -106,22 +113,21 @@ parser_config.rbs = {
   },
   filetype = "rbs"
 }
+parser_config.crystal = {
+  install_info = {
+    url = "https://github.com/crystal-lang-tools/tree-sitter",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "crystal"
+}
 require("nvim-treesitter.configs").setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-  rainbow = {
+  matchup = {
     enable = true,
-    query = 'rainbow-parens',
-    hlgroups = {
-      'Rainbow1',
-      'Rainbow2',
-      'Rainbow3',
-      'Rainbow4',
-      'Rainbow5',
-      'Rainbow6',
-    }
   }
 })
 local rainbow_delimiters = require('rainbow-delimiters')
@@ -148,9 +154,7 @@ require("ibl").setup { indent = { highlight = {
   'RainbowDim4',
   'RainbowDim5',
   'RainbowDim6',
-} } }
-require("catppuccin").setup({
-  flavour = "latte",
-  no_italic = true,
-})
+},
+  char = "|"
+} }
 require("full_visual_line").setup({})

@@ -88,6 +88,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+alias ls="eza"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -232,6 +233,14 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     alias py='python3'
     alias rb='ruby'
+
+    alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
+
+    export PATH="$HOME/.crenv/bin:$PATH"
+    eval "$(crenv init -)"
 
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
     export PATH="$PATH:$HOME/.rvm/bin"

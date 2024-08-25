@@ -15,7 +15,25 @@ local function switch_color()
   if vim.g.terminal_color_0 then
     vim.fn["force_16term#change_color"]()
   end
+  if vim.o.background == "light" then
+    vim.api.nvim_set_hl(0, "Normal", { bg = "#f8feff" })
+  end
 
+  local yellow = vim.api.nvim_get_hl(0, { name = "Yellow" }).fg
+  local yellow_rgb = {
+    bit.rshift(bit.band(yellow, 0xff0000), 16),
+    bit.rshift(bit.band(yellow, 0x00ff00), 8),
+    bit.band(yellow, 0x0000ff)
+  }
+  local brighter_yellow;
+  if vim.o.background == "light" then
+    brighter_yellow = string.format("#%02x%02x%02x", yellow_rgb[1] * 0.75 + 64, yellow_rgb[2] * 0.75 + 64,
+      yellow_rgb[3] * 0.75 + 64)
+  else
+    brighter_yellow = string.format("#%02x%02x%02x", yellow_rgb[1], yellow_rgb[2], yellow_rgb[3])
+  end
+  vim.api.nvim_set_hl(0, "ShotFGraph", { fg = brighter_yellow, bold = true, underline = true })
+  vim.api.nvim_set_hl(0, "ShotFBlank", { fg = brighter_yellow, underline = true })
 
   vim.g.terminal_color_15 = "#cccccc"
   line.setup_tint()
@@ -40,7 +58,9 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 
     local color, dimmed
     if vim.o.background == "dark" then
-      color = string.format("#%02x%02x%02x", red / 2 + 128, green / 2 + 128, blue / 2 + 128)
+      local ratio = 0.9
+      local shift = 32
+      color = string.format("#%02x%02x%02x", red * ratio + shift, green * ratio + shift, blue * ratio + shift)
       dimmed = string.format("#%02x%02x%02x", red / 4 + 64, green / 4 + 64, blue / 4 + 64)
     else
       local ratio = 3 / 4
@@ -69,6 +89,7 @@ vim.keymap.set("", "<Space>G", "<Cmd>Telescope live_grep<CR>", { noremap = false
 vim.keymap.set("", "<Space>h", "<Cmd>Telescope help_tags<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>gf", "<Cmd>Telescope git_file hidden=trues<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>gb", "<Cmd>Telescope git_branches<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>gc", "<Cmd>Telescope git_commits<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<space>gs", "<Cmd>Telescope git_status<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>ss", "<Cmd>Telescope coc document_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sS", "<Cmd>Telescope coc workspace_symbols<CR>", { noremap = false, silent = false })
@@ -131,8 +152,35 @@ end, { noremap = true, silent = true })
 vim.keymap.set("n", "<M-.>", function()
   vim.fn.CocActionAsync("doHover")
 end, { noremap = true, silent = true })
+-- nnoremap <silent> K :call ShowDocumentation()<CR>
+--
+-- function! ShowDocumentation()
+--   if (index(['vim','help'], &filetype) >= 0)
+--     execute 'h '.expand('<cword>')
+--   elseif CocAction('hasProvider', 'hover')
+--     if coc#float#has_float()
+--       call coc#float#jump()
+--       nnoremap <buffer> q <Cmd>close<CR>
+--     else
+--       call CocActionAsync('doHover')
+--     endif
+--   else
+--     call feedkeys('K', 'in')
+--   endif
+-- endfunction
 vim.keymap.set("n", "K", function()
-  vim.fn.CocActionAsync("doHover")
+  if vim.bo.filetype == "vim" or vim.bo.filetype == "help" then
+    vim.cmd("h " .. vim.fn.expand("<cword>"))
+  elseif vim.fn.CocAction("hasProvider", "hover") then
+    vim.fn.CocActionAsync("doHover")
+  else
+    vim.fn.feedkeys("K", "in")
+  end
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<C-K>", function()
+  if vim.fn["coc#float#has_float"]() == 1 then
+    vim.fn["coc#float#jump"]()
+  end
 end, { noremap = true, silent = true })
 vim.keymap.set("i", "<M-.>", function()
   vim.fn.CocActionAsync("doHover")

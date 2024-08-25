@@ -6,11 +6,9 @@ call jetpack#begin($HOME . '/.cache/jetpack')
 call jetpack#add('tani/vim-jetpack')
 call jetpack#add('neoclide/coc.nvim', { 'merged': 0, 'branch': 'release', 'build': 'yarn install --frozen-lockfile' })
 call jetpack#add('nvim-lualine/lualine.nvim')
-call jetpack#add('akinsho/bufferline.nvim')
 call jetpack#add('nvim-tree/nvim-web-devicons')
 call jetpack#add('ryanoasis/vim-devicons')
 call jetpack#add('sainnhe/edge')
-call jetpack#add('chriskempson/base16-vim')
 call jetpack#add('sevenc-nanashi/toggleterm.nvim')
 call jetpack#add('lambdalisue/fern.vim')
 call jetpack#add('lambdalisue/fern-renderer-nerdfont.vim')
@@ -18,17 +16,15 @@ call jetpack#add('lambdalisue/nerdfont.vim')
 call jetpack#add('lambdalisue/fern-hijack.vim')
 call jetpack#add('lambdalisue/fern-git-status.vim')
 call jetpack#add('lambdalisue/fern-mapping-git.vim')
-call jetpack#add('vim-scripts/dbext.vim')
 call jetpack#add('github/copilot.vim')
 call jetpack#add('mhinz/vim-startify')
 call jetpack#add('0xAdk/full_visual_line.nvim')
-call jetpack#add('kyazdani42/nvim-web-devicons')
 call jetpack#add('vim-denops/denops.vim')
 call jetpack#add('windwp/nvim-ts-autotag')
 call jetpack#add('lambdalisue/glyph-palette.vim')
-call jetpack#add('tpope/vim-commentary')
+call jetpack#add('tyru/caw.vim')
+call jetpack#add('Shougo/context_filetype.vim')
 call jetpack#add('Raimondi/delimitMate')
-call jetpack#add('LeafCage/vimhelpgenerator')
 call jetpack#add('sevenc-nanashi/rootfinder.vim')
 call jetpack#add('gpanders/editorconfig.nvim')
 call jetpack#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
@@ -39,12 +35,10 @@ call jetpack#add('tpope/vim-fugitive')
 call jetpack#add('tpope/vim-endwise')
 call jetpack#add('alvan/vim-closetag')
 call jetpack#add('tyru/open-browser.vim')
-call jetpack#add('jason0x43/vim-wildgitignore')
-call jetpack#add('Yggdroot/indentLine')
 call jetpack#add('ldelossa/litee.nvim')
 call jetpack#add('tyru/capture.vim')
 call jetpack#add('ntpeters/vim-better-whitespace')
-call jetpack#add('tpope/vim-surround')
+call jetpack#add('machakann/vim-sandwich')
 call jetpack#add('nvim-lua/plenary.nvim')
 call jetpack#add('nvim-telescope/telescope.nvim')
 call jetpack#add('phaazon/hop.nvim')
@@ -52,29 +46,21 @@ call jetpack#add('sevenc-nanashi/force_16term.nvim')
 call jetpack#add('kana/vim-submode')
 call jetpack#add('fannheyward/telescope-coc.nvim')
 call jetpack#add('monaqa/dial.nvim')
-call jetpack#add('lambdalisue/mr.vim')
 call jetpack#add('delphinus/cellwidths.nvim')
-call jetpack#add('kkharji/sqlite.lua')
-call jetpack#add('Shougo/vimproc.vim', {'build' : 'make'})
-call jetpack#add('folke/noice.nvim')
 call jetpack#add('rcarriga/nvim-notify')
 call jetpack#add('MunifTanjim/nui.nvim')
-call jetpack#add('Allianaab2m/vimskey', { 'branch': 'refactor'})
 call jetpack#add('sevenc-nanashi/tint.nvim', { 'branch': 'patch-1'})
-call jetpack#add('catppuccin/nvim')
-call jetpack#add('hrsh7th/vim-eft')
-call jetpack#add('preservim/vim-colors-pencil')
+call jetpack#add('sevenc-nanashi/vim-shot-f')
 call jetpack#add('4513ECHO/vim-snipewin')
-call jetpack#add('lifepillar/vim-colortemplate')
-call jetpack#add('chrisbra/Colorizer')
-call jetpack#add('pwntester/octo.nvim')
 call jetpack#add('lambdalisue/vim-findent')
-call jetpack#add('raimon49/requirements.txt.vim')
 call jetpack#add('HiPhish/rainbow-delimiters.nvim')
 call jetpack#add('lukas-reineke/indent-blankline.nvim')
+call jetpack#add('andymass/vim-matchup')
+call jetpack#add('folke/noice.nvim')
 
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', {'do': 'yarn install --frozen-lockfile'})
+call jetpack#add('yaegassy/coc-typeprof', {'do': 'yarn install --frozen-lockfile'})
 
 call jetpack#end()
 
@@ -85,25 +71,10 @@ let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
 let g:snipewin_label_font = 'asciian_inverted'
-
-" eft
-nmap ; <Plug>(eft-repeat)
-xmap ; <Plug>(eft-repeat)
-omap ; <Plug>(eft-repeat)
-
-nmap f <Plug>(eft-f)
-xmap f <Plug>(eft-f)
-omap f <Plug>(eft-f)
-nmap F <Plug>(eft-F)
-xmap F <Plug>(eft-F)
-omap F <Plug>(eft-F)
-
-nmap t <Plug>(eft-t)
-xmap t <Plug>(eft-t)
-omap t <Plug>(eft-t)
-nmap T <Plug>(eft-T)
-xmap T <Plug>(eft-T)
-omap T <Plug>(eft-T)
+let g:shot_f_decrement_count_key = "\<Left>"
+let g:shot_f_increment_count_key = "\<Right>"
+let g:shot_f_reverse = 1
+runtime macros/sandwich/keymap/surround.vim
 
 filetype plugin indent on
 syntax enable
@@ -131,15 +102,7 @@ set laststatus=3
 set number
 set expandtab
 
-function! s:disable_lines_if_readonly() abort
-  if &modifiable == 0
-    IndentLinesDisable
-  endif
-endfunction
-
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
-autocmd FileType * call s:disable_lines_if_readonly()
-autocmd TermOpen * IndentLinesDisable
 autocmd TermOpen * DisableWhitespace
 " autocmd BufNew *term://* PinBuffer!
 
@@ -319,3 +282,5 @@ augroup findent
   autocmd FileType json Findent
   autocmd FileType typescript Findent
 augroup END
+
+let g:tcomment#filetype#guess = { -> context_filetype#get().filetype }
