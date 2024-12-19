@@ -105,14 +105,6 @@ parser_config.sus = {
   },
   filetype = "sus"
 }
-parser_config.rbs = {
-  install_info = {
-    url = "https://github.com/apexatoll/tree-sitter-rbs.git",
-    files = { "src/parser.c" },
-    branch = "main",
-  },
-  filetype = "rbs"
-}
 parser_config.crystal = {
   install_info = {
     url = "https://github.com/crystal-lang-tools/tree-sitter",

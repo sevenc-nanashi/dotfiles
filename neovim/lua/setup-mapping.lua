@@ -91,6 +91,7 @@ vim.keymap.set("", "<Space>gf", "<Cmd>Telescope git_file hidden=trues<CR>", { no
 vim.keymap.set("", "<Space>gb", "<Cmd>Telescope git_branches<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>gc", "<Cmd>Telescope git_commits<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<space>gs", "<Cmd>Telescope git_status<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<space>gS", "<Cmd>Telescope git_stash<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>ss", "<Cmd>Telescope coc document_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sS", "<Cmd>Telescope coc workspace_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sd", "<Cmd>Telescope coc document_diagnostics<CR>", { noremap = false, silent = false })

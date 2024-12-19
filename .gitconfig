@@ -13,6 +13,7 @@
 	symlinks = true
 	whitespace = cr-at-eol
 	safecrlf = false
+	quotepath = false
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

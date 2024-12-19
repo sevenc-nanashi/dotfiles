@@ -130,10 +130,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     eval "$(starship init bash)"
 
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-
     export DENO_INSTALL="/home/sevenc7c/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
     eval "$(deno completions bash)"
@@ -155,7 +151,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export BUN_INSTALL="$HOME/.bun"
     export PATH=$BUN_INSTALL/bin:$PATH
 
-    eval $(thefuck --alias f)
+    for bcfile in ~/.bash_completion.d/* ; do
+      . $bcfile
+    done
+
     eval "$(github-copilot-cli alias -- "$0")"
     EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
@@ -163,6 +162,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     alias gotop='/home/sevenc7c/gotop/gotop'
     source "$HOME/.rye/env"
+
+    if [ -f "./.node-version" ]; then
+      nvm use "$(cat ./.node-version)"
+    fi
 
     if type -t ble-face >/dev/null; then
       ble-face argument_error=fg=red,bg=225
@@ -241,6 +244,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     export PATH="$HOME/.crenv/bin:$PATH"
     eval "$(crenv init -)"
+    eval "$(pay-respects bash --alias --nocnf)"
 
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
     export PATH="$PATH:$HOME/.rvm/bin"
