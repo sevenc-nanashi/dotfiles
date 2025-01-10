@@ -1,7 +1,11 @@
+### Added by Codeium. These lines cannot be automatically removed if modified
+if command -v termium > /dev/null 2>&1; then
+  eval "$(termium shell-hook show pre)"
+fi
+### End of Codeium integration
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -118,9 +122,10 @@ if ! shopt -oq posix; then
 fi
 
 if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
-    function LANG_SETUP_LOADED() {
-        echo "LANG_SETUP_LOADED"
-    }
+    # function LANG_SETUP_LOADED() {
+    #     echo "LANG_SETUP_LOADED"
+    # }
+    alias envcache="/home/sevenc7c/.cargo/bin/envcache"
     export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 
     . "$HOME/.cargo/env"
@@ -145,8 +150,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export PATH=$PATH:$HOME/.local/bin
     export PATH=$PATH:$HOME/.local/opt/gradle/bin
 
-    alias npr='npm run'
-
     # bun
     export BUN_INSTALL="$HOME/.bun"
     export PATH=$BUN_INSTALL/bin:$PATH
@@ -155,13 +158,12 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
       . $bcfile
     done
 
-    eval "$(github-copilot-cli alias -- "$0")"
-    EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+    eval "$(envcache github-copilot-cli alias -- "$0")"
+    # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
-    setxkbmap -model jp109 -layout jp
+    # setxkbmap -model jp109 -layout jp
 
     alias gotop='/home/sevenc7c/gotop/gotop'
-    source "$HOME/.rye/env"
 
     if [ -f "./.node-version" ]; then
       nvm use "$(cat ./.node-version)"
@@ -324,3 +326,9 @@ PERL5LIB="/home/sevenc7c/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/sevenc7c/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/sevenc7c/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/sevenc7c/perl5"; export PERL_MM_OPT;
+
+### Added by Codeium. These lines cannot be automatically removed if modified
+if command -v termium > /dev/null 2>&1; then
+  eval "$(termium shell-hook show post)"
+fi
+### End of Codeium integration

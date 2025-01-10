@@ -8,11 +8,11 @@ runs:
     - name: Setup NodeJS
       uses: actions/setup-node@v3
       with:
-        node-version: "18"
+        node-version: "22"
     - name: Setup Deno
       uses: denoland/setup-deno@v1
       with:
-        deno-version: "1.35.3"
+        deno-version: "2.x"
     - name: Setup neovim
       uses: rhysd/action-setup-vim@v1
       with:
