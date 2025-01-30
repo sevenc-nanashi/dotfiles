@@ -32,8 +32,8 @@ local function switch_color()
   else
     brighter_yellow = string.format("#%02x%02x%02x", yellow_rgb[1], yellow_rgb[2], yellow_rgb[3])
   end
-  vim.api.nvim_set_hl(0, "ShotFGraph", { fg = brighter_yellow, bold = true, underline = true })
-  vim.api.nvim_set_hl(0, "ShotFBlank", { fg = brighter_yellow, underline = true })
+  vim.api.nvim_set_hl(0, 'QuickScopePrimary', { bold = true, underline = true, fg = brighter_yellow })
+  vim.api.nvim_set_hl(0, 'QuickScopeSecondary', { underline = true, fg = brighter_yellow })
 
   vim.g.terminal_color_15 = "#cccccc"
   line.setup_tint()

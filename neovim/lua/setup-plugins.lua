@@ -13,6 +13,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.treesitter.language.register("glsl", "glslx")
 
 vim.g.snipewin_label_chars = "ASDFGHJKLQWERTYUIOPZXCVBNM"
+
+vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+
 require("toggleterm").setup({
   start_in_insert = false,
   on_open = function(term)

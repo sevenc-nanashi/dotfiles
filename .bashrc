@@ -1,6 +1,8 @@
-### Added by Codeium. These lines cannot be automatically removed if modified
-if command -v termium > /dev/null 2>&1; then
-  eval "$(termium shell-hook show pre)"
+if [ -z "$DEMO" ]; then
+  ### Added by Codeium. These lines cannot be automatically removed if modified
+  if command -v termium > /dev/null 2>&1; then
+    eval "$(termium shell-hook show pre)"
+  fi
 fi
 ### End of Codeium integration
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -133,7 +135,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    eval "$(starship init bash)"
+    [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 
     export DENO_INSTALL="/home/sevenc7c/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
@@ -159,6 +161,9 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     done
 
     eval "$(envcache github-copilot-cli alias -- "$0")"
+    eval "$(envcache pnpm completion bash)"
+    eval "$(envcache npm completion)"
+    eval "$(envcache nr --completion)"
     # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
     # setxkbmap -model jp109 -layout jp
@@ -248,6 +253,8 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     eval "$(crenv init -)"
     eval "$(pay-respects bash --alias --nocnf)"
 
+    EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
     export PATH="$PATH:$HOME/.rvm/bin"
     source $HOME/.rvm/scripts/rvm
@@ -327,8 +334,10 @@ PERL_LOCAL_LIB_ROOT="/home/sevenc7c/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LI
 PERL_MB_OPT="--install_base \"/home/sevenc7c/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/sevenc7c/perl5"; export PERL_MM_OPT;
 
-### Added by Codeium. These lines cannot be automatically removed if modified
-if command -v termium > /dev/null 2>&1; then
-  eval "$(termium shell-hook show post)"
+if [ -z "$DEMO" ]; then
+  ### Added by Codeium. These lines cannot be automatically removed if modified
+  if command -v termium > /dev/null 2>&1; then
+    eval "$(termium shell-hook show post)"
+  fi
+  ### End of Codeium integration
 fi
-### End of Codeium integration

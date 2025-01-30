@@ -51,7 +51,7 @@ call jetpack#add('delphinus/cellwidths.nvim')
 call jetpack#add('rcarriga/nvim-notify')
 call jetpack#add('MunifTanjim/nui.nvim')
 call jetpack#add('sevenc-nanashi/tint.nvim', { 'branch': 'patch-1'})
-call jetpack#add('sevenc-nanashi/vim-shot-f')
+call jetpack#add('unblevable/quick-scope')
 call jetpack#add('4513ECHO/vim-snipewin')
 call jetpack#add('lambdalisue/vim-findent')
 call jetpack#add('HiPhish/rainbow-delimiters.nvim')
@@ -71,9 +71,6 @@ let g:jetpack#auto_recache = 1
 let g:jetpack_copy_method = 'hardlink'
 let g:indentLine_setConceal = 0
 let g:snipewin_label_font = 'asciian_inverted'
-let g:shot_f_decrement_count_key = "\<Left>"
-let g:shot_f_increment_count_key = "\<Right>"
-let g:shot_f_reverse = 1
 runtime macros/sandwich/keymap/surround.vim
 
 filetype plugin indent on
