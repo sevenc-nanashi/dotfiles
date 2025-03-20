@@ -5,6 +5,11 @@ if [ -z "$DEMO" ]; then
   fi
 fi
 ### End of Codeium integration
+#
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$(aqua root-dir)/bin:$PATH"
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -160,7 +165,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
       . $bcfile
     done
 
-    eval "$(envcache github-copilot-cli alias -- "$0")"
     eval "$(envcache pnpm completion bash)"
     eval "$(envcache npm completion)"
     eval "$(envcache nr --completion)"
@@ -251,7 +255,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     export PATH="$HOME/.crenv/bin:$PATH"
     eval "$(crenv init -)"
-    eval "$(pay-respects bash --alias --nocnf)"
 
     EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
@@ -260,6 +263,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     source $HOME/.rvm/scripts/rvm
 fi
 
+WSL_HOST=172.19.83.147
 function nvim-qt() {
     true
     while [ $? -ne 1 ]; do
@@ -268,7 +272,7 @@ function nvim-qt() {
     done
     echo "Using port $RANDOM_PORT"
     cat - <<CMD | parallel
-      /mnt/c/windows/system32/cmd.exe /c "nvim-qt --server 192.168.54.75:$RANDOM_PORT" 2> /dev/null &
+      /mnt/c/windows/system32/cmd.exe /c "nvim-qt --server $WSL_HOST:$RANDOM_PORT" 2> /dev/null &
       nvim --listen "0.0.0.0:$RANDOM_PORT" --headless "$@" &
 CMD
 }
@@ -280,7 +284,7 @@ function neovide() {
     done
     echo "Using port $RANDOM_PORT"
     cat - <<CMD | parallel
-      /mnt/c/windows/system32/cmd.exe /c "neovide --server 192.168.54.75:$RANDOM_PORT" 2> /dev/null &
+      /mnt/c/windows/system32/cmd.exe /c "neovide --server $WSL_HOST:$RANDOM_PORT" 2> /dev/null &
       nvim --listen "0.0.0.0:$RANDOM_PORT" --headless "$@" &
 CMD
 }
@@ -341,3 +345,5 @@ if [ -z "$DEMO" ]; then
   fi
   ### End of Codeium integration
 fi
+. "/home/sevenc7c/.deno/env"
+source /home/sevenc7c/.local/share/bash-completion/completions/deno.bash
