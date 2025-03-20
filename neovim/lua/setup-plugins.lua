@@ -153,16 +153,3 @@ require("ibl").setup { indent = { highlight = {
   char = "|"
 } }
 require("full_visual_line").setup({})
-require('copilot').setup({
-  filetypes = {
-    yaml = true,
-    markdown = true,
-    help = false,
-    gitcommit = true,
-    gitrebase = false,
-    hgcommit = false,
-    svn = false,
-    cvs = false,
-    ["."] = false,
-  },
-})
