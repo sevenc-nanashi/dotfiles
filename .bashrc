@@ -152,8 +152,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     source ~/.local/share/blesh/ble.sh
 
-    export DISCORD_BOT_TOKEN=$(cat ~/.secrets/discord_bot_token.txt)
-
     export PATH=$PATH:$HOME/.local/bin
     export PATH=$PATH:$HOME/.local/opt/gradle/bin
 
@@ -253,10 +251,14 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
 
-    export PATH="$HOME/.crenv/bin:$PATH"
-    eval "$(crenv init -)"
+    if [[-s "$HOME/.crenv/bin/crenv" ]]; then
+      export PATH="$HOME/.crenv/bin:$PATH"
+      eval "$(crenv init -)"
+    fi
 
-    EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+    if [[ -s "$HOME/emsdk" ]]; then
+      EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+    fi
 
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
     export PATH="$PATH:$HOME/.rvm/bin"
