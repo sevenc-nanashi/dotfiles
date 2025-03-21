@@ -4,16 +4,15 @@ set -eux
 function link() {
   if [ -e $2 ]; then
     mv $2 $2.bak
-  else
-    mkdir -p $(dirname $2)
-    ln -s $1 $2
   fi
+  mkdir -p $(dirname $2)
+  ln -s (realpath $1) $2
 }
 
 git clone https://github.com/sevenc-nanashi/dotfiles ~/dotfiles
 
 sudo apt update
-sudo apt install -y unzip curl git make build-essential
+sudo apt install -y unzip curl git make build-essential gnupg2
 
 cd ~/dotfiles
 curl -fLo ~/.local/share/nvim/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
@@ -40,7 +39,7 @@ link ~/dotfiles/aqua.yaml ~/aqua.yaml
 aqua install
 bun i -g pnpm
 nvm install lts
-cargo binstall exa
+cargo binstall -y eza
 
 cargo install --git git@github.com:sevenc-nanashi/envcache.git
 cargo install --git git@github.com:sevenc-nanashi/ccsum.git

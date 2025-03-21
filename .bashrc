@@ -251,7 +251,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
 
-    if [[-s "$HOME/.crenv/bin/crenv" ]]; then
+    if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
       export PATH="$HOME/.crenv/bin:$PATH"
       eval "$(crenv init -)"
     fi
