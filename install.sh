@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -eux
 
 function link() {
   if [ -e $2 ]; then
@@ -12,6 +12,7 @@ function link() {
 
 git clone https://github.com/sevenc-nanashi/dotfiles ~/dotfiles
 
+sudo apt update
 sudo apt install -y unzip curl git make build-essential
 
 cd ~/dotfiles
