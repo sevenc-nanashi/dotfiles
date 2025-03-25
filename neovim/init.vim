@@ -59,8 +59,10 @@ call jetpack#add('lukas-reineke/indent-blankline.nvim')
 call jetpack#add('andymass/vim-matchup')
 call jetpack#add('folke/noice.nvim')
 call jetpack#add('mattn/invader-vim')
+call jetpack#add('4513ECHO/nvim-keycastr')
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('yaegassy/coc-typeprof', {'do': 'yarn install --frozen-lockfile'})
+call jetpack#add('yaegassy/coc-ruby-syntax-tree', {'do': 'yarn install --frozen-lockfile'})
 
 call jetpack#end()
 

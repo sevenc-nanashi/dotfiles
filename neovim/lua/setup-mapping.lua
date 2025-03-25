@@ -78,6 +78,8 @@ if not vim.g.colo_init then
   switch_color()
 end
 
+vim.api.nvim_set_var("mapleader", ",")
+
 vim.keymap.set("", "U", "<C-R>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-S-O>", "<C-I>", { noremap = false, silent = false })
 vim.keymap.set("i", "<S-Insert>", "<C-r><C-p>+", { noremap = false, silent = false })
@@ -109,6 +111,8 @@ vim.keymap.set("v", "g<C-a>", "g<Plug>(dial-increment)", { noremap = true, silen
 vim.keymap.set("v", "g<C-x>", "g<Plug>(dial-decrement)", { noremap = true, silent = false })
 vim.keymap.set("n", "gx", "<Plug>(openbrowser-smart-search)", { noremap = true, silent = false })
 vim.keymap.set("", "W", "b", { noremap = false, silent = false })
+vim.keymap.set("", "<Leader>R", "<Plug>(coc-rename)", { noremap = true, silent = false })
+vim.keymap.set("", "<Leader>r", "<Plug>(coc-codeaction-refactor-selected)", { noremap = true, silent = false })
 
 vim.keymap.set("", "<C-K><C-A>", function()
   local current_file = vim.fn.expand("%:p:h")
@@ -127,8 +131,18 @@ vim.keymap.set(
   '<Cmd>exe v:count1 . "ToggleTerm size=20 git_dir=. direction=horizontal"<CR>',
   { noremap = false, silent = false }
 )
-vim.keymap.set("", "<C-K><C-D>", "<Cmd>TroubleToggle<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
+
+local is_keycastr_enabled = false
+vim.keymap.set("", "<C-K><C-D>", function()
+  if is_keycastr_enabled then
+    require("keycastr").disable()
+    is_keycastr_enabled = false
+  else
+    require("keycastr").enable()
+    is_keycastr_enabled = true
+  end
+end, { noremap = false, silent = false })
 vim.keymap.set("", "<C-Tab>", "<Cmd>bn<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-S-W>", "<Cmd>bn<bar>bd#<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-S-Tab>", "<Cmd>bp<CR>", { noremap = false, silent = false })
@@ -179,7 +193,7 @@ vim.keymap.set("n", "K", function()
     vim.fn.feedkeys("K", "in")
   end
 end, { noremap = true, silent = true })
-vim.keymap.set("n", "<C-K>", function()
+vim.keymap.set("n", "J", function()
   if vim.fn["coc#float#has_float"]() == 1 then
     vim.fn["coc#float#jump"]()
   end

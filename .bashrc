@@ -7,7 +7,7 @@ fi
 ### End of Codeium integration
 #
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 export PATH="$(aqua root-dir)/bin:$PATH"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -166,11 +166,11 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     eval "$(envcache pnpm completion bash)"
     eval "$(envcache npm completion)"
     eval "$(envcache nr --completion)"
+
+    export PATH="/home/sevenc7c/.local/share/cmvm/current/bin:$PATH"
     # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
 
     # setxkbmap -model jp109 -layout jp
-
-    alias gotop='/home/sevenc7c/gotop/gotop'
 
     if [ -f "./.node-version" ]; then
       nvm use "$(cat ./.node-version)"

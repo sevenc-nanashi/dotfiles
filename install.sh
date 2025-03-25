@@ -25,6 +25,7 @@ gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB
 curl -sSL https://get.rvm.io | bash -s stable
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.1.1/aqua-installer | bash
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 
 source ~/.bashrc
 
@@ -38,11 +39,11 @@ link ~/dotfiles/aqua.yaml ~/aqua.yaml
 
 aqua install
 bun i -g pnpm
-nvm install lts
+nvm install --lts
 cargo binstall -y eza
 
-cargo install --git git@github.com:sevenc-nanashi/envcache.git
-cargo install --git git@github.com:sevenc-nanashi/ccsum.git
+cargo install --git https://github.com/sevenc-nanashi/envcache.git
+cargo install --git https://github.com/sevenc-nanashi/ccsum.git
 
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
 make -C ble.sh install PREFIX=~/.local

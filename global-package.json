@@ -2,7 +2,9 @@
   "dependencies": {
     "@antfu/ni": "^24.2.0",
     "@github/copilot-language-server": "^1.290.0",
+    "expose-wsl": "^1.1.7",
     "pnpm": "^10.6.5",
-    "wrangler": "^4.2.0"
+    "wrangler": "^4.2.0",
+    "yarn": "^1.22.22"
   }
 }
