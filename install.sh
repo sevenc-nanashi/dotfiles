@@ -36,6 +36,7 @@ link ~/dotfiles/.gitconfig ~/.gitconfig
 link ~/dotfiles/.gitignore_global ~/.gitignore_global
 link ~/dotfiles/starship.toml ~/.config/starship.toml
 link ~/dotfiles/aqua.yaml ~/aqua.yaml
+link ~/dotfiles/bat.config ~/.config/bat/config
 
 aqua install
 bun i -g pnpm

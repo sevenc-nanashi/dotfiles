@@ -24,3 +24,4 @@ packages:
 - name: WebAssembly/wabt@1.0.37
 - name: rhysd/vim-startuptime@v1.3.2
 - name: ziglang/zig@0.14.0
+- name: sharkdp/bat@v0.25.0
