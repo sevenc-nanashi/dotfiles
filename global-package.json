@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "@antfu/ni": "^24.2.0",
-    "@github/copilot-language-server": "^1.290.0",
+    "@antfu/ni": "^24.3.0",
+    "@github/copilot-language-server": "^1.294.0",
     "expose-wsl": "^1.1.7",
     "kill-port": "^2.0.1",
-    "pnpm": "^10.6.5",
+    "pnpm": "^10.7.0",
     "serve": "^14.2.4",
-    "wrangler": "^4.2.0",
+    "wrangler": "^4.6.0",
     "yarn": "^1.22.22"
   }
 }

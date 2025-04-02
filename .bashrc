@@ -342,6 +342,8 @@ PERL_LOCAL_LIB_ROOT="/home/sevenc7c/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LI
 PERL_MB_OPT="--install_base \"/home/sevenc7c/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/sevenc7c/perl5"; export PERL_MM_OPT;
 
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
 if [ -z "$DEMO" ]; then
   ### Added by Codeium. These lines cannot be automatically removed if modified
   if command -v termium > /dev/null 2>&1; then
