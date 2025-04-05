@@ -1,0 +1,76 @@
+.shell powershell
+
+# Reload whkd configuration
+# F22 + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
+F22 + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
+F22 + shift + o         : komorebic reload-configuration
+
+# App shortcuts - these require shell to be pwsh / powershell
+# The apps will be focused if open, or launched if not open
+# F22 + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
+# F22 + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
+
+F22 + q                 : komorebic close
+F22 + m                 : komorebic minimize
+
+# Focus windows
+F22 + h                 : komorebic focus left
+F22 + j                 : komorebic focus down
+F22 + k                 : komorebic focus up
+F22 + l                 : komorebic focus right
+F22 + shift + oem_4     : komorebic cycle-focus previous # oem_4 is [
+F22 + shift + oem_6     : komorebic cycle-focus next # oem_6 is ]
+
+# Move windows
+F22 + shift + h         : komorebic move left
+F22 + shift + j         : komorebic move down
+F22 + shift + k         : komorebic move up
+F22 + shift + l         : komorebic move right
+F22 + shift + return    : komorebic promote
+
+# Stack windows
+F22 + left              : komorebic stack left
+F22 + down              : komorebic stack down
+F22 + up                : komorebic stack up
+F22 + right             : komorebic stack right
+F22 + oem_1             : komorebic unstack # oem_1 is ;
+F22 + oem_4             : komorebic cycle-stack previous # oem_4 is [
+F22 + oem_6             : komorebic cycle-stack next # oem_6 is ]
+
+# Resize
+F22 + oem_plus          : komorebic resize-axis horizontal increase
+F22 + oem_minus         : komorebic resize-axis horizontal decrease
+F22 + shift + oem_plus  : komorebic resize-axis verticarrl increase
+F22 + shift + oem_minus : komorebic resize-axis vertical decrease
+
+# Manipulate windows
+F22 + t                 : komorebic toggle-float
+F22 + shift + f         : komorebic toggle-monocle
+
+# Window manager options
+F22 + shift + r         : komorebic retile
+F22 + p                 : komorebic toggle-pause
+
+# Layouts
+F22 + x                 : komorebic flip-layout horizontal
+F22 + y                 : komorebic flip-layout vertical
+
+# Workspaces
+F22 + 1                 : komorebic focus-workspace 0
+F22 + 2                 : komorebic focus-workspace 1
+F22 + 3                 : komorebic focus-workspace 2
+F22 + 4                 : komorebic focus-workspace 3
+F22 + 5                 : komorebic focus-workspace 4
+F22 + 6                 : komorebic focus-workspace 5
+F22 + 7                 : komorebic focus-workspace 6
+F22 + 8                 : komorebic focus-workspace 7
+
+# Move windows across workspaces
+F22 + shift + 1         : komorebic move-to-workspace 0
+F22 + shift + 2         : komorebic move-to-workspace 1
+F22 + shift + 3         : komorebic move-to-workspace 2
+F22 + shift + 4         : komorebic move-to-workspace 3
+F22 + shift + 5         : komorebic move-to-workspace 4
+F22 + shift + 6         : komorebic move-to-workspace 5
+F22 + shift + 7         : komorebic move-to-workspace 6
+F22 + shift + 8         : komorebic move-to-workspace 7
