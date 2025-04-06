@@ -64,6 +64,8 @@ F22 + 5                 : komorebic focus-workspace 4
 F22 + 6                 : komorebic focus-workspace 5
 F22 + 7                 : komorebic focus-workspace 6
 F22 + 8                 : komorebic focus-workspace 7
+F22 + 9                 : komorebic focus-workspace 8
+F22 + 0                 : komorebic focus-workspace 9
 
 # Move windows across workspaces
 F22 + shift + 1         : komorebic move-to-workspace 0
@@ -74,3 +76,5 @@ F22 + shift + 5         : komorebic move-to-workspace 4
 F22 + shift + 6         : komorebic move-to-workspace 5
 F22 + shift + 7         : komorebic move-to-workspace 6
 F22 + shift + 8         : komorebic move-to-workspace 7
+F22 + shift + 9         : komorebic move-to-workspace 8
+F22 + shift + 0         : komorebic move-to-workspace 9

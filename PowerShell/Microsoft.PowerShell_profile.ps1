@@ -67,6 +67,10 @@ function global:pop {
   poetry poe $args
 }
 
+function global:dumpbin {
+  & "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\Hostx86\x86\dumpbin.exe" $args
+}
+
 function global:Show-Toast {
   Param([String]$content)
   powershell -noprofile -command @"
@@ -135,22 +139,6 @@ function global:docker-export {
   docker rm tmp_$nonce
 }
 
-function global:rbswitch {
-  Param(
-    [switch]$31,
-    [switch]$32
-  )
-  
-  $original_path = $env:PATH
-  if ($31) {
-    $env:PATH = $original_path.ToLower().replace("\ruby32\", "\ruby31\")
-  }
-  else {
-    $env:PATH = $original_path.ToLower().replace("\ruby31\", "\ruby32\")
-  }
-  Write-Output "Switched: $(ruby -v)"
-}
-
 function global:mklink {
   Param(
     [parameter(mandatory)][string]$from,
@@ -194,4 +182,4 @@ function Invoke-Starship-PreCommand {
 Import-Module posh-git
 Import-Module posh-cargo
 
- Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m" }
+Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m"; "Default" = "`e[94m" }
