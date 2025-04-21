@@ -26,3 +26,6 @@ packages:
 - name: ziglang/zig@0.14.0
 - name: sharkdp/bat@v0.25.0
 - name: topgrade-rs/topgrade@v16.0.2
+- name: rhysd/actionlint@v1.7.7
+- name: dependabot/cli@v1.62.1
+- name: sharkdp/fd@v10.2.0

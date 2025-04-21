@@ -1,0 +1,7 @@
+contest_directory = "./{contest_id}/{problem_id}"
+problem_directory = "."
+
+[templates]
+"main.rb" = "main.rb"
+"naive.rb" = "main.rb"
+"main.cr" = "main.cr"
