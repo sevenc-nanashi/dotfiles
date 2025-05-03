@@ -353,3 +353,11 @@ if [ -z "$DEMO" ]; then
 fi
 . "/home/sevenc7c/.deno/env"
 source /home/sevenc7c/.local/share/bash-completion/completions/deno.bash
+
+# pnpm
+export PNPM_HOME="/home/sevenc7c/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
