@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@antfu/ni": "^24.3.0",
-    "@github/copilot-language-server": "^1.294.0",
+    "@github/copilot-language-server": "^1.290.0",
     "expose-wsl": "^1.1.7",
     "kill-port": "^2.0.1",
     "pnpm": "^10.10.0",

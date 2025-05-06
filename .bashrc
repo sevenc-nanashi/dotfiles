@@ -7,9 +7,6 @@ fi
 ### End of Codeium integration
 #
 
-export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
-export PATH="$(aqua root-dir)/bin:$PATH"
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -261,36 +258,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     if [[ -s "$HOME/emsdk" ]]; then
       EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
     fi
-
-    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-    export PATH="$PATH:$HOME/.rvm/bin"
-    source $HOME/.rvm/scripts/rvm
 fi
 
-WSL_HOST=172.19.83.147
-function nvim-qt() {
-    true
-    while [ $? -ne 1 ]; do
-        RANDOM_PORT=$(( ( RANDOM % 10000 ) + 50000 ))
-        nc -z 127.0.0.1 $RANDOM_PORT
-    done
-    echo "Using port $RANDOM_PORT"
-    cat - <<CMD | parallel
-      /mnt/c/windows/system32/cmd.exe /c "nvim-qt --server $WSL_HOST:$RANDOM_PORT" 2> /dev/null &
-      nvim --listen "0.0.0.0:$RANDOM_PORT" --headless "$@" &
-CMD
-}
 function neovide() {
-    true
-    while [ $? -ne 1 ]; do
-        RANDOM_PORT=$(( ( RANDOM % 10000 ) + 50000 ))
-        nc -z 127.0.0.1 $RANDOM_PORT
-    done
-    echo "Using port $RANDOM_PORT"
-    cat - <<CMD | parallel
-      /mnt/c/windows/system32/cmd.exe /c "neovide --server $WSL_HOST:$RANDOM_PORT" 2> /dev/null &
-      nvim --listen "0.0.0.0:$RANDOM_PORT" --headless "$@" &
-CMD
+  /mnt/c/windows/system32/cmd.exe /c "neovide --wsl --fork --neovim-bin $(aqua which nvim) -- --cmd 'cd $(pwd)'" 2> /dev/null & disown
 }
 
 alias sapt='sudo apt -y'

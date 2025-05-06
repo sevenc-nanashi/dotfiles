@@ -79,6 +79,7 @@ if not vim.g.colo_init then
 end
 
 vim.api.nvim_set_var("mapleader", ",")
+vim.api.nvim_set_var("maplocalleader", "_")
 
 vim.keymap.set("", "U", "<C-R>", { noremap = false, silent = false })
 vim.keymap.set("", "<C-S-O>", "<C-I>", { noremap = false, silent = false })
