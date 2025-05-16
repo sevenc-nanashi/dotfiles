@@ -7,6 +7,80 @@ fi
 ### End of Codeium integration
 #
 
+export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
+export PATH="$(aqua root-dir)/bin:$PATH"
+export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua.yaml"
+
+if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
+    function LANG_SETUP_LOADED() {
+        echo "LANG_SETUP_LOADED"
+    }
+    alias envcache="/home/sevenc7c/.cargo/bin/envcache"
+    export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
+
+    . "$HOME/.cargo/env"
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
+
+    export DENO_INSTALL="/home/sevenc7c/.deno"
+    export PATH="$DENO_INSTALL/bin:$PATH"
+    eval "$(deno completions bash)"
+
+    export GOPATH=$HOME/go
+    export GOBIN=$GOPATH/bin
+    export PATH=$PATH:$GOBIN
+
+    source ~/.local/share/blesh/ble.sh
+
+    export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:$HOME/.local/opt/gradle/bin
+
+    # bun
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH=$BUN_INSTALL/bin:$PATH
+
+    for bcfile in ~/.bash_completion.d/* ; do
+      . $bcfile
+    done
+
+    eval "$(envcache pnpm completion bash)"
+    eval "$(envcache npm completion)"
+    eval "$(envcache nr --completion)"
+
+    export PATH="/home/sevenc7c/.local/share/cmvm/current/bin:$PATH"
+    # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+
+    # setxkbmap -model jp109 -layout jp
+
+    if [ -f "./.node-version" ]; then
+      nvm use "$(cat ./.node-version)"
+    fi
+
+    alias py='python3'
+    alias rb='ruby'
+
+    alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
+
+    if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
+      export PATH="$HOME/.crenv/bin:$PATH"
+      eval "$(crenv init -)"
+    fi
+
+    if [[ -s "$HOME/emsdk" ]]; then
+      EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+    fi
+
+    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+    export PATH="$PATH:$HOME/.rvm/bin"
+    source $HOME/.rvm/scripts/rvm
+fi
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -127,54 +201,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
-    # function LANG_SETUP_LOADED() {
-    #     echo "LANG_SETUP_LOADED"
-    # }
-    alias envcache="/home/sevenc7c/.cargo/bin/envcache"
-    export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
-
-    . "$HOME/.cargo/env"
-
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
-
-    export DENO_INSTALL="/home/sevenc7c/.deno"
-    export PATH="$DENO_INSTALL/bin:$PATH"
-    eval "$(deno completions bash)"
-
-    export GOPATH=$HOME/go
-    export GOBIN=$GOPATH/bin
-    export PATH=$PATH:$GOBIN
-
-    source ~/.local/share/blesh/ble.sh
-
-    export PATH=$PATH:$HOME/.local/bin
-    export PATH=$PATH:$HOME/.local/opt/gradle/bin
-
-    # bun
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH=$BUN_INSTALL/bin:$PATH
-
-    for bcfile in ~/.bash_completion.d/* ; do
-      . $bcfile
-    done
-
-    eval "$(envcache pnpm completion bash)"
-    eval "$(envcache npm completion)"
-    eval "$(envcache nr --completion)"
-
-    export PATH="/home/sevenc7c/.local/share/cmvm/current/bin:$PATH"
-    # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
-
-    # setxkbmap -model jp109 -layout jp
-
-    if [ -f "./.node-version" ]; then
-      nvm use "$(cat ./.node-version)"
-    fi
-
     if type -t ble-face >/dev/null; then
       ble-face argument_error=fg=red,bg=225
       ble-face argument_option=fg=teal
@@ -241,24 +267,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
       ble-face vbell_erase=bg=252
       ble-face vbell_flash=fg=green,reverse
     fi
-
-    alias py='python3'
-    alias rb='ruby'
-
-    alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
-
-    if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
-      export PATH="$HOME/.crenv/bin:$PATH"
-      eval "$(crenv init -)"
-    fi
-
-    if [[ -s "$HOME/emsdk" ]]; then
-      EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
-    fi
-fi
 
 function neovide() {
   /mnt/c/windows/system32/cmd.exe /c "neovide --wsl --fork --neovim-bin $(aqua which nvim) -- --cmd 'cd $(pwd)'" 2> /dev/null & disown

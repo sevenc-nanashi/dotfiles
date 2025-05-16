@@ -6,7 +6,7 @@ function link() {
     mv $2 $2.bak
   fi
   mkdir -p $(dirname $2)
-  ln -s (realpath $1) $2
+  ln -s $(realpath $1) $2
 }
 
 git clone https://github.com/sevenc-nanashi/dotfiles ~/dotfiles

@@ -2,8 +2,10 @@
   "dependencies": {
     "@antfu/ni": "^24.3.0",
     "@github/copilot-language-server": "^1.290.0",
+    "@mermaid-js/mermaid-cli": "^11.4.2",
     "expose-wsl": "^1.1.7",
     "kill-port": "^2.0.1",
+    "npm-check-updates": "^18.0.1",
     "pnpm": "^10.10.0",
     "serve": "^14.2.4",
     "wrangler": "^4.6.0",
