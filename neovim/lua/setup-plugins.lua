@@ -21,7 +21,8 @@ require("toggleterm").setup({
   on_open = function(term)
     -- vim.cmd("PinBuffer!")
   end,
-  cmd = cmd,
+  auto_scroll = false,
+  shell = vim.g.terminal or vim.o.shell,
 })
 require("nvim-ts-autotag").setup()
 require("litee.lib").setup()
