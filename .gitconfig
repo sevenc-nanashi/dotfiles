@@ -15,6 +15,7 @@
 	safecrlf = false
 	quotepath = false
 	editor = nvim
+	attributesfile = /home/sevenc7c/.gitattributes
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -40,7 +41,6 @@
 [push]
 	default = current
 	autoSetupRemote = true
-	followTags = true
 [advice]
 	detachedHead = false
 [pull]
@@ -51,3 +51,6 @@
 	postBuffer = 524288000
 [rebase]
 	autoStash = true
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L

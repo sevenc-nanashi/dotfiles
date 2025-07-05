@@ -36,9 +36,26 @@
 - `grep`
   - Please use `rg` (ripgrep) instead.
 
+- `npm`, `yarn`
+  - Please use `pnpm`, unless the project specifically requires `npm` or `yarn`.
+    - Check the project's documentation to see if it requires `npm`, `yarn`, or `pnpm`.
+
+- `git merge`
+  - Please use `git cmerge` instead.
+    - `git cmerge` is a custom command that merges branches with better commit message.
+
 # Flows
 
-- Please create a checklist first.
-  - Checklist should be named as `__gi_codex_checklist.md`.
-  - If you found an existing checklist, please continue that checklist.
-  - If the existing checklist is not suitable for the current task, please create a new checklist.
+- You can create your memos in `__gi_codex_memo.md`.
+  - You may use it for:
+    - Keep API responses so that you can refer to them later, even if you're restarted
+    - Any other temporary memos that you want to keep
+
+  - You should create checklist in the memo file, and check them off as you complete the tasks.
+  - You should save the direction in the memo file, so that you can refer to it later.
+    - When you're told "continue", you should check the memo file first to see what you need to do next.
+- Please read the memo file before starting your work.
+- Please run the formatter before `git add` and `git commit`.
+  - Use the formatter specified in the project's documentation.
+  - Some projects include a formatter in linter, please check the linter configuration file.
+- Please respond in Japanese, even though the instructions are in English.

@@ -1,0 +1,118 @@
+#!/usr/bin/env ruby
+require "json"
+
+if ARGV.empty?
+  puts "Usage:"
+  puts "  counter-pr prepare"
+  puts "  counter-pr fire"
+  exit 1
+end
+
+mode = ARGV[0]
+
+if mode == "prepare"
+  repo_info = JSON.parse(`gh repo view --json owner,name`)
+  pr_info =
+    JSON.parse(
+      `gh pr view --json number,title,author,headRepository,headRepositoryOwner,headRefName`
+    )
+  name_with_owner = "#{repo_info["owner"]["login"]}/#{repo_info["name"]}"
+  number = pr_info["number"].to_s.strip
+
+  if number.empty?
+    puts "No pull request number found."
+    exit 1
+  end
+
+  puts "Current pull request: #{name_with_owner}##{number} '#{pr_info["title"]}' by #{pr_info["author"]["login"]}"
+
+  puts "Preparing pull request #{number}..."
+  current_time = Time.now.strftime("%Y%m%d-%H%M%S")
+  branch_name =
+    "counter-pr/#{name_with_owner.gsub("/", "--")}/#{number}/#{current_time}"
+  puts "Creating branch: #{branch_name}"
+  system("git switch -c #{branch_name}", exception: true)
+
+  puts "Writing info in .git/counter-pr.json"
+  counter_pr_info = {
+    repo: {
+      owner: repo_info["owner"]["login"],
+      name: repo_info["name"]
+    },
+    pr: {
+      number: number,
+      title: pr_info["title"],
+      author: pr_info["author"]["login"],
+      head_ref_name: pr_info["headRefName"],
+      repo: {
+        owner: pr_info["headRepositoryOwner"]["login"],
+        name: pr_info["headRepository"]["name"]
+      }
+    }
+  }
+  all_infos =
+    if File.exist?(".git/counter-pr.json")
+      JSON.parse(File.read(".git/counter-pr.json"))
+    else
+      {}
+    end
+  all_infos[branch_name] = counter_pr_info
+  File.write(".git/counter-pr.json", JSON.pretty_generate(all_infos))
+elsif mode == "fire"
+  if !File.exist?(".git/counter-pr.json")
+    puts "No counter PR info found. Please run 'counter-pr prepare' first."
+    exit 1
+  end
+  all_infos = JSON.parse(File.read(".git/counter-pr.json"))
+  branch_name = `git rev-parse --abbrev-ref HEAD`.strip
+  unless all_infos.key?(branch_name)
+    puts "No counter PR info found for branch '#{branch_name}'."
+    exit 1
+  end
+
+  counter_pr_info = all_infos[branch_name]
+  repo_info = counter_pr_info["repo"]
+  pr_info = counter_pr_info["pr"]
+  name_with_owner = "#{repo_info["owner"]}/#{repo_info["name"]}"
+  number = pr_info["number"].to_s.strip
+
+  puts "Firing pull request #{number}..."
+
+  lang = ["voicevox"].include?(repo_info["owner"].downcase) ? "ja" : "en"
+  puts "Using language: #{lang}"
+  title =
+    case lang
+    when "ja"
+      "変更の提案（#{repo_info["owner"].downcase}##{number}）"
+    when "en"
+      "Proposed changes for #{repo_info["owner"].downcase}##{number}"
+    end
+  body =
+    case lang
+    when "ja"
+      <<~"BODY"
+      元のPR： https://github.com/#{name_with_owner}/pull/#{number}
+      このPull Requestは #{name_with_owner}##{number} （`#{pr_info["title"]}`）に対する変更の提案です。
+      Mergeすることで、元のPull Requestに対する変更が行われるはずです。
+
+      もし不要ならCloseしても構いません。
+      BODY
+    when "en"
+      <<~"BODY"
+      Original PR: https://github.com/#{name_with_owner}/pull/#{number}
+      This Pull Request is a proposed change for #{name_with_owner}##{number} (`#{pr_info["title"]}`).
+      Merging it should apply the changes to the original Pull Request.
+
+      Feel free to close it if not needed.
+      BODY
+    end
+
+  puts "Creating pull request with title: '#{title}'"
+  system(
+    "gh pr create --title '#{title}' --body '#{body}' -R #{pr_info["repo"]["owner"]}/#{pr_info["repo"]["name"]} --base #{pr_info["head_ref_name"]}",
+    exception: true
+  )
+else
+  puts "Invalid mode. Use 'prepare' or 'fire'."
+  exit 1
+end

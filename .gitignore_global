@@ -22,3 +22,4 @@ web-ext-artifacts
 .vim
 .yarn
 .yarnrc.yml
+.aider*
