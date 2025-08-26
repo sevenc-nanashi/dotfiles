@@ -44,6 +44,10 @@
   - Please use `git cmerge` instead.
     - `git cmerge` is a custom command that merges branches with better commit message.
 
+- `pip`, `pip3`
+  - Please use `uv pip`, unless the project specifically requires `pip` or `pip3`.
+    - if you need to create a virtual environment, please use `uv venv __gi_ai_venv` to create a virtual environment.
+
 # Flows
 
 - You can create your memos in `__gi_codex_memo.md`.
