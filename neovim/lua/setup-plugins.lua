@@ -44,34 +44,12 @@ require("telescope").setup({
     },
   },
 })
-require("cellwidths").setup({
-  name = "user/my",
-  fallback = function(cw)
-    cw.load("default")
-
-    cw.add(0x2192, 2)
-    cw.add(0x2190, 2)
-    cw.add(0x2713, 2)
-    cw.add(0x276f, 1)
-    cw.add(0x279c, 1)
-    cw.add(8250, 1)
-    cw.add(9650, 1)
-    cw.add(10003, 1)
-    cw.add(10004, 1)
-    cw.add(10007, 1)
-    cw.add(10008, 1)
-  end,
-})
 local augend = require("dial.augend")
 require("dial.config").augends:register_group({
   default = {
-    augend.integer.alias.decimal,
-    augend.constant.new({
-      elements = { "true", "false" },
-      word = true,
-      cyclic = true,
-    }),
-    augend.semver.new(),
+    augend.integer.alias.decimal_int,
+    augend.constant.alias.bool,
+    augend.semver.alias.semver,
     augend.case.new({
       types = { "snake_case", "camelCase", "kebab-case", "PascalCase" },
       cyclic = true,
