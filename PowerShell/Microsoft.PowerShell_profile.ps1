@@ -1,12 +1,32 @@
 ﻿if ($PSVersionTable.PSVersion.Major -ne 7) {
   Exit
 }
-if (Test-Path alias:iex) {
+$coreutils = @("rm", "cp", "mv", "tail", "head", "stat", "du", "ln")
+foreach ($cmd in $coreutils) {
+  if (Test-Path "alias:$cmd") {
+    Remove-Item "alias:$cmd" -Force
+  }
+
+  $functionName = $cmd
+  $functionBody = {
+    coreutils $MyInvocation.MyCommand.Name @args
+  }.GetNewClosure()
+
+  Set-Item "function:$functionName" $functionBody
+}
+
+if (Test-Path alias:ni) {
   Remove-Item alias:ni -Force
-  Remove-Item alias:iex -Force
   Remove-Item alias:ri -Force
 }
+Set-Alias ls eza
+Set-Alias cat bat
+function global:ll {
+  eza -al @args
+}
+
 [Console]::InputEncoding = [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 Set-Alias rb ruby
 Set-Alias ipy ipython
 function bfg {
@@ -65,10 +85,6 @@ function global:npr {
 
 function global:pop {
   poetry poe $args
-}
-
-function global:dumpbin {
-  & "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\Hostx86\x86\dumpbin.exe" $args
 }
 
 function global:Show-Toast {
@@ -139,6 +155,22 @@ function global:docker-export {
   docker rm tmp_$nonce
 }
 
+function global:rbswitch {
+  Param(
+    [switch]$31,
+    [switch]$32
+  )
+  
+  $original_path = $env:PATH
+  if ($31) {
+    $env:PATH = $original_path.ToLower().replace("\ruby32\", "\ruby31\")
+  }
+  else {
+    $env:PATH = $original_path.ToLower().replace("\ruby31\", "\ruby32\")
+  }
+  Write-Output "Switched: $(ruby -v)"
+}
+
 function global:mklink {
   Param(
     [parameter(mandatory)][string]$from,
@@ -153,10 +185,10 @@ function global:mklink {
   }
   $fromPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($from)
   if ($fromItem.PSIsContainer) {
-    cmd /c mklink /J `"$toPath`" `"$fromPath`"
+    cmd.exe /c mklink /J `"$toPath`" `"$fromPath`"
   }
   else {
-    cmd /c mklink `"$toPath`" `"$fromPath`"
+    cmd.exe /c mklink `"$toPath`" `"$fromPath`"
   }
 }
 
@@ -182,4 +214,12 @@ function Invoke-Starship-PreCommand {
 Import-Module posh-git
 Import-Module posh-cargo
 
-Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m"; "Default" = "`e[94m" }
+Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m"; "Default" = "`e[0m" }
+
+Import-Module 'gsudoModule'
+
+function global:Enable-VsDev {
+  $vsPath = &(Join-Path ${env:ProgramFiles(x86)} "\Microsoft Visual Studio\Installer\vswhere.exe") -property installationpath
+  Import-Module (Get-ChildItem $vsPath -Recurse -File -Filter Microsoft.VisualStudio.DevShell.dll).FullName
+  Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation
+}
