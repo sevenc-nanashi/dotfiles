@@ -63,6 +63,7 @@ call jetpack#add('lervag/vimtex')
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('yaegassy/coc-typeprof', {'do': 'yarn install --frozen-lockfile'})
 call jetpack#add('yaegassy/coc-ruby-syntax-tree', {'do': 'yarn install --frozen-lockfile'})
+call jetpack#add('kanium3/neovide-ime.nvim')
 
 call jetpack#end()
 

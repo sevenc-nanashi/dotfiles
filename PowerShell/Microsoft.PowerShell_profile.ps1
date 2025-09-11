@@ -46,7 +46,7 @@ $dauth | Out-Null
 $env:PYTHONSTARTUP = "$HOME/.pythonrc"
 $global:venv_prev_path = ""
 $env:path = [System.Environment]::GetEnvironmentVariable("path", "machine") + ";" + [System.Environment]::GetEnvironmentVariable("path", "user")
-invoke-expression (get-content ~\Documents\PowerShell\commands\reload-commands.ps1 -Raw)
+# invoke-expression (get-content ~\Documents\PowerShell\commands\reload-commands.ps1 -Raw)
 
 Invoke-Expression -Command $(gh completion -s powershell | Out-String)
 
@@ -215,8 +215,6 @@ Import-Module posh-git
 Import-Module posh-cargo
 
 Set-PSReadLineOption -Colors @{ "Parameter" = "`e[92m"; "Number" = "`e[94m"; "Default" = "`e[0m" }
-
-Import-Module 'gsudoModule'
 
 function global:Enable-VsDev {
   $vsPath = &(Join-Path ${env:ProgramFiles(x86)} "\Microsoft Visual Studio\Installer\vswhere.exe") -property installationpath

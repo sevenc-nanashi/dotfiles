@@ -4,6 +4,7 @@
 # F22 + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
 F22 + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
 F22 + shift + o         : komorebic reload-configuration
+F22 + alt + o           : komorebic stop --bar; komorebic start --bar
 
 # App shortcuts - these require shell to be pwsh / powershell
 # The apps will be focused if open, or launched if not open

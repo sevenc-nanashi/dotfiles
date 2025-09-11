@@ -4,7 +4,7 @@
   "font_family": "M+ 2p",
   "theme": {
     "palette": "Base16",
-    "name": "Ashes",
+    "name": "OneLight",
     "accent": "Base0D"
   },
   "left_widgets": [
@@ -19,7 +19,7 @@
         },
         "focused_window": {
           "enable": true,
-          "show_icon": true
+          "display": "IconAndTextOnSelected"
         }
       }
     }
