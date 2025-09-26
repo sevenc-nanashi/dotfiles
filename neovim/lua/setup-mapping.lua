@@ -135,7 +135,7 @@ vim.keymap.set(
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
 
 local is_keycastr_enabled = false
-vim.keymap.set("", "<C-K><C-D>", function()
+vim.keymap.set("", "<C-K><C-C>", function()
   if is_keycastr_enabled then
     require("keycastr").disable()
     is_keycastr_enabled = false

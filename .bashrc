@@ -11,8 +11,6 @@ fi
 export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 export PATH="$(aqua root-dir)/bin:$PATH"
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua.yaml"
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
 
 if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     function LANG_SETUP_LOADED() {
@@ -95,7 +93,7 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoredups
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
