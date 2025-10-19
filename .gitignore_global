@@ -24,3 +24,4 @@ web-ext-artifacts
 .yarnrc.yml
 .aider*
 .merge_file_*
+.DS_Store

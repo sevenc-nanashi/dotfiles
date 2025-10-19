@@ -1,4 +1,9 @@
-local sizes = { 7.5, 12 }
+local sizes
+if vim.fn.has("mac") == 1 then
+  sizes = { 9, 16 }
+else
+  sizes = { 7.5, 12 }
+end
 local current_size = -1
 
 local function change_size(size, silent)

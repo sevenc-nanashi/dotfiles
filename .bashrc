@@ -8,7 +8,12 @@ fi
 #
 #
 
-export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
+if [ -f ~/.bashrc.local ]; then
+	source ~/.bashrc.local
+fi
+
+
+# export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 export PATH="$(aqua root-dir)/bin:$PATH"
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua.yaml"
 
@@ -16,7 +21,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     function LANG_SETUP_LOADED() {
         echo "LANG_SETUP_LOADED"
     }
-    alias envcache="/home/sevenc7c/.cargo/bin/envcache"
+    alias envcache="$HOME/.cargo/bin/envcache"
     export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 
     . "$HOME/.cargo/env"
@@ -26,7 +31,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 
-    export DENO_INSTALL="/home/sevenc7c/.deno"
+    . "$HOME/.deno/env"
     export PATH="$DENO_INSTALL/bin:$PATH"
     eval "$(deno completions bash)"
 
@@ -49,10 +54,10 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     eval "$(envcache pnpm completion bash)"
     eval "$(envcache npm completion)"
-    eval "$(envcache nr --completion)"
+    # eval "$(envcache nr --completion)"
 
-    export PATH="/home/sevenc7c/.local/share/cmvm/current/bin:$PATH"
-    # EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+    export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
+    # EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
 
     # setxkbmap -model jp109 -layout jp
 
@@ -64,9 +69,9 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     alias rb='ruby'
 
     alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-    [[ -s "/home/sevenc7c/.gvm/scripts/gvm" ]] && source "/home/sevenc7c/.gvm/scripts/gvm"
+    [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
     if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
       export PATH="$HOME/.crenv/bin:$PATH"
@@ -74,7 +79,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     fi
 
     if [[ -s "$HOME/emsdk" ]]; then
-      EMSDK_QUIET=1 source "/home/sevenc7c/emsdk/emsdk_env.sh"
+      EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
     fi
 
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -269,9 +274,9 @@ fi
       ble-face vbell_flash=fg=green,reverse
     fi
 
-function neovide() {
-	/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
-}
+# function neovide() {
+# 	/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
+# }
 
 alias sapt='sudo apt -y'
 alias explorer='/mnt/c/Windows/explorer.exe .'
@@ -310,17 +315,13 @@ function rgsed() {
 	rg -l "$1" | xargs sed -i "s/$1/$2/g"
 }
 
-if [ -f ~/.bashrc.local ]; then
-	source ~/.bashrc.local
-fi
-
 set -o vi
 
-PATH="/home/sevenc7c/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/sevenc7c/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/sevenc7c/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/sevenc7c/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/sevenc7c/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
@@ -331,14 +332,17 @@ if [ -z "$DEMO" ]; then
 	fi
 	### End of Codeium integration
 fi
-. "/home/sevenc7c/.deno/env"
-source /home/sevenc7c/.local/share/bash-completion/completions/deno.bash
+source $HOME/.local/share/bash-completion/completions/deno.bash
+for f in $HOME/.bash_completion.d/*.bash; do
+  source $f
+done
 
 # pnpm
-export PNPM_HOME="/home/sevenc7c/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
 	*":$PNPM_HOME:"*) ;;
 	*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-eval "$(/home/sevenc7c/.local/bin/mise activate bash)"
+eval "$($HOME/.local/bin/mise activate bash)"
+###-end-nr-completion-###
