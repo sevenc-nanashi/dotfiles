@@ -43,3 +43,24 @@ $env.config.color_config = {
     record: "black"
 }
 
+def rex [...args] {
+    if ($args.0 | path type) == "file" {
+        bundle exec ruby ...$args
+    } else {
+        bundle exec ...$args
+    }
+}
+
+# function rex() {
+#         if [ -f "$1" ]; then
+#                 bundle exec ruby "$@"
+#         else
+#                 bundle exec $@
+#         fi
+#         return $?
+# }
+#
+# function cab() {
+#         echo "Co-Authored-By: $1 <$1@users.noreply.github.com>"
+# }
+#

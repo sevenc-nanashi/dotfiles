@@ -18,7 +18,7 @@
   - `description` should be a short description of the change, in English and in kebab-case.
 
 - `__gi_*` files are globally ignored files.
-  - Please use them o store temporary files, such as checklists, one-time scripts, etc.
+  - Please use them to store temporary files, such as checklists, one-time scripts, etc.
 
 # Allowed CLIs
 
@@ -36,9 +36,8 @@
 - `grep`
   - Please use `rg` (ripgrep) instead.
 
-- `npm`, `yarn`
-  - Please use `pnpm`, unless the project specifically requires `npm` or `yarn`.
-    - Check the project's documentation to see if it requires `npm`, `yarn`, or `pnpm`.
+- `npm`, `yarn`, `pnpm`, `bun`
+  - Please use commands from `@antfu/ni`, such as `ni` (install), `nun` (uninstall), `nr` (run script), `na` (misc).
 
 - `git merge`
   - Please use `git cmerge` instead.
@@ -63,3 +62,4 @@
   - Use the formatter specified in the project's documentation.
   - Some projects include a formatter in linter, please check the linter configuration file.
 - Please respond in Japanese, even though the instructions are in English.
+- Between tasks, I might have edited the file you edited. Please make sure to read the latest version of the file before starting your work.

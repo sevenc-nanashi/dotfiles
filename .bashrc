@@ -13,7 +13,8 @@ if [ -f ~/.bashrc.local ]; then
 fi
 
 
-# export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
+eval "$($HOME/.local/bin/mise activate bash)"
+export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 export PATH="$(aqua root-dir)/bin:$PATH"
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua.yaml"
 
@@ -26,9 +27,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
     . "$HOME/.cargo/env"
 
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 
     . "$HOME/.deno/env"
@@ -60,10 +58,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     # EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
 
     # setxkbmap -model jp109 -layout jp
-
-    if [ -f "./.node-version" ]; then
-      nvm use "$(cat ./.node-version)"
-    fi
 
     alias py='python3'
     alias rb='ruby'
@@ -274,9 +268,9 @@ fi
       ble-face vbell_flash=fg=green,reverse
     fi
 
-# function neovide() {
-# 	/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
-# }
+function neovide() {
+	/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
+}
 
 alias sapt='sudo apt -y'
 alias explorer='/mnt/c/Windows/explorer.exe .'
@@ -344,5 +338,4 @@ case ":$PATH:" in
 	*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-eval "$($HOME/.local/bin/mise activate bash)"
 ###-end-nr-completion-###
