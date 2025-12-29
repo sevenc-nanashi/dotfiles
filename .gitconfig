@@ -15,8 +15,10 @@
 	safecrlf = false
 	quotepath = false
 	editor = nvim
-	attributesfile = /home/sevenc7c/.gitattributes
 	pager = delta
+	attributesfile = ~/.gitattributes_global
+	preloadindex = true
+	fscache = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -60,5 +62,6 @@
 	diffFilter = delta --color-only
 [delta]
 	navigate = true
+  syntax-theme = "ansi"
 [merge]
 	conflictStyle = zdiff3

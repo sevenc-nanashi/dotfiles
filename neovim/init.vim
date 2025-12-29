@@ -99,6 +99,7 @@ endif
 
 set encoding=utf-8
 set fileencoding=utf-8
+set fileencodings=utf-8,sjis
 "set termencoding=utf-8
 set backspace=indent,eol,start
 set laststatus=3

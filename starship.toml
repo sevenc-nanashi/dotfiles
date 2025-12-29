@@ -1,4 +1,6 @@
-command_timeout = 10000
+"$schema" = 'https://starship.rs/config-schema.json'
+
+command_timeout = 1000
 format = """$all$line_break$character"""
 
 [aws]

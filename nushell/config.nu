@@ -64,3 +64,15 @@ def rex [...args] {
 #         echo "Co-Authored-By: $1 <$1@users.noreply.github.com>"
 # }
 #
+$env.config.edit_mode = 'vi'
+$env.config.keybindings ++= [{
+    name: ctrl_c_as_esc
+    mode: vi_insert
+    modifier: control
+    keycode: char_c
+    event: [{ send: ViChangeMode mode: normal }]
+}]
+
+alias mr = mise run
+
+use ($nu.default-config-dir | path join mise.nu)

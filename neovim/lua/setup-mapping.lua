@@ -114,6 +114,8 @@ vim.keymap.set("n", "gx", "<Plug>(openbrowser-smart-search)", { noremap = true, 
 vim.keymap.set("", "W", "b", { noremap = false, silent = false })
 vim.keymap.set("", "<Leader>R", "<Plug>(coc-rename)", { noremap = true, silent = false })
 vim.keymap.set("", "<Leader>r", "<Plug>(coc-codeaction-refactor-selected)", { noremap = true, silent = false })
+vim.keymap.set("n", "<C-.>", "<Plug>(coc-codeaction-cursor)", { noremap = true, silent = true })
+
 
 vim.keymap.set("", "<C-K><C-A>", function()
   local current_file = vim.fn.expand("%:p:h")
@@ -134,6 +136,21 @@ vim.keymap.set(
 )
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
 
+local Terminal  = require('toggleterm.terminal').Terminal
+local codex = Terminal:new({
+  cmd = "codex",
+  hidden = true,
+  direction = "vertical",
+})
+vim.keymap.set(
+  "",
+  "<C-K><C-D>",
+  function()
+    codex:toggle(40, "vertical")
+  end,
+  { noremap = false, silent = false }
+)
+
 local is_keycastr_enabled = false
 vim.keymap.set("", "<C-K><C-C>", function()
   if is_keycastr_enabled then
@@ -149,7 +166,6 @@ vim.keymap.set("", "<C-S-W>", "<Cmd>bn<bar>bd#<CR>", { noremap = false, silent =
 vim.keymap.set("", "<C-S-Tab>", "<Cmd>bp<CR>", { noremap = false, silent = false })
 vim.keymap.set("n", "<M-Left>", "<Cmd>bp<CR>", { noremap = false, silent = true })
 vim.keymap.set("n", "<M-Right>", "<Cmd>bn<CR>", { noremap = false, silent = true })
-vim.keymap.set("n", "<C-.>", "<Plug>(coc-codeaction)", { noremap = true, silent = true })
 vim.keymap.set("", "<A-S-F>", function()
   vim.fn.CocActionAsync("format", function()
     vim.cmd("Findent")
