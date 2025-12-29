@@ -51,19 +51,18 @@ def rex [...args] {
     }
 }
 
-# function rex() {
-#         if [ -f "$1" ]; then
-#                 bundle exec ruby "$@"
-#         else
-#                 bundle exec $@
-#         fi
-#         return $?
-# }
-#
-# function cab() {
-#         echo "Co-Authored-By: $1 <$1@users.noreply.github.com>"
-# }
-#
+def install_autoload [] {
+    mkdir ($nu.data-dir | path join "vendor/autoload")
+    mise activate nu | save ($nu.data-dir | path join "vendor/autoload" "mise.nu") -f
+    source ($nu.data-dir | path join "vendor/autoload" "mise.nu")
+    mise install
+    mise x starship -- starship init nu | save ($nu.data-dir | path join "vendor/autoload" "starship.nu") -f
+}
+
+if not (($nu.data-dir | path join "vendor/autoload" "starship.nu") | path exists) {
+    install_autoload
+}
+
 $env.config.edit_mode = 'vi'
 $env.config.keybindings ++= [{
     name: ctrl_c_as_esc
@@ -75,4 +74,4 @@ $env.config.keybindings ++= [{
 
 alias mr = mise run
 
-use ($nu.default-config-dir | path join mise.nu)
+# use ($nu.default-config-dir | path join mise.nu)
