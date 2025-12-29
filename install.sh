@@ -31,6 +31,11 @@ link ~/dotfiles/starship.toml ~/.config/starship.toml
 link ~/dotfiles/bat.config ~/.config/bat/config
 link ~/dotfiles/gh.config.yml ~/.config/gh/config.yml
 link ~/dotfiles/mise ~/.config/mise
+link ~/dotfiles/nushell/ ~/.config/nushell
+
+for file in ~/dotfiles/bin/*; do
+  link $file ~/.local/bin/$(basename $file)
+done
 
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
 make -C ble.sh install PREFIX=~/.local

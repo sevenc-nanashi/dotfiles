@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@antfu/ni": "^26.2.0",
     "@ccusage/codex": "^17.1.3",
     "@github/copilot": "^0.0.327",
     "@github/copilot-language-server": "^1.290.0",

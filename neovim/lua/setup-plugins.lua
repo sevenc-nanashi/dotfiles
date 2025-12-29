@@ -22,7 +22,7 @@ require("toggleterm").setup({
     -- vim.cmd("PinBuffer!")
   end,
   auto_scroll = false,
-  shell = vim.g.terminal or vim.o.shell,
+  shell = vim.g.terminal or "nu",
 })
 require("nvim-ts-autotag").setup()
 require("litee.lib").setup()

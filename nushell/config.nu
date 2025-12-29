@@ -54,8 +54,6 @@ def rex [...args] {
 def install_autoload [] {
     mkdir ($nu.data-dir | path join "vendor/autoload")
     mise activate nu | save ($nu.data-dir | path join "vendor/autoload" "mise.nu") -f
-    source ($nu.data-dir | path join "vendor/autoload" "mise.nu")
-    mise install
     mise x starship -- starship init nu | save ($nu.data-dir | path join "vendor/autoload" "starship.nu") -f
 }
 
