@@ -339,3 +339,5 @@ case ":$PATH:" in
 esac
 # pnpm end
 ###-end-nr-completion-###
+
+export MISE_GITHUB_TOKEN=$(gh auth token)
