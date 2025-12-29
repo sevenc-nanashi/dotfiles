@@ -1,6 +1,6 @@
 if [ -z "$DEMO" ]; then
 	### Added by Codeium. These lines cannot be automatically removed if modified
-	if command -v termium > /dev/null 2>&1; then
+	if command -v termium >/dev/null 2>&1; then
 		eval "$(termium shell-hook show pre)"
 	fi
 fi
@@ -15,64 +15,64 @@ fi
 eval "$($HOME/.local/bin/mise activate bash)"
 
 if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
-    function LANG_SETUP_LOADED() {
-        echo "LANG_SETUP_LOADED"
-    }
-    # alias envcache="$HOME/.cargo/bin/envcache"
-    if [ -f "$HOME/.local/bin/envcache" ]; then
-      envcache="$HOME/.local/bin/envcache"
-    else
-      envcache=''
-    fi
-    export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
+	function LANG_SETUP_LOADED() {
+		echo "LANG_SETUP_LOADED"
+	}
+	# alias envcache="$HOME/.cargo/bin/envcache"
+	if [ -f "$HOME/.local/bin/envcache" ]; then
+		envcache="$HOME/.local/bin/envcache"
+	else
+		envcache=''
+	fi
+	export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 
-    . "$HOME/.cargo/env"
-    [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
-    source ~/.local/share/blesh/ble.sh
+	. "$HOME/.cargo/env"
+	[ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
+	source ~/.local/share/blesh/ble.sh
 
-    export PATH=$PATH:$HOME/.local/bin
-    export PATH=$PATH:$HOME/.local/opt/gradle/bin
+	export PATH=$PATH:$HOME/.local/bin
+	export PATH=$PATH:$HOME/.local/opt/gradle/bin
 
-    # bun
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH=$BUN_INSTALL/bin:$PATH
+	# bun
+	export BUN_INSTALL="$HOME/.bun"
+	export PATH=$BUN_INSTALL/bin:$PATH
 
-    for bcfile in ~/.bash_completion.d/* ; do
-      . $bcfile
-    done
+	for bcfile in ~/.bash_completion.d/*; do
+		. $bcfile
+	done
 
-    eval "$($envcache pnpm completion bash)"
-    eval "$($envcache npm completion)"
-    # eval "$(envcache nr --completion)"
+	eval "$($envcache pnpm completion bash)"
+	eval "$($envcache npm completion)"
+	# eval "$(envcache nr --completion)"
 
-    export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
-    # EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
+	export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
+	# EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
 
-    # setxkbmap -model jp109 -layout jp
+	# setxkbmap -model jp109 -layout jp
 
-    alias py='python3'
-    alias rb='ruby'
+	alias py='python3'
+	alias rb='ruby'
 
-    alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
-    # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
+	# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-    [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
-    if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
-      export PATH="$HOME/.crenv/bin:$PATH"
-      eval "$(crenv init -)"
-    fi
+	if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
+		export PATH="$HOME/.crenv/bin:$PATH"
+		eval "$(crenv init -)"
+	fi
 
-    if [[ -s "$HOME/emsdk" ]]; then
-      EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
-    fi
+	if [[ -s "$HOME/emsdk" ]]; then
+		EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
+	fi
 
-    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-    export PATH="$PATH:$HOME/.rvm/bin"
-    source $HOME/.rvm/scripts/rvm
+	# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+	export PATH="$PATH:$HOME/.rvm/bin"
+	source $HOME/.rvm/scripts/rvm
 
-    export PATH=$PATH:$HOME/.local/bin
-    export PATH=$PATH:$HOME/.local/opt/gradle/bin
+	export PATH=$PATH:$HOME/.local/bin
+	export PATH=$PATH:$HOME/.local/opt/gradle/bin
 fi
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -80,8 +80,8 @@ fi
 # for examples
 # If not running interactively, don't do anything
 case $- in
-	*i*) ;;
-	*) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -113,7 +113,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-	xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -141,11 +141,10 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-	xterm*|rxvt*)
-		PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-		;;
-	*)
-		;;
+xterm* | rxvt*)
+	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+	;;
+*) ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -195,82 +194,82 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-    if type -t ble-face >/dev/null; then
-      ble-face argument_error=fg=red,bg=225
-      ble-face argument_option=fg=teal
-      ble-face auto_complete=fg=8
-      ble-face cmdinfo_cd_cdpath=fg=26,bg=155
-      ble-face command_alias=fg=teal
-      ble-face command_builtin=fg=red
-      ble-face command_builtin_dot=fg=red,bold
-      ble-face command_directory=fg=26,underline
-      ble-face command_file=fg=green
-      ble-face command_function=fg=purple
-      ble-face command_jobs=fg=red,bold
-      ble-face command_keyword=fg=blue
-      ble-face disabled=fg=8
-      ble-face filename_block=fg=yellow,bg=black,underline
-      ble-face filename_character=fg=white,bg=black,underline
-      ble-face filename_directory=fg=blue,underline
-      ble-face filename_directory_sticky=fg=white,bg=blue,underline
-      ble-face filename_executable=fg=green,underline
-      ble-face filename_link=fg=teal,underline
-      ble-face filename_ls_colors=underline
-      ble-face filename_orphan=fg=teal,bg=224,underline
-      ble-face filename_other=underline
-      ble-face filename_pipe=fg=lime,bg=black,underline
-      ble-face filename_setgid=fg=black,bg=191,underline
-      ble-face filename_setuid=fg=black,bg=220,underline
-      ble-face filename_socket=fg=cyan,bg=black,underline
-      ble-face filename_url=fg=blue,underline
-      ble-face filename_warning=fg=red,underline
-      ble-face overwrite_mode=fg=black,bg=51
-      ble-face prompt_status_line=fg=231,bg=240
-      ble-face region=fg=white,bg=60
-      ble-face region_insert=fg=blue,bg=252
-      ble-face region_match=fg=white,bg=55
-      ble-face region_target=fg=black,bg=153
-      ble-face syntax_brace=fg=37,bold
-      ble-face syntax_command=fg=brown
-      ble-face syntax_comment=fg=242
-      ble-face syntax_default=none
-      ble-face syntax_delimiter=bold
-      ble-face syntax_document=fg=94
-      ble-face syntax_document_begin=fg=94,bold
-      ble-face syntax_error=fg=231,bg=203
-      ble-face syntax_escape=fg=magenta
-      ble-face syntax_expr=fg=26
-      ble-face syntax_function_name=fg=92,bold
-      ble-face syntax_glob=fg=198,bold
-      ble-face syntax_history_expansion=fg=231,bg=94
-      ble-face syntax_param_expansion=fg=purple
-      ble-face syntax_quotation=fg=green,bold
-      ble-face syntax_quoted=fg=green
-      ble-face syntax_tilde=fg=navy,bold
-      ble-face syntax_varname=fg=orange
-      ble-face varname_array=fg=orange,bold
-      ble-face varname_empty=fg=31
-      ble-face varname_export=fg=200,bold
-      ble-face varname_expr=fg=92,bold
-      ble-face varname_hash=fg=70,bold
-      ble-face varname_number=fg=64
-      ble-face varname_readonly=fg=200
-      ble-face varname_transform=fg=29,bold
-      ble-face varname_unset=fg=124
-      ble-face vbell=reverse
-      ble-face vbell_erase=bg=252
-      ble-face vbell_flash=fg=green,reverse
-    fi
+if type -t ble-face >/dev/null; then
+	ble-face argument_error=fg=red,bg=225
+	ble-face argument_option=fg=teal
+	ble-face auto_complete=fg=8
+	ble-face cmdinfo_cd_cdpath=fg=26,bg=155
+	ble-face command_alias=fg=teal
+	ble-face command_builtin=fg=red
+	ble-face command_builtin_dot=fg=red,bold
+	ble-face command_directory=fg=26,underline
+	ble-face command_file=fg=green
+	ble-face command_function=fg=purple
+	ble-face command_jobs=fg=red,bold
+	ble-face command_keyword=fg=blue
+	ble-face disabled=fg=8
+	ble-face filename_block=fg=yellow,bg=black,underline
+	ble-face filename_character=fg=white,bg=black,underline
+	ble-face filename_directory=fg=blue,underline
+	ble-face filename_directory_sticky=fg=white,bg=blue,underline
+	ble-face filename_executable=fg=green,underline
+	ble-face filename_link=fg=teal,underline
+	ble-face filename_ls_colors=underline
+	ble-face filename_orphan=fg=teal,bg=224,underline
+	ble-face filename_other=underline
+	ble-face filename_pipe=fg=lime,bg=black,underline
+	ble-face filename_setgid=fg=black,bg=191,underline
+	ble-face filename_setuid=fg=black,bg=220,underline
+	ble-face filename_socket=fg=cyan,bg=black,underline
+	ble-face filename_url=fg=blue,underline
+	ble-face filename_warning=fg=red,underline
+	ble-face overwrite_mode=fg=black,bg=51
+	ble-face prompt_status_line=fg=231,bg=240
+	ble-face region=fg=white,bg=60
+	ble-face region_insert=fg=blue,bg=252
+	ble-face region_match=fg=white,bg=55
+	ble-face region_target=fg=black,bg=153
+	ble-face syntax_brace=fg=37,bold
+	ble-face syntax_command=fg=brown
+	ble-face syntax_comment=fg=242
+	ble-face syntax_default=none
+	ble-face syntax_delimiter=bold
+	ble-face syntax_document=fg=94
+	ble-face syntax_document_begin=fg=94,bold
+	ble-face syntax_error=fg=231,bg=203
+	ble-face syntax_escape=fg=magenta
+	ble-face syntax_expr=fg=26
+	ble-face syntax_function_name=fg=92,bold
+	ble-face syntax_glob=fg=198,bold
+	ble-face syntax_history_expansion=fg=231,bg=94
+	ble-face syntax_param_expansion=fg=purple
+	ble-face syntax_quotation=fg=green,bold
+	ble-face syntax_quoted=fg=green
+	ble-face syntax_tilde=fg=navy,bold
+	ble-face syntax_varname=fg=orange
+	ble-face varname_array=fg=orange,bold
+	ble-face varname_empty=fg=31
+	ble-face varname_export=fg=200,bold
+	ble-face varname_expr=fg=92,bold
+	ble-face varname_hash=fg=70,bold
+	ble-face varname_number=fg=64
+	ble-face varname_readonly=fg=200
+	ble-face varname_transform=fg=29,bold
+	ble-face varname_unset=fg=124
+	ble-face vbell=reverse
+	ble-face vbell_erase=bg=252
+	ble-face vbell_flash=fg=green,reverse
+fi
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  function neovide() {
-    echo "nvrh client open $(hostname).ts $(pwd)"
-  }
+	function neovide() {
+		echo "nvrh client open $(hostname).ts $(pwd) --nvim-cmd '$(which nvim)'"
+	}
 elif [[ "$(uname -r)" == *-microsoft-standard-WSL2 ]]; then
-    function neovide() {
-	    /mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
-    }
-    alias explorer='/mnt/c/Windows/explorer.exe .'
+	function neovide() {
+		/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
+	}
+	alias explorer='/mnt/c/Windows/explorer.exe .'
 fi
 
 alias sapt='sudo apt -y'
@@ -311,31 +310,36 @@ function rgsed() {
 
 set -o vi
 
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
+export PATH
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL5LIB
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_LOCAL_LIB_ROOT
+PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MB_OPT
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+export PERL_MM_OPT
 
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
 if [ -z "$DEMO" ]; then
 	### Added by Codeium. These lines cannot be automatically removed if modified
-	if command -v termium > /dev/null 2>&1; then
+	if command -v termium >/dev/null 2>&1; then
 		eval "$(termium shell-hook show post)"
 	fi
 	### End of Codeium integration
 fi
 source $HOME/.local/share/bash-completion/completions/deno.bash
 for f in $HOME/.bash_completion.d/*.bash; do
-  source $f
+	source $f
 done
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-	*":$PNPM_HOME:"*) ;;
-	*) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 ###-end-nr-completion-###
