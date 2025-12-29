@@ -15,6 +15,10 @@ foreach ($cmd in $coreutils) {
   Set-Item "function:$functionName" $functionBody
 }
 
+function global:rovo {
+    acli rovodev run $args
+  }
+
 if (Test-Path alias:ni) {
   Remove-Item alias:ni -Force
   Remove-Item alias:ri -Force
@@ -221,3 +225,4 @@ function global:Enable-VsDev {
   Import-Module (Get-ChildItem $vsPath -Recurse -File -Filter Microsoft.VisualStudio.DevShell.dll).FullName
   Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation
 }
+(&mise activate pwsh) | Out-String | Invoke-Expression
