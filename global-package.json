@@ -6,7 +6,7 @@
     "@github/copilot-language-server": "^1.290.0",
     "@google/gemini-cli": "^0.10.0",
     "@mermaid-js/mermaid-cli": "^11.4.2",
-    "@openai/codex": "^0.53.0",
+    "@openai/codex": "^0.65.0",
     "biome": "^0.3.3",
     "chokidar-cli": "^3.0.0",
     "expose-wsl": "^1.1.7",

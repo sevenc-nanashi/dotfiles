@@ -61,13 +61,8 @@ call jetpack#add('mattn/invader-vim')
 call jetpack#add('4513ECHO/nvim-keycastr')
 call jetpack#add('lervag/vimtex')
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
-call jetpack#add('yaegassy/coc-typeprof', {'do': 'yarn install --frozen-lockfile'})
-call jetpack#add('yaegassy/coc-ruby-syntax-tree', {'do': 'yarn install --frozen-lockfile'})
-" call jetpack#add('kanium3/neovide-ime.nvim')
 call jetpack#add('sevenc-nanashi/neov-ime.nvim')
 call jetpack#add('tpope/vim-rhubarb')
-call jetpack#add('S-H-GAMELINKS/coc-typeprof', {'do': 'npm ci'})
-
 call jetpack#end()
 
 set termguicolors

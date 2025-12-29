@@ -95,6 +95,14 @@ parser_config.crystal = {
   },
   filetype = "crystal"
 }
+parser_config.mcfunction = {
+  install_info = {
+    url = "https://github.com/IoeCmcomc/tree-sitter-mcfunction.git",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "mcfunction"
+}
 require("nvim-treesitter.configs").setup({
   highlight = {
     enable = true,
