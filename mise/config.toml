@@ -1,0 +1,9 @@
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
+
+[tools]
+bun = "latest"
+"npm:@antfu/ni" = "latest"
+"npm:difit" = "latest"
+pnpm = "latest"
+ruby = "latest"
