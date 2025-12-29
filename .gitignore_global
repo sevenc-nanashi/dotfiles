@@ -27,3 +27,4 @@ web-ext-artifacts
 .DS_Store
 .vs
 .serena
+mise.local.toml

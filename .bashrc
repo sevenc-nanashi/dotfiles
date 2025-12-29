@@ -12,31 +12,22 @@ if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
 
-
 eval "$($HOME/.local/bin/mise activate bash)"
-export PATH="$HOME/.local/share/aquaproj-aqua/bin:$PATH"
-export PATH="$(aqua root-dir)/bin:$PATH"
-export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua.yaml"
 
 if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     function LANG_SETUP_LOADED() {
         echo "LANG_SETUP_LOADED"
     }
-    alias envcache="$HOME/.cargo/bin/envcache"
+    # alias envcache="$HOME/.cargo/bin/envcache"
+    if [ -f "$HOME/.local/bin/envcache" ]; then
+      envcache="$HOME/.local/bin/envcache"
+    else
+      envcache=''
+    fi
     export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 
     . "$HOME/.cargo/env"
-
     [ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
-
-    . "$HOME/.deno/env"
-    export PATH="$DENO_INSTALL/bin:$PATH"
-    eval "$(deno completions bash)"
-
-    export GOPATH=$HOME/go
-    export GOBIN=$GOPATH/bin
-    export PATH=$PATH:$GOBIN
-
     source ~/.local/share/blesh/ble.sh
 
     export PATH=$PATH:$HOME/.local/bin
@@ -50,8 +41,8 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
       . $bcfile
     done
 
-    eval "$(envcache pnpm completion bash)"
-    eval "$(envcache npm completion)"
+    eval "$($envcache pnpm completion bash)"
+    eval "$($envcache npm completion)"
     # eval "$(envcache nr --completion)"
 
     export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
@@ -79,6 +70,9 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
     export PATH="$PATH:$HOME/.rvm/bin"
     source $HOME/.rvm/scripts/rvm
+
+    export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:$HOME/.local/opt/gradle/bin
 fi
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
