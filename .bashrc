@@ -262,12 +262,14 @@ fi
       ble-face vbell_flash=fg=green,reverse
     fi
 
-function neovide() {
-	/mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
-}
+if [[ "$(uname -r)" == *-microsoft-standard-WSL2 ]]; then
+    function neovide() {
+	    /mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
+    }
+    alias explorer='/mnt/c/Windows/explorer.exe .'
+fi
 
 alias sapt='sudo apt -y'
-alias explorer='/mnt/c/Windows/explorer.exe .'
 
 function expose() {
 	timeout 0.1 nc -z "$(hostname).local" 10601

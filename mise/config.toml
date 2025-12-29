@@ -2,7 +2,10 @@
 idiomatic_version_file_enable_tools = ["node"]
 
 [tools]
+bat = "latest"
 bun = "latest"
+delta = "latest"
+eza = "latest"
 "npm:@antfu/ni" = "latest"
 "npm:difit" = "latest"
 pnpm = "latest"
