@@ -262,7 +262,11 @@ fi
       ble-face vbell_flash=fg=green,reverse
     fi
 
-if [[ "$(uname -r)" == *-microsoft-standard-WSL2 ]]; then
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  function neovide() {
+    echo "nvrh client open $(hostname).ts $(pwd)"
+  }
+else if [[ "$(uname -r)" == *-microsoft-standard-WSL2 ]]; then
     function neovide() {
 	    /mnt/c/windows/system32/cmd.exe /C start "neovide" --wsl -- --cmd "cd $(pwd)" $@
     }
