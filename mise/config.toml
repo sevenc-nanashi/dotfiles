@@ -5,6 +5,7 @@ idiomatic_version_file_enable_tools = ["node"]
 bat = "latest"
 bun = "latest"
 delta = "latest"
+deno = "latest"
 eza = "latest"
 gh = "latest"
 "npm:@antfu/ni" = "latest"
