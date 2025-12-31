@@ -13,20 +13,4 @@ IRB.conf[:PROMPT][:COLORED] = {
 IRB.conf[:PROMPT_MODE] = :COLORED
 IRB.conf[:EVAL_HISTORY] = 100
 IRB.conf[:USE_AUTOCOMPLETE] = false
-# RubyVM.keep_script_lines = true
-
-require "clipboard"
-
-def clipboard
-  Clipboard.paste.encode("UTF-8")
-end
-
-def copy(val = :NULL)
-  val = IRB.conf[:__TMP__EHV__][-1] if val == :NULL
-  txt = val.is_a?(String) ? val : val.inspect
-  Clipboard.copy(txt)
-end
-
-puts <<~MESSAGE
-       \033[91m Running on Ruby #{RUBY_VERSION}, #{RUBY_PLATFORM} \e[m
-     MESSAGE
+RubyVM.keep_script_lines = true
