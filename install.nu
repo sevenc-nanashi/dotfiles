@@ -298,3 +298,6 @@ if not ($ssh_dir | path exists) {
   mkdir $ssh_dir
 }
 download https://github.com/sevenc-nanashi.keys o>> ($ssh_dir | path join "authorized_keys")
+
+echo "Installation complete!"
+download https://sevenc7c.com
