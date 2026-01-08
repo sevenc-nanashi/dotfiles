@@ -30,13 +30,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	[ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 	source ~/.local/share/blesh/ble.sh
 
-	export PATH=$PATH:$HOME/.local/bin
-	export PATH=$PATH:$HOME/.local/opt/gradle/bin
-
-	# bun
-	export BUN_INSTALL="$HOME/.bun"
-	export PATH=$BUN_INSTALL/bin:$PATH
-
 	for bcfile in ~/.bash_completion.d/*; do
 		. $bcfile
 	done
@@ -44,10 +37,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	eval "$($envcache pnpm completion bash)"
 	eval "$($envcache npm completion)"
 	# eval "$(envcache nr --completion)"
-
-	export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
-	# EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
-
 	# setxkbmap -model jp109 -layout jp
 
 	alias py='python3'
@@ -56,12 +45,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
 	# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-	if [[ -s "$HOME/emsdk" ]]; then
-		EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
-	fi
-
 	export PATH=$PATH:$HOME/.local/bin
-	export PATH=$PATH:$HOME/.local/opt/gradle/bin
 fi
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
