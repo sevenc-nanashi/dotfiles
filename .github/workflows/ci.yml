@@ -24,4 +24,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Run installer-test
-        run: docker compose run --rm --no-build installer-test
+        run: docker compose run --rm installer-test
