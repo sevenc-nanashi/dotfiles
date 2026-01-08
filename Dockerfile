@@ -1,27 +1,24 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PATH="/root/.local/bin:${PATH}"
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    bash \
-    build-essential \
-    ca-certificates \
-    curl \
-    file \
-    git \
-    procps \
-    sudo \
-    unzip \
-    xz-utils \
-  && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl ca-certificates git build-essential pkg-config autoconf gawk \
+    libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev
 
-# Run the documented installer command.
-RUN curl -fsSL https://github.com/sevenc-nanashi/dotfiles/raw/main/install.sh | bash
+# Create user
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+USER appuser
+WORKDIR /home/appuser
 
-# Basic sanity checks that the installer did its work.
-RUN test -x /root/.local/bin/mise \
-  && test -L /root/.bashrc \
-  && test -L /root/.config/nvim \
-  && test -L /root/.config/starship.toml
+COPY ./install.sh ./install.sh
+COPY ./install.nu ./install.nu
+
+ARG GITHUB_TOKEN
+ENV MISE_GITHUB_TOKEN=${GITHUB_TOKEN}
+
+ENTRYPOINT ["/bin/bash", "-c", "DOTFILES_INSTALLER_PATH=/home/appuser/install.nu bash ./install.sh"]
