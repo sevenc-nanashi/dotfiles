@@ -1,5 +1,6 @@
 services:
   installer-test:
+    image: dotfiles-installer-test:ci
     build:
       context: .
       dockerfile: Dockerfile
