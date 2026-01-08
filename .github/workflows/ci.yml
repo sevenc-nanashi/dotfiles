@@ -24,4 +24,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Run installer-test
-        run: docker compose run --rm installer-test
+        run: |
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} docker compose run --rm installer-test

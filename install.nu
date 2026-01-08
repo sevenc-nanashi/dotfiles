@@ -264,6 +264,7 @@ let mise_shims_dir = ("~/.local/share/mise/shims" | path expand)
 $env.PATH = ($env.PATH | prepend $mise_shims_dir)
 ^($env.MISE_PATH) trust .
 ^($env.MISE_PATH) settings experimental=true  # Why not?
+^($env.MISE_PATH) settings lockfile=true
 ^($env.MISE_PATH) install
 if (which yarn | length) == 0 {
   print "Installing yarn for Neovim plugin builds"
