@@ -1,3 +1,4 @@
+#!/usr/bin/env nu
 def command_exists [cmd: string] {
   (which $cmd | length) > 0
 }
@@ -229,8 +230,17 @@ download https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpac
 
 print "Creating symbolic links for configuration files"
 def link [src: string, dest: string] {
-  let src_path = ($src | path expand)
-  let dest_path = ($dest | path expand)
+  let src_path = ($src | path expand -n)
+  let dest_path = ($dest | path expand -n)
+  let dest_realpath = (try {
+    $dest_path | path expand
+  } catch {
+    ""
+  })
+  if $dest_realpath == $src_path {
+    print $"($dest_path) already symlinked, skipping"
+    return
+  }
   if ($dest_path | path exists) {
     print $"Backing up existing file ($dest_path) to ($dest_path).bak"
     mv $dest_path $"($dest_path).bak"
