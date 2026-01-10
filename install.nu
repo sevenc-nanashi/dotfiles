@@ -293,9 +293,10 @@ for file in (ls $bin_dir | get name) {
 
 if ($is_linux or $is_macos) {
   print "Installing ble.sh"
-  git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
+  let blesh_path = ("~/.local/share/ble.sh" | path expand)
+  git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git $blesh_path
   let local_prefix = ("~/.local" | path expand)
-  make -C ble.sh install $"PREFIX=($local_prefix)"
+  make -C $blesh_path install $"PREFIX=($local_prefix)"
 }
 
 print "Setting up git remote to use SSH"
