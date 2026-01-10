@@ -4,5 +4,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    environment:
+      MISE_GITHUB_TOKEN: ${GITHUB_TOKEN}
