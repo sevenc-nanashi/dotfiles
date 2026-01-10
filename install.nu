@@ -314,10 +314,10 @@ let current_authorized_keys = if ($ssh_dir | path join "authorized_keys" | path 
 }
 for key in ($ssh_keys | lines) {
   if not ($current_authorized_keys | str contains $key) {
-    print "Adding key: ($key)"
+    print $"Adding key: ($key)"
     echo $key o>> ($ssh_dir | path join "authorized_keys")
   } else {
-    print "Key already exists, skipping: ($key)"
+    print $"Key already exists, skipping: ($key)"
   }
 }
 
