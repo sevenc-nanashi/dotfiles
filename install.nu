@@ -266,7 +266,7 @@ link ($dotfiles_install_path | path join "nushell") ~/.config/nushell
 link ($dotfiles_install_path | path join "online-judge-tools") ~/.config/online-judge-tools
 
 print "Installing tools managed by mise"
-let mise_path = $env.MISE_PATH? | (which mise).0.path? | default "~/.local/bin/mise"
+let mise_path = $env.MISE_PATH? | (which mise).0?.path | default "~/.local/bin/mise"
 let mise_bin_dir = ($mise_path | path dirname)
 if ($mise_bin_dir | path exists) {
   $env.PATH = ($env.PATH | prepend $mise_bin_dir)
