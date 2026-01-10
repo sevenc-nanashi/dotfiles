@@ -1,5 +1,7 @@
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
+lockfile = true
+experimental = true
 
 [tools]
 bat = "latest"
@@ -10,6 +12,7 @@ eza = "latest"
 gh = "latest"
 "npm:@antfu/ni" = "latest"
 "npm:difit" = "latest"
+"npm:yarn" = "latest"
 pnpm = "latest"
 ruby = "latest"
 starship = "latest"
@@ -18,3 +21,7 @@ shfmt = "latest"
 ripgrep = "latest"
 "github:nushell/nushell" = "latest"
 cargo-binstall = "latest"
+"npm:@openai/codex" = "latest"
+fd = "latest"
+"cargo:nushell/nufmt" = "latest"
+"gem:ruby-lsp" = "latest"

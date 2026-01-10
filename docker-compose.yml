@@ -1,0 +1,8 @@
+services:
+  installer-test:
+    image: dotfiles-installer-test:ci
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - GITHUB_TOKEN=${GITHUB_TOKEN}

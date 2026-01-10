@@ -30,13 +30,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	[ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 	source ~/.local/share/blesh/ble.sh
 
-	export PATH=$PATH:$HOME/.local/bin
-	export PATH=$PATH:$HOME/.local/opt/gradle/bin
-
-	# bun
-	export BUN_INSTALL="$HOME/.bun"
-	export PATH=$BUN_INSTALL/bin:$PATH
-
 	for bcfile in ~/.bash_completion.d/*; do
 		. $bcfile
 	done
@@ -44,10 +37,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	eval "$($envcache pnpm completion bash)"
 	eval "$($envcache npm completion)"
 	# eval "$(envcache nr --completion)"
-
-	export PATH="$HOME/.local/share/cmvm/current/bin:$PATH"
-	# EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
-
 	# setxkbmap -model jp109 -layout jp
 
 	alias py='python3'
@@ -56,23 +45,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	alias gh="env -u GITHUB_TOKEN env -u GH_TOKEN gh"
 	# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-	if [[ -s "$HOME/.crenv/bin/crenv" ]]; then
-		export PATH="$HOME/.crenv/bin:$PATH"
-		eval "$(crenv init -)"
-	fi
-
-	if [[ -s "$HOME/emsdk" ]]; then
-		EMSDK_QUIET=1 source "$HOME/emsdk/emsdk_env.sh"
-	fi
-
-	# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-	export PATH="$PATH:$HOME/.rvm/bin"
-	source $HOME/.rvm/scripts/rvm
-
 	export PATH=$PATH:$HOME/.local/bin
-	export PATH=$PATH:$HOME/.local/opt/gradle/bin
 fi
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -274,23 +247,6 @@ fi
 
 alias sapt='sudo apt -y'
 
-function expose() {
-	timeout 0.1 nc -z "$(hostname).local" 10601
-	if [ $? -ne 0 ]; then
-		echo "netsh-server is not running"
-		return 1
-	fi
-	PORT=$1
-	if [ -z "$PORT" ]; then
-		curl "http://$(hostname).local:10601/ports"
-	elif [ "$PORT" = "exit" ]; then
-		curl "http://$(hostname).local:10601/exit"
-	else
-		curl -XPOST "http://$(hostname).local:10601/ports?port=$PORT"
-	fi
-	echo ""
-}
-
 function rex() {
 	if [ -f "$1" ]; then
 		bundle exec ruby "$@"
@@ -304,22 +260,7 @@ function cab() {
 	echo "Co-Authored-By: $1 <$1@users.noreply.github.com>"
 }
 
-function rgsed() {
-	rg -l "$1" | xargs sed -i "s/$1/$2/g"
-}
-
 set -o vi
-
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
-export PATH
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
-export PERL5LIB
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-export PERL_LOCAL_LIB_ROOT
-PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MB_OPT
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
-export PERL_MM_OPT
 
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
