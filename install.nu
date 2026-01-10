@@ -266,20 +266,17 @@ link ($dotfiles_install_path | path join "nushell") ~/.config/nushell
 link ($dotfiles_install_path | path join "online-judge-tools") ~/.config/online-judge-tools
 
 print "Installing tools managed by mise"
-let mise_bin_dir = ($env.MISE_PATH | path dirname)
+let mise_path = $env.MISE_PATH? | (which mise).0.path? | default "~/.local/bin/mise"
+let mise_bin_dir = ($mise_path | path dirname)
 if ($mise_bin_dir | path exists) {
   $env.PATH = ($env.PATH | prepend $mise_bin_dir)
 }
 let mise_shims_dir = ("~/.local/share/mise/shims" | path expand)
 $env.PATH = ($env.PATH | prepend $mise_shims_dir)
-^($env.MISE_PATH) trust .
-^($env.MISE_PATH) settings experimental=true  # Why not?
-^($env.MISE_PATH) settings lockfile=true
-^($env.MISE_PATH) install
-if (which yarn | length) == 0 {
-  print "Installing yarn for Neovim plugin builds"
-  ^($env.MISE_PATH) install "npm:yarn@latest"
-}
+^($mise_path) trust .
+^($mise_path) settings experimental=true  # Why not?
+^($mise_path) settings lockfile=true
+^($mise_path) install
 
 print "Install neovim plugins"
 if $is_linux {
@@ -308,7 +305,20 @@ let ssh_dir = ("~/.ssh" | path expand)
 if not ($ssh_dir | path exists) {
   mkdir $ssh_dir
 }
-download https://github.com/sevenc-nanashi.keys o>> ($ssh_dir | path join "authorized_keys")
+let ssh_keys = (download https://github.com/sevenc-nanashi.keys | str trim)
+let current_authorized_keys = if ($ssh_dir | path join "authorized_keys" | path exists) {
+  ($ssh_dir | path join "authorized_keys") | open | str trim
+} else {
+  ""
+}
+for key in ($ssh_keys | lines) {
+  if not ($current_authorized_keys | str contains $key) {
+    print "Adding key: ($key)"
+    echo $key o>> ($ssh_dir | path join "authorized_keys")
+  } else {
+    print "Key already exists, skipping: ($key)"
+  }
+}
 
 echo "Installation complete!"
 download https://sevenc7c.com
