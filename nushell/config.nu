@@ -51,16 +51,6 @@ def rex [...args] {
     }
 }
 
-def install_autoload [] {
-    mkdir ($nu.data-dir | path join "vendor/autoload")
-    mise activate nu | save ($nu.data-dir | path join "vendor/autoload" "mise.nu") -f
-    mise x starship -- starship init nu | save ($nu.data-dir | path join "vendor/autoload" "starship.nu") -f
-}
-
-if not (($nu.data-dir | path join "vendor/autoload" "starship.nu") | path exists) {
-    install_autoload
-}
-
 $env.config.edit_mode = 'vi'
 $env.config.keybindings ++= [{
     name: ctrl_c_as_esc

@@ -36,7 +36,7 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 
 	eval "$($envcache pnpm completion bash)"
 	eval "$($envcache npm completion)"
-	# eval "$(envcache nr --completion)"
+	eval "$(envcache nr --completion)"
 	# setxkbmap -model jp109 -layout jp
 
 	alias py='python3'
