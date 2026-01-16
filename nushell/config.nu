@@ -59,7 +59,6 @@ $env.config.keybindings ++= [{
     keycode: char_c
     event: [{ send: ViChangeMode mode: normal }]
 }]
-source $"($nu.home-path)/.cargo/env.nu"
 
 alias mr = mise run
 
