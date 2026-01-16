@@ -162,6 +162,10 @@ backend = "github:nushell/nushell"
 "platforms.windows-x64" = { checksum = "sha256:9e349288ce5b17ca514e0b3aeab64f50919a1a713c27c9e28c902c2cc7df50cf", url = "https://github.com/nushell/nushell/releases/download/0.109.1/nu-0.109.1-x86_64-pc-windows-msvc.zip", url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/323549002"}
 "platforms.windows-x64-baseline" = { checksum = "sha256:9e349288ce5b17ca514e0b3aeab64f50919a1a713c27c9e28c902c2cc7df50cf", url = "https://github.com/nushell/nushell/releases/download/0.109.1/nu-0.109.1-x86_64-pc-windows-msvc.zip", url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/323549002"}
 
+[[tools."github:sevenc-nanashi/ccsum"]]
+version = "0.2.2"
+backend = "github:sevenc-nanashi/ccsum"
+
 [[tools."github:skanehira/version-lsp"]]
 version = "0.3.2"
 backend = "github:skanehira/version-lsp"
@@ -178,19 +182,8 @@ backend = "github:skanehira/version-lsp"
 "platforms.windows-x64-baseline" = { checksum = "sha256:f1250501c60c48c2122c6a2b29c3bb1e644ee945a0f80ce284d2754b1487021a", url = "https://github.com/skanehira/version-lsp/releases/download/v0.3.2/version-lsp_Windows_x86_64.zip", url_api = "https://api.github.com/repos/skanehira/version-lsp/releases/assets/336762967"}
 
 [[tools.node]]
-version = "25.2.1"
+version = "24.11.1"
 backend = "core:node"
-"platforms.linux-arm64" = { checksum = "sha256:905238a17be9ae62c16e596019268d8ca9f0fc3142602a1f860dc4a7c1ddbf82", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-arm64.tar.gz"}
-"platforms.linux-arm64-musl" = { checksum = "sha256:905238a17be9ae62c16e596019268d8ca9f0fc3142602a1f860dc4a7c1ddbf82", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:2094ecdc844ea11e9777cac42672b0d89cd63d27204193a587dc5a2d276bb940", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-x64.tar.gz"}
-"platforms.linux-x64-baseline" = { checksum = "sha256:2094ecdc844ea11e9777cac42672b0d89cd63d27204193a587dc5a2d276bb940", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-x64.tar.gz"}
-"platforms.linux-x64-musl" = { checksum = "sha256:2094ecdc844ea11e9777cac42672b0d89cd63d27204193a587dc5a2d276bb940", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-x64.tar.gz"}
-"platforms.linux-x64-musl-baseline" = { checksum = "sha256:2094ecdc844ea11e9777cac42672b0d89cd63d27204193a587dc5a2d276bb940", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-linux-x64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:be87e21bd235a451fad02c89e5bf7cb17e206e4cd89dd5664f20d19e7dfde6f9", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-darwin-arm64.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:c266da5a9075a56e1aa02460ce8df96fca9e796c388abe94a8df4949945df6b6", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-darwin-x64.tar.gz"}
-"platforms.macos-x64-baseline" = { checksum = "sha256:c266da5a9075a56e1aa02460ce8df96fca9e796c388abe94a8df4949945df6b6", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-darwin-x64.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:f97ba75ead7720652f3925d9cf8661e083a28c6b98ea77acc83903d77a9dd688", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-win-x64.zip"}
-"platforms.windows-x64-baseline" = { checksum = "sha256:f97ba75ead7720652f3925d9cf8661e083a28c6b98ea77acc83903d77a9dd688", url = "https://nodejs.org/dist/v25.2.1/node-v25.2.1-win-x64.zip"}
 
 [[tools."npm:@antfu/ni"]]
 version = "28.1.0"
@@ -294,3 +287,7 @@ backend = "aqua:starship/starship"
 "platforms.macos-x64-baseline" = { checksum = "sha256:237beb10cc970c4361536e9f9f434dfed755f8282c5cd951b6a7e3fcbda8e779", url = "https://github.com/starship/starship/releases/download/v1.24.2/starship-x86_64-apple-darwin.tar.gz"}
 "platforms.windows-x64" = { checksum = "sha256:d38424c595320e9639a276666347d5e44cb004de3972f40b9a5a1a6b88537f29", url = "https://github.com/starship/starship/releases/download/v1.24.2/starship-x86_64-pc-windows-msvc.zip"}
 "platforms.windows-x64-baseline" = { checksum = "sha256:d38424c595320e9639a276666347d5e44cb004de3972f40b9a5a1a6b88537f29", url = "https://github.com/starship/starship/releases/download/v1.24.2/starship-x86_64-pc-windows-msvc.zip"}
+
+[[tools.xh]]
+version = "0.25.3"
+backend = "aqua:ducaale/xh"
