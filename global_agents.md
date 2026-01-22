@@ -54,3 +54,4 @@
   - Some projects include a formatter in linter, please check the linter configuration file.
 - Please respond in Japanese, even though the instructions are in English.
 - Between tasks, I might have edited the file you edited. Please make sure to read the latest version of the file before starting your work.
+- Even if you noticed unrelated changes, DO NOT ERASE THEM. I was working at the same time.

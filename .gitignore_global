@@ -30,3 +30,5 @@ web-ext-artifacts
 mise.local.toml
 .junie
 .rgignore
+.codex
+.specify

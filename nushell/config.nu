@@ -61,5 +61,6 @@ $env.config.keybindings ++= [{
 }]
 
 alias mr = mise run
+alias gti = git
 
 # use ($nu.default-config-dir | path join mise.nu)

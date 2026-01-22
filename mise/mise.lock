@@ -14,19 +14,9 @@ backend = "aqua:sharkdp/bat"
 "platforms.windows-x64-baseline" = { checksum = "sha256:0f729b4b6f5f28d395c641eacc2e9ff68d0096b85aa0eec344aa62425144b69b", url = "https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64-pc-windows-msvc.zip"}
 
 [[tools.bun]]
-version = "1.3.5"
+version = "1.3.6"
 backend = "core:bun"
-"platforms.linux-arm64" = { checksum = "sha256:ed01000f85bd97785228ad2845dc92a1860b8054856826d7317690ac8f8ee74b", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-aarch64.zip"}
-"platforms.linux-arm64-musl" = { checksum = "sha256:980b567beeca875b79776d60a35b178309583df3f0973b3bae62f7244dc486ad", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-aarch64-musl.zip"}
-"platforms.linux-x64" = { checksum = "sha256:7051d86a924aefea3e0b96213b5fd8f79c0793f9cae6534233e627e5c3db4669", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-x64.zip"}
-"platforms.linux-x64-baseline" = { checksum = "sha256:6bddacd6a65855698b9816f2d74871eda4dd0b7fa921140c6445248f94a742fd", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-x64-baseline.zip"}
-"platforms.linux-x64-musl" = { checksum = "sha256:720d88e0e5f40450a1da91c0226f626b156eaa224876d794fa95f6ebf74f46b6", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-x64-musl.zip"}
-"platforms.linux-x64-musl-baseline" = { checksum = "sha256:57997319f8b9f72ce137363c3dfcd8d401327925108bb30dc5c3257452fba524", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-linux-x64-musl-baseline.zip"}
-"platforms.macos-arm64" = { checksum = "sha256:db17588a4aea8804856825d4bead3f05e1f37276ca606f37e369b4f72f35d3fb", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-darwin-aarch64.zip"}
-"platforms.macos-x64" = { checksum = "sha256:f5ffc03030fe527a86295fb5852bb08c5e99b707560011d1d509ab028902bf29", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-darwin-x64.zip"}
-"platforms.macos-x64-baseline" = { checksum = "sha256:34b9a56b851058dafa1bc9d61233f2c383aa996889bba30b3180f5ccc2cff1b2", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-darwin-x64-baseline.zip"}
-"platforms.windows-x64" = { checksum = "sha256:922cffdd5143cd118c6ccec6a61dfcf5d69e0068b048ea00f0a0615016530082", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-windows-x64.zip"}
-"platforms.windows-x64-baseline" = { checksum = "sha256:bf447dcc3b06aba9b9706a9db46fcd65e06a4d47d31439922313825d06eb47ca", url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.5/bun-windows-x64-baseline.zip"}
+"platforms.linux-x64" = { checksum = "blake3:dddfffe2a80a43b4a71b1a72dcf48f2b1be308e43e2047b18839412f11adcb9e"}
 
 [[tools.cargo-binstall]]
 version = "1.16.6"
@@ -63,19 +53,9 @@ backend = "aqua:dandavison/delta"
 "platforms.windows-x64-baseline" = { url = "https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-x86_64-pc-windows-msvc.zip"}
 
 [[tools.deno]]
-version = "2.6.4"
+version = "2.6.5"
 backend = "core:deno"
-"platforms.linux-arm64" = { checksum = "sha256:dafb54c5454d7fcca81305215442e832e0c34e90b76a2e9a31d0676cbb06bfc6", url = "https://dl.deno.land/release/v2.6.4/deno-aarch64-unknown-linux-gnu.zip"}
-"platforms.linux-arm64-musl" = { checksum = "sha256:dafb54c5454d7fcca81305215442e832e0c34e90b76a2e9a31d0676cbb06bfc6", url = "https://dl.deno.land/release/v2.6.4/deno-aarch64-unknown-linux-gnu.zip"}
-"platforms.linux-x64" = { checksum = "sha256:9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-unknown-linux-gnu.zip"}
-"platforms.linux-x64-baseline" = { checksum = "sha256:9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-unknown-linux-gnu.zip"}
-"platforms.linux-x64-musl" = { checksum = "sha256:9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-unknown-linux-gnu.zip"}
-"platforms.linux-x64-musl-baseline" = { checksum = "sha256:9100bbd0450c17b82002d3948bb8e7e1953c9e6506e63b586e2daa4042eca7f6", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-unknown-linux-gnu.zip"}
-"platforms.macos-arm64" = { checksum = "sha256:0273e3472a4987a1aeacbda8153d023dbab9151296e15977977ef6bdbbca485b", url = "https://dl.deno.land/release/v2.6.4/deno-aarch64-apple-darwin.zip"}
-"platforms.macos-x64" = { checksum = "sha256:14b783336505b06cda198eba0f23ff11cebed5eaadb1907fac31ded6e09c1cdb", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-apple-darwin.zip"}
-"platforms.macos-x64-baseline" = { checksum = "sha256:14b783336505b06cda198eba0f23ff11cebed5eaadb1907fac31ded6e09c1cdb", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-apple-darwin.zip"}
-"platforms.windows-x64" = { checksum = "sha256:Algorithm", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-pc-windows-msvc.zip"}
-"platforms.windows-x64-baseline" = { checksum = "sha256:Algorithm", url = "https://dl.deno.land/release/v2.6.4/deno-x86_64-pc-windows-msvc.zip"}
+"platforms.linux-x64" = { checksum = "blake3:e9dd5dace4b9c0ab4a692940826727c2da79296cdd7083c051b4f9d1684a206b"}
 
 [[tools.eza]]
 version = "0.23.4"
@@ -109,19 +89,9 @@ version = "0.26.4"
 backend = "gem:ruby-lsp"
 
 [[tools.gh]]
-version = "2.83.2"
+version = "2.85.0"
 backend = "aqua:cli/cli"
-"platforms.linux-arm64" = { checksum = "sha256:b1a0c0a0fcf18524e36996caddc92a062355ed014defc836203fe20fba75a38e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_arm64.tar.gz"}
-"platforms.linux-arm64-musl" = { checksum = "sha256:b1a0c0a0fcf18524e36996caddc92a062355ed014defc836203fe20fba75a38e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_arm64.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:ca6e7641214fbd0e21429cec4b64a7ba626fd946d8f9d6d191467545b092015e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_amd64.tar.gz"}
-"platforms.linux-x64-baseline" = { checksum = "sha256:ca6e7641214fbd0e21429cec4b64a7ba626fd946d8f9d6d191467545b092015e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_amd64.tar.gz"}
-"platforms.linux-x64-musl" = { checksum = "sha256:ca6e7641214fbd0e21429cec4b64a7ba626fd946d8f9d6d191467545b092015e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_amd64.tar.gz"}
-"platforms.linux-x64-musl-baseline" = { checksum = "sha256:ca6e7641214fbd0e21429cec4b64a7ba626fd946d8f9d6d191467545b092015e", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_linux_amd64.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:ba3e0396ebbc8da17256144ddda503e4e79c8b502166335569f8390d6b75fa8d", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_macOS_arm64.zip"}
-"platforms.macos-x64" = { checksum = "sha256:6f1712519ccc768946791dc97da407bf188582345b73fef3d604d050ebf6f614", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_macOS_amd64.zip"}
-"platforms.macos-x64-baseline" = { checksum = "sha256:6f1712519ccc768946791dc97da407bf188582345b73fef3d604d050ebf6f614", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_macOS_amd64.zip"}
-"platforms.windows-x64" = { checksum = "sha256:b95bf2d953e3bf497bb2c0aed97ffcc5ed8471b80f0920d663a92a6111f05135", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_windows_amd64.zip"}
-"platforms.windows-x64-baseline" = { checksum = "sha256:b95bf2d953e3bf497bb2c0aed97ffcc5ed8471b80f0920d663a92a6111f05135", url = "https://github.com/cli/cli/releases/download/v2.83.2/gh_2.83.2_windows_amd64.zip"}
+"platforms.linux-x64" = { checksum = "sha256:5dcc4e282b9c22c0d31c217805976448c966cfc56c20157c78385a8a62c93cf0", url = "https://github.com/cli/cli/releases/download/v2.85.0/gh_2.85.0_linux_amd64.tar.gz"}
 
 [[tools."github:carapace-sh/carapace-bin"]]
 version = "1.5.7"
@@ -147,6 +117,11 @@ backend = "github:carapace-sh/carapace-bridge"
 "platforms.macos-x64" = { checksum = "sha256:498ba91818b83ea341709314001d26cfaa71ac9f3d707b8ef53fbea51bbb216f", url = "https://github.com/carapace-sh/carapace-bridge/releases/download/v1.4.11/carapace-bridge_1.4.11_darwin_amd64.tar.gz", url_api = "https://api.github.com/repos/carapace-sh/carapace-bridge/releases/assets/330638357"}
 "platforms.windows-x64" = { checksum = "sha256:b9020f5d8a99d84ef192770b9071d2a4af49bfe5aa2601a0a1df701e18e52dc6", url = "https://github.com/carapace-sh/carapace-bridge/releases/download/v1.4.11/carapace-bridge_1.4.11_windows_amd64.zip", url_api = "https://api.github.com/repos/carapace-sh/carapace-bridge/releases/assets/330638368"}
 
+[[tools."github:github/spec-kit"]]
+version = "0.0.90"
+backend = "github:github/spec-kit"
+"platforms.linux-x64" = { checksum = "sha256:39947ecf3e353e5f55a9af44de61741aa4e8000ef1ae7e93da46eb06fa194522", url = "https://github.com/github/spec-kit/releases/download/v0.0.90/spec-kit-template-amp-ps-v0.0.90.zip", url_api = "https://api.github.com/repos/github/spec-kit/releases/assets/324444290"}
+
 [[tools."github:nushell/nushell"]]
 version = "0.109.1"
 backend = "github:nushell/nushell"
@@ -165,6 +140,7 @@ backend = "github:nushell/nushell"
 [[tools."github:sevenc-nanashi/ccsum"]]
 version = "0.2.2"
 backend = "github:sevenc-nanashi/ccsum"
+"platforms.linux-x64" = { checksum = "sha256:f93e99f7a9df6af7bcd75e695aa4f2f3e4c7332dc8021354045a017820719e4c", url = "https://github.com/sevenc-nanashi/ccsum/releases/download/v0.2.2/ccsum-linux-x86_64", url_api = "https://api.github.com/repos/sevenc-nanashi/ccsum/releases/assets/341201735"}
 
 [[tools."github:skanehira/version-lsp"]]
 version = "0.3.2"
@@ -184,13 +160,14 @@ backend = "github:skanehira/version-lsp"
 [[tools.node]]
 version = "24.11.1"
 backend = "core:node"
+"platforms.linux-x64" = { checksum = "sha256:58a5ff5cc8f2200e458bea22e329d5c1994aa1b111d499ca46ec2411d58239ca", url = "https://nodejs.org/dist/v24.11.1/node-v24.11.1-linux-x64.tar.gz"}
 
 [[tools."npm:@antfu/ni"]]
-version = "28.1.0"
+version = "28.2.0"
 backend = "npm:@antfu/ni"
 
 [[tools."npm:@google/gemini-cli"]]
-version = "0.21.3"
+version = "0.24.0"
 backend = "npm:@google/gemini-cli"
 
 [[tools."npm:@jetbrains/junie-cli"]]
@@ -198,20 +175,32 @@ version = "576.1.0"
 backend = "npm:@jetbrains/junie-cli"
 
 [[tools."npm:@openai/codex"]]
-version = "0.80.0"
+version = "0.88.0"
 backend = "npm:@openai/codex"
 
 [[tools."npm:difit"]]
-version = "2.2.7"
+version = "3.0.2"
 backend = "npm:difit"
 
 [[tools."npm:kill-port"]]
 version = "2.0.1"
 backend = "npm:kill-port"
 
+[[tools."npm:ntfy-mcp-server"]]
+version = "1.0.6"
+backend = "npm:ntfy-mcp-server"
+
+[[tools."npm:ntfy-me-mcp"]]
+version = "1.3.51"
+backend = "npm:ntfy-me-mcp"
+
 [[tools."npm:yarn"]]
 version = "1.22.22"
 backend = "npm:yarn"
+
+[[tools."pipx:github/spec-kit"]]
+version = "v0.0.90"
+backend = "pipx:github/spec-kit"
 
 [[tools.pnpm]]
 version = "10.28.0"
@@ -291,3 +280,4 @@ backend = "aqua:starship/starship"
 [[tools.xh]]
 version = "0.25.3"
 backend = "aqua:ducaale/xh"
+"platforms.linux-x64" = { checksum = "sha256:fc738e616b327e7a10256e206c78073bfeed95d73af6ba9ced4c5eb20ac8d717", url = "https://github.com/ducaale/xh/releases/download/v0.25.3/xh-v0.25.3-x86_64-unknown-linux-musl.tar.gz"}

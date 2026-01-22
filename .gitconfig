@@ -42,6 +42,7 @@
   ccmerge = !"f(){ git commit -am \"merge: $(cat $(git rev-parse --git-dir)/cmerge) -> $(git branch --show-current)\"; rm .git/cmerge; }; f"
   undo = reset --soft HEAD~1
   amend = "commit --amend --no-edit"
+  puhs = "push"
 [push]
 	default = current
 	autoSetupRemote = true
