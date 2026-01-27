@@ -39,7 +39,7 @@
 	change-commits = "!f() { VAR1=$1; VAR='$'$1; OLD=$2; NEW=$3; echo \"Are you sure for replace $VAR  $OLD => $NEW ?(Y/N)\";read OK;if [ \"$OK\" = 'Y' ] ; then shift 3; git filter-branch  --env-filter \"if [ \\\"${VAR}\\\" = '$OLD' ]; then export $VAR1='$NEW';echo 'to $NEW'; fi\" $@; fi;};  f "
 	sync = !"f(){ git pull && git push; }; f"
   cmerge = !"f(){ echo $1 > $(git rev-parse --git-dir)/cmerge; git merge $1 -m \"merge: $1 -> $(git rev-parse --abbrev-ref HEAD)\"; }; f"
-  ccmerge = !"f(){ git commit -am \"merge: $(cat $(git rev-parse --git-dir)/cmerge) -> $(git branch --show-current)\"; rm .git/cmerge; }; f"
+  ccmerge = !"f(){ git commit -am \"merge: $(cat $(git rev-parse --git-dir)/cmerge) -> $(git branch --show-current)\"; rm $(git rev-parse --git-dir)/cmerge; }; f"
   undo = reset --soft HEAD~1
   amend = "commit --amend --no-edit"
   puhs = "push"
@@ -66,3 +66,7 @@
   syntax-theme = "ansi"
 [merge]
 	conflictStyle = zdiff3
+[rerere]
+	enabled = true
+[ghq]
+	root = /home/sevenc7c/ghq

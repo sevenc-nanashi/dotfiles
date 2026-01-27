@@ -32,3 +32,5 @@ mise.local.toml
 .rgignore
 .codex
 .specify
+.roudou
+roudou_log.md

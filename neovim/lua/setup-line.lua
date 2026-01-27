@@ -91,7 +91,9 @@ require("lualine").setup({
         else
           icon = devicons.get_icon_by_filetype(ft)
         end
-        if #(vim.api.nvim_get_runtime_file("parser/" .. ft .. ".so", false)) > 0 then
+
+        local treesitter_started = vim.b.treesitter_started
+        if treesitter_started then
           local captalized = ft:gsub("^%l", string.upper)
           return string.format("%%#DevIcon%s#%s %s(TS)", captalized, icon or "-", ft)
         end

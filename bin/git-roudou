@@ -1,0 +1,174 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "optparse"
+require "shellwords"
+require "fileutils"
+require "time"
+
+options = {}
+OptionParser
+  .new do |opts|
+    opts.banner = "Usage: git-roudou [options] prompt"
+
+    opts.on("-b", "--branch BRANCH", "Specify the branch name") do |branch|
+      options[:branch] = branch
+    end
+  end
+  .parse!
+
+def colorize(text, code)
+  "\e[#{code}m#{text}\e[0m"
+end
+
+def info(text)
+  colorize(text, 34)
+end
+
+def success(text)
+  colorize(text, 32)
+end
+
+def warn(text)
+  colorize(text, 33)
+end
+
+def error(text)
+  colorize(text, 31)
+end
+
+prompt = ARGV.join(" ")
+roudou_root = File.expand_path("./.roudou")
+tmp_dir = File.join(roudou_root, "tmp", Time.now.strftime("%Y%m%d%H%M%S"))
+FileUtils.mkdir_p(tmp_dir)
+
+def branch_exists?(branch)
+  system(
+    "git show-ref --verify --quiet refs/heads/#{Shellwords.escape(branch)}"
+  )
+end
+
+def find_worktree_path(branch)
+  current_path = nil
+  `git worktree list --porcelain`.each_line do |line|
+    line = line.strip
+    if line.start_with?("worktree ")
+      current_path = line.delete_prefix("worktree ").strip
+    elsif line.start_with?("branch ")
+      ref = line.delete_prefix("branch ").strip
+      return current_path if ref == "refs/heads/#{branch}"
+    end
+  end
+  nil
+end
+if options[:branch]
+  puts info("Using branch name: #{options[:branch]}")
+else
+  puts info("Asking AI for a branch name based on the prompt: #{prompt}")
+  roudou_json_schema = {
+    "type" => "object",
+    "properties" => {
+      "branch_name" => {
+        "type" => "string",
+        "description" =>
+          "A concise and descriptive git branch name based on the task description."
+      }
+    },
+    "required" => ["branch_name"],
+    "additionalProperties" => false,
+  }
+  roudou_prompt = <<~PROMPT
+    Suggest a concise and descriptive git branch name for the following task:
+    > #{prompt}
+
+    The branch name should be in lowercase, use hyphens to separate words, and avoid special characters.
+    Additionally, first segment of path should be the type of change, with conventional-commits compatible types such as feat, fix, docs, style, refactor, test, chore, etc.
+    For example, "feat/add-user-authentication" or "fix/login-bug".
+
+    Respond in JSON format as per the following schema:
+    #{JSON.pretty_generate(roudou_json_schema)}
+  PROMPT
+  File.write(
+    File.join(tmp_dir, "branch_name_schema.json"),
+    JSON.pretty_generate(roudou_json_schema)
+  )
+  File.write(File.join(tmp_dir, "branch_name_prompt.txt"), roudou_prompt)
+  system(
+    "codex exec " \
+      "--cd #{Shellwords.escape(tmp_dir)} " \
+      "-s workspace-write " \
+      "--output-schema #{Shellwords.escape(File.join(tmp_dir, "branch_name_schema.json"))} " \
+      "-- 'Read prompt at @#{Shellwords.escape(File.join(tmp_dir, "branch_name_prompt.txt"))}' > #{Shellwords.escape(File.join(tmp_dir, "branch_name.json"))}",
+    exception: true
+  )
+
+  branch_name_response = File.read(File.join(tmp_dir, "branch_name.json"))
+  branch_name_data = JSON.parse(branch_name_response)
+  if branch_name_data["branch_name"].nil? ||
+       branch_name_data["branch_name"].strip.empty?
+    puts error("Error: AI did not provide a valid branch name.")
+    exit 1
+  end
+  options[:branch] = branch_name_data["branch_name"]
+end
+
+puts info("Creating and switching to worktree: #{options[:branch]}")
+worktree = File.join(roudou_root, "worktrees", options[:branch])
+branch_markers_dir = File.join(roudou_root, "branches")
+branch_marker_path = File.join(branch_markers_dir, "#{options[:branch]}.json")
+
+if branch_exists?(options[:branch])
+  unless File.exist?(branch_marker_path)
+    puts error("Error: Branch already exists and is not managed by roudou.")
+    exit 1
+  end
+
+  existing_worktree = find_worktree_path(options[:branch])
+  if existing_worktree
+    system(
+      "git worktree remove #{Shellwords.escape(existing_worktree)}",
+      exception: true
+    )
+  end
+  system("git branch -D #{Shellwords.escape(options[:branch])}", exception: true)
+end
+
+roudou_prompt = <<~PROMPT
+  You are now working in a git worktree for branch '#{options[:branch]}'.
+  Your task is to:
+  > #{prompt}
+
+  Before starting, check MCP and know about what tools you can use.
+  Make sure that the change is ready for commit and create pull request.
+  Run formatter and use linting tools as needed.
+  Follow best practices for commit messages and code quality.
+  After completing the task, commit your changes with a clear and concise commit message.
+  Finally, notify me using the ntfy MCP.
+PROMPT
+File.write(File.join(tmp_dir, "roudou_prompt.txt"), roudou_prompt)
+system(
+  "git worktree add -b #{Shellwords.escape(options[:branch])} #{Shellwords.escape(worktree)}",
+  exception: true
+)
+FileUtils.mkdir_p(File.dirname(branch_marker_path))
+File.write(
+  branch_marker_path,
+  JSON.pretty_generate(
+    {
+      "branch" => options[:branch],
+      "created_at" => Time.now.utc.iso8601,
+      "prompt" => prompt,
+    }
+  )
+)
+puts success("Switched to new worktree at #{worktree}")
+
+puts info("Now, running codex exec in the new worktree...")
+system(
+  "codex exec " \
+    "--cd #{Shellwords.escape(File.join(roudou_root, "worktrees", options[:branch]))} " \
+    "-s workspace-write " \
+    "-- 'Read prompt at @#{Shellwords.escape(File.join(tmp_dir, "roudou_prompt.txt"))}' " \
+    "2>&1 | tee #{Shellwords.escape(worktree)}/roudou_log.md",
+  exception: true
+)

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+for dir in "$@"; do
+    echo "ghqifying $dir..."
+    if [ ! -d "$dir" ]; then
+        echo "$dir does not exist. Skipping."
+        continue
+    fi
+    if ! url=$(cd "$dir" && gh repo view --json url --jq ".url" | sed 's!https://!!' | tr '[A-Z]' '[a-z]'); then
+        echo "Failed to get repo URL for $dir. Skipping."
+        continue
+    fi
+    dest="$(git config ghq.root)/$url"
+    if [ -d "$dest" ]; then
+        echo "$dest already exists. Skipping."
+        continue
+    fi
+    echo "Moving $dir to $dest"
+    if ! mkdir -p "$(dirname "$dest")"; then
+        echo "Failed to create destination directory for $dest. Skipping."
+        continue
+    fi
+    if ! mv "$dir" "$dest"; then
+        echo "Failed to move $dir to $dest. Skipping."
+        continue
+    fi
+done

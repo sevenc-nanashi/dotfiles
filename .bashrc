@@ -143,6 +143,25 @@ alias l='ls -CF'
 
 alias cat="bat"
 
+gcd() {
+	local repo="$1"
+	if [ -z "$repo" ]; then
+		repo="$(ghq list | fzf)"
+	fi
+	[ -n "$repo" ] && cd "$(git config ghq.root)/$repo"
+}
+
+_gcd_complete() {
+	local cur
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	COMPREPLY=()
+	if ! command -v ghq >/dev/null 2>&1; then
+		return 0
+	fi
+	COMPREPLY=($(compgen -W "$(ghq list)" -- "$cur"))
+}
+complete -F _gcd_complete gcd
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

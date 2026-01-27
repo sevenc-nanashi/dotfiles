@@ -78,7 +78,7 @@ require("noice").setup({
   },
 })
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+local parser_config = require "nvim-treesitter.parsers"
 parser_config.sus = {
   install_info = {
     url = "https://github.com/sevenc-nanashi/tree-sitter-sus.git",
@@ -103,15 +103,22 @@ parser_config.mcfunction = {
   },
   filetype = "mcfunction"
 }
-require("nvim-treesitter.configs").setup({
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  matchup = {
-    enable = true,
-  }
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('vim-treesitter-start', { clear = true }),
+  callback = function()
+    local success, _err = pcall(vim.treesitter.start)
+    vim.b.treesitter_started = success
+  end,
 })
+
+require("nvim-treesitter").setup({
+  install_dir = vim.fn.stdpath('data') .. '/site',
+})
+vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+vim.g.matchup_treesitter_enable_quotes = true
+vim.g.matchup_treesitter_disable_virtual_text = true
+vim.g.matchup_treesitter_include_match_words = true
+
 local rainbow_delimiters = require('rainbow-delimiters')
 require('rainbow-delimiters.setup').setup {
   strategy = {

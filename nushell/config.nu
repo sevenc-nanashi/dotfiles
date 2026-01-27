@@ -63,4 +63,16 @@ $env.config.keybindings ++= [{
 alias mr = mise run
 alias gti = git
 
+def ghq_list [] {
+    ghq list | split row "\n"
+}
+def --env gcd [repo?: string@ghq_list] {
+  let real_repo = if ($repo == null) {
+    ghq list | fzf
+  } else {
+    $repo
+  }
+  cd $"(git config ghq.root)/($real_repo)"
+}
+
 # use ($nu.default-config-dir | path join mise.nu)

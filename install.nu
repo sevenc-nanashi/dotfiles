@@ -284,19 +284,30 @@ if $is_linux {
 }
 nvim --headless +JetpackSync +qall
 
+# print "Installing carapace overlay"
+# # carapace e>| parse -r 'Config is written to \[(?<config_dir>.+)\]'
+# let config_dir = (carapace e>| parse -r 'Config is written to \[(?<config_dir>.+)\]' | get 0.config_dir | str trim)
+# print $"Carapace config directory: ($config_dir)"
+# link ($dotfiles_install_path | path join "carapace") ($config_dir | path join "overlays")
+
 print "Creating symbolic links for custom binaries"
 let local_bin_dir = ("~/.local/bin" | path expand)
 let bin_dir = ($dotfiles_install_path | path join "bin")
 for file in (ls $bin_dir | get name) {
   link $file ($local_bin_dir | path join ($file | path basename))
+  chmod +x ($local_bin_dir | path join ($file | path basename))
 }
 
 if ($is_linux or $is_macos) {
   print "Installing ble.sh"
   let blesh_path = ("~/.local/share/ble.sh" | path expand)
-  git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git $blesh_path
-  let local_prefix = ("~/.local" | path expand)
-  make -C $blesh_path install $"PREFIX=($local_prefix)"
+  if ($blesh_path | path exists) {
+    print "ble.sh already installed, skipping"
+  } else {
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git $blesh_path
+    let local_prefix = ("~/.local" | path expand)
+    make -C $blesh_path install $"PREFIX=($local_prefix)"
+  }
 }
 
 print "Setting up git remote to use SSH"
