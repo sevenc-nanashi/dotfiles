@@ -75,4 +75,50 @@ def --env gcd [repo?: string@ghq_list] {
   cd $"(git config ghq.root)/($real_repo)"
 }
 
+def --env ridk [...args] {
+    let subcmd = ($args | get 0 -o | default "")
+
+    match $subcmd {
+        "enable" | "disable" => {
+            let out = (ridk.cmd ...$args)
+            $out
+            | lines
+            | parse "{key}={value}"
+            | each {|key_value| { ($key_value.key): $key_value.value } }
+            | into record
+            | load-env
+        }
+
+        "exec" => {
+            let env_lines = (
+                ridk.cmd ($args | get 1)
+            )
+
+            $env_lines
+            | lines
+            | where ($it | str contains "=")
+            | parse "{key}={value}"
+            | each {|key_value| { ($key_value.key): $key_value.value } }
+            | into record
+            | load-env
+
+            let rest = ($args | skip 2)
+            if ($rest | is-empty) {
+                return
+            }
+
+            ridk.cmd ...$rest
+        }
+
+        "use" => {
+            ridk.cmd ...($args | skip 1)
+        }
+
+        _ => {
+            ridk.cmd ...$args
+        }
+    }
+}
+
+
 # use ($nu.default-config-dir | path join mise.nu)
