@@ -147,3 +147,27 @@ require("ibl").setup { indent = { highlight = {
   char = "|"
 } }
 require("full_visual_line").setup({})
+require('avante').setup({
+  input = {
+    provider = "snacks",
+  },
+  provider = "codex-cli",
+  acp_providers = {
+    ["gemini-cli"] = {
+      command = "gemini",
+      args = { "--experimental-acp" },
+      env = {
+        NODE_NO_WARNINGS = "1",
+      },
+    },
+    ["codex-cli"] = {
+      command = "codex-acp",
+      env = {
+        NODE_NO_WARNINGS = "1",
+      },
+    },
+  }
+})
+require("render-markdown").setup({
+  file_types = { 'avante' },
+})

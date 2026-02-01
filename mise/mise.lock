@@ -203,8 +203,12 @@ version = "576.1.0"
 backend = "npm:@jetbrains/junie-cli"
 
 [[tools."npm:@openai/codex"]]
-version = "0.91.0"
+version = "0.92.0"
 backend = "npm:@openai/codex"
+
+[[tools."npm:@zed-industries/codex-acp"]]
+version = "0.9.0"
+backend = "npm:@zed-industries/codex-acp"
 
 [[tools."npm:difit"]]
 version = "3.0.2"

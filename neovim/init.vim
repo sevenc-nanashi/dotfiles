@@ -62,6 +62,12 @@ call jetpack#add('lervag/vimtex')
 call jetpack#add('neoclide/coc-tsserver', { 'do': 'yarn install --frozen-lockfile' })
 call jetpack#add('sevenc-nanashi/neov-ime.nvim')
 call jetpack#add('tpope/vim-rhubarb')
+call jetpack#add('nvim-lua/plenary.nvim')
+call jetpack#add('MeanderingProgrammer/render-markdown.nvim')
+call jetpack#add('HakonHarnes/img-clip.nvim')
+call jetpack#add('stevearc/dressing.nvim')
+call jetpack#add('folke/snacks.nvim')
+call jetpack#add('yetone/avante.nvim', { 'do': 'make' })
 call jetpack#end()
 
 set termguicolors

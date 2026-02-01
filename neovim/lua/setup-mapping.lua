@@ -145,18 +145,16 @@ vim.keymap.set(
 )
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
 
-local Terminal  = require('toggleterm.terminal').Terminal
-local codex = Terminal:new({
-  cmd = "codex",
-  hidden = true,
-  direction = "vertical",
-})
 vim.keymap.set(
   "",
   "<C-K><C-D>",
-  function()
-    codex:toggle(40, "vertical")
-  end,
+  "<Cmd>AvanteToggle<CR>",
+  { noremap = false, silent = false }
+)
+vim.keymap.set(
+  "i",
+  "<C-K><C-D>",
+  "<Cmd>AvanteToggle<CR>",
   { noremap = false, silent = false }
 )
 

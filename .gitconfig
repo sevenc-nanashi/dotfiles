@@ -43,6 +43,7 @@
   undo = reset --soft HEAD~1
   amend = "commit --amend --no-edit"
   puhs = "push"
+  commti = "commit"
 [push]
 	default = current
 	autoSetupRemote = true
