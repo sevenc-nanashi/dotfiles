@@ -262,7 +262,7 @@ link ($dotfiles_install_path | path join "starship.toml") ~/.config/starship.tom
 link ($dotfiles_install_path | path join "bat.config") ~/.config/bat/config
 link ($dotfiles_install_path | path join "gh.config.yml") ~/.config/gh/config.yml
 link ($dotfiles_install_path | path join "mise") ~/.config/mise
-link ($dotfiles_install_path | path join "nushell") ~/.config/nushell
+link ($dotfiles_install_path | path join "nushell") ($nu.config-path | path dirname)
 link ($dotfiles_install_path | path join "online-judge-tools") ~/.config/online-judge-tools
 
 print "Installing tools managed by mise"
@@ -276,7 +276,7 @@ $env.PATH = ($env.PATH | prepend $mise_shims_dir)
 ^($mise_path) trust .
 ^($mise_path) settings experimental=true  # Why not?
 ^($mise_path) settings lockfile=true
-^($mise_path) install
+# ^($mise_path) install
 
 print "Install neovim plugins"
 if $is_linux {
