@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.rbs                set filetype=rbs
+au BufRead,BufNewFile *.hlsl                set filetype=hlsl

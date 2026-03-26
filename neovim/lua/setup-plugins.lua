@@ -161,7 +161,7 @@ require('avante').setup({
       },
     },
     ["codex-cli"] = {
-      command = "codex-acp",
+      command = "codex-acp.cmd",
       env = {
         NODE_NO_WARNINGS = "1",
       },
@@ -170,4 +170,7 @@ require('avante').setup({
 })
 require("render-markdown").setup({
   file_types = { 'avante' },
+})
+require'treesitter-context'.setup({
+  max_lines = 4,
 })

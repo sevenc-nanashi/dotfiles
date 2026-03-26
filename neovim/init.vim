@@ -68,6 +68,7 @@ call jetpack#add('HakonHarnes/img-clip.nvim')
 call jetpack#add('stevearc/dressing.nvim')
 call jetpack#add('folke/snacks.nvim')
 call jetpack#add('yetone/avante.nvim', { 'do': 'make' })
+call jetpack#add('nvim-treesitter/nvim-treesitter-context')
 call jetpack#end()
 
 set termguicolors

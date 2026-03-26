@@ -27,9 +27,6 @@
 
 # Prohibited CLIs
 
-- `rm`
-  - Please use `trash` instead.
-
 - `find`
   - Please use `fd` instead.
 
@@ -55,6 +52,5 @@
 - Please respond in Japanese, even though the instructions are in English.
 - Between tasks, I might have edited the file you edited. Please make sure to read the latest version of the file before starting your work.
 - Even if you noticed unrelated changes, DO NOT ERASE THEM. I was working at the same time.
-
-- If you hit error because of version mismatch of language runtime (such as Node.js), try using `mise exec -- <command>` to run the command in the correct version.
 - If you're looking for GitHub Issue, please use GitHub MCP.
+- Use Ruby for temporary scripts. (For less token usage)
