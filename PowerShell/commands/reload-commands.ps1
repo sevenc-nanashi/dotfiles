@@ -1,4 +1,4 @@
-$scripts = Get-ChildItem ~\Documents\WindowsPowerShell\commands\* -name
+$scripts = Get-ChildItem ~\Documents\PowerShell\commands\* -name
 $ScriptCounter = 0
 $helpCommand = "function global:ehelp{`n"
 $definer = ""
@@ -6,7 +6,7 @@ foreach ($script in $scripts) {
   $ScriptCounter += 1
   $ScriptName =   [regex]::Replace(($script -replace ".ps1", ""), "(?:^|(?<=-))(\w)", { $args.groups[1].value.toupper() })
 
-  $mainScript = Get-Content ~\Documents\WindowsPowerShell\commands\$script -raw
+  $mainScript = Get-Content ~\Documents\PowerShell\commands\$script -raw
   $definer += @"
   function global:$ScriptName {
     $mainScript

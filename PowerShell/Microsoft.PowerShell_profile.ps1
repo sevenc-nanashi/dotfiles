@@ -104,6 +104,7 @@ function global:Show-Toast {
 
 }
 Invoke-Expression (&starship init powershell)
+(&mise activate pwsh) | Out-String | Invoke-Expression
 
 # Invoke-Expression "$(thefuck --alias f)"
 
@@ -225,4 +226,51 @@ function global:Enable-VsDev {
   Import-Module (Get-ChildItem $vsPath -Recurse -File -Filter Microsoft.VisualStudio.DevShell.dll).FullName
   Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation
 }
-(&mise activate pwsh) | Out-String | Invoke-Expression
+function gcd {
+    param(
+        [string]$Repo
+    )
+
+    if (-not (Get-Command ghq -ErrorAction SilentlyContinue)) {
+        Write-Error "ghq が見つかりません"
+        return
+    }
+
+    if (-not $Repo) {
+        if (-not (Get-Command fzf -ErrorAction SilentlyContinue)) {
+            Write-Error "fzf が見つかりません"
+            return
+        }
+
+        $Repo = ghq list | fzf
+    }
+
+    if ($Repo) {
+        $root = git config ghq.root
+        if (-not $root) {
+            Write-Error "git config ghq.root が取得できません"
+            return
+        }
+
+        Set-Location (Join-Path $root $Repo)
+    }
+}
+
+Register-ArgumentCompleter -CommandName gcd -ParameterName Repo -ScriptBlock {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+
+    if (-not (Get-Command ghq -ErrorAction SilentlyContinue)) {
+        return
+    }
+
+    ghq list |
+        Where-Object { $_ -like "$wordToComplete*" } |
+        ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new(
+                $_,
+                $_,
+                'ParameterValue',
+                $_
+            )
+        }
+}
