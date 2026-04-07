@@ -34,3 +34,4 @@ mise.local.toml
 .specify
 .roudou
 roudou_log.md
+.claude/settings.local.json

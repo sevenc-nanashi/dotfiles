@@ -274,3 +274,6 @@ Register-ArgumentCompleter -CommandName gcd -ParameterName Repo -ScriptBlock {
             )
         }
 }
+
+(&mise activate pwsh) | Out-String | Invoke-Expression
+$env:MISE_GITHUB_TOKEN = (gh auth token)

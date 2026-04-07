@@ -204,6 +204,10 @@ backend = "http:claude"
 checksum = "blake3:5eeb4a6ef9d224e9fb8d3dbabc1efc436c5aaf373d6e53dae7076a68d9330378"
 url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.76/win32-x64/claude.exe"
 
+[[tools.claude]]
+version = "2.1.84"
+backend = "http:claude"
+
 [[tools.cmake]]
 version = "4.2.3"
 backend = "aqua:Kitware/CMake"
@@ -341,6 +345,54 @@ url = "https://dl.deno.land/release/v2.7.5/deno-x86_64-pc-windows-msvc.zip"
 checksum = "sha256:Algorithm"
 url = "https://dl.deno.land/release/v2.7.5/deno-x86_64-pc-windows-msvc.zip"
 
+[[tools.deno]]
+version = "2.6.3"
+backend = "core:deno"
+
+[tools.deno."platforms.linux-arm64"]
+checksum = "sha256:92c9496e8c71e6b18abf1f728d6223bb682749e4946f24589a7ef8972fec423e"
+url = "https://dl.deno.land/release/v2.6.3/deno-aarch64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.linux-arm64-musl"]
+checksum = "sha256:92c9496e8c71e6b18abf1f728d6223bb682749e4946f24589a7ef8972fec423e"
+url = "https://dl.deno.land/release/v2.6.3/deno-aarch64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.linux-x64"]
+checksum = "sha256:b3c24dc6f3982607896bd795fd6bcbdc53f3d11e8d8190b2a07fd1881eb1148a"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.linux-x64-baseline"]
+checksum = "sha256:b3c24dc6f3982607896bd795fd6bcbdc53f3d11e8d8190b2a07fd1881eb1148a"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.linux-x64-musl"]
+checksum = "sha256:b3c24dc6f3982607896bd795fd6bcbdc53f3d11e8d8190b2a07fd1881eb1148a"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:b3c24dc6f3982607896bd795fd6bcbdc53f3d11e8d8190b2a07fd1881eb1148a"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-unknown-linux-gnu.zip"
+
+[tools.deno."platforms.macos-arm64"]
+checksum = "sha256:7fdc01002a90a6ac58b8936e5d7a872fa7885db71d51bac7f776b7b790c82085"
+url = "https://dl.deno.land/release/v2.6.3/deno-aarch64-apple-darwin.zip"
+
+[tools.deno."platforms.macos-x64"]
+checksum = "sha256:3942e5af4d25588b506f49155278239c9fa09e7683a912ca091a346a1fc40733"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-apple-darwin.zip"
+
+[tools.deno."platforms.macos-x64-baseline"]
+checksum = "sha256:3942e5af4d25588b506f49155278239c9fa09e7683a912ca091a346a1fc40733"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-apple-darwin.zip"
+
+[tools.deno."platforms.windows-x64"]
+checksum = "sha256:Algorithm"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-pc-windows-msvc.zip"
+
+[tools.deno."platforms.windows-x64-baseline"]
+checksum = "sha256:Algorithm"
+url = "https://dl.deno.land/release/v2.6.3/deno-x86_64-pc-windows-msvc.zip"
+
 [[tools.eza]]
 version = "0.23.4"
 backend = "cargo:eza"
@@ -432,10 +484,6 @@ url = "https://github.com/junegunn/fzf/releases/download/v0.70.0/fzf-0.70.0-wind
 [tools.fzf."platforms.windows-x64-baseline"]
 checksum = "sha256:7465a6738e2c844742df973459c7509aed2d10d7a72bfd6de201b867b4eda4cd"
 url = "https://github.com/junegunn/fzf/releases/download/v0.70.0/fzf-0.70.0-windows_amd64.zip"
-
-[[tools."gem:ruby-lsp"]]
-version = "0.26.4"
-backend = "gem:ruby-lsp"
 
 [[tools.gh]]
 version = "2.88.1"
@@ -833,49 +881,49 @@ version = "nightly"
 backend = "github:wgsl-analyzer/wgsl-analyzer"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-arm64"]
-checksum = "sha256:752be7410545b7d510bbabe86c38cffd888875abcf67e83940ec917b7624c1e4"
+checksum = "sha256:1e69fc63172f49d8a8607617a25ece2fbb2d1a2e96a92ead74f1a58c41de8eb2"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-aarch64-unknown-linux-gnu.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082297"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047733"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-arm64-musl"]
-checksum = "sha256:752be7410545b7d510bbabe86c38cffd888875abcf67e83940ec917b7624c1e4"
+checksum = "sha256:1e69fc63172f49d8a8607617a25ece2fbb2d1a2e96a92ead74f1a58c41de8eb2"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-aarch64-unknown-linux-gnu.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082297"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047733"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-x64"]
-checksum = "sha256:db8293830bc2d0a44f5593abff9e62c1e227c23828711faeaf58d91f6d0b43a1"
+checksum = "sha256:1fad692b7a2f2b54680fbe79fc1a00b76f20c0862075505503172a9478c0277d"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-unknown-linux-gnu.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082411"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047917"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-x64-baseline"]
-checksum = "sha256:db8293830bc2d0a44f5593abff9e62c1e227c23828711faeaf58d91f6d0b43a1"
+checksum = "sha256:1fad692b7a2f2b54680fbe79fc1a00b76f20c0862075505503172a9478c0277d"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-unknown-linux-gnu.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082411"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047917"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-x64-musl"]
-checksum = "sha256:45c741f7c97bbce9b420e75a892b0ae094236ce980d00c6f0cb39b1d382ed025"
+checksum = "sha256:6a68d4159ee424cd218c2ed1f4b345e5b652c6ba9fcbbcd0443f82d55e7a112a"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-unknown-linux-musl.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082414"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047924"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:db8293830bc2d0a44f5593abff9e62c1e227c23828711faeaf58d91f6d0b43a1"
+checksum = "sha256:1fad692b7a2f2b54680fbe79fc1a00b76f20c0862075505503172a9478c0277d"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-unknown-linux-gnu.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082411"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047917"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.macos-arm64"]
-checksum = "sha256:436698c865d0715ca401a05aff1d72a780fd5a8d211512b0fa4689d099b291e3"
+checksum = "sha256:6cff695628b69cfaf039aad657def944f1a734d0e935830a3098e725c20da64d"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-aarch64-apple-darwin.gz"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082292"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047704"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.windows-x64"]
-checksum = "sha256:a16ec23df9d88afb59c58c3077e8ac9bf422c02b17fec4e1a8903f4f765f5feb"
+checksum = "sha256:d2b019bf364627988c121743b0a5bce9a671183d77ee82493c4582bd5d401cc2"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082407"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047900"
 
 [tools."github:wgsl-analyzer/wgsl-analyzer"."platforms.windows-x64-baseline"]
-checksum = "sha256:a16ec23df9d88afb59c58c3077e8ac9bf422c02b17fec4e1a8903f4f765f5feb"
+checksum = "sha256:d2b019bf364627988c121743b0a5bce9a671183d77ee82493c4582bd5d401cc2"
 url = "https://github.com/wgsl-analyzer/wgsl-analyzer/releases/download/nightly/wgsl-analyzer-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/374082407"
+url_api = "https://api.github.com/repos/wgsl-analyzer/wgsl-analyzer/releases/assets/382047900"
 
 [[tools.just]]
 version = "1.46.0"
@@ -988,10 +1036,6 @@ backend = "npm:@google/gemini-cli"
 [[tools."npm:@jetbrains/junie-cli"]]
 version = "888.77.0"
 backend = "npm:@jetbrains/junie-cli"
-
-[[tools."npm:@openai/codex"]]
-version = "0.114.0"
-backend = "npm:@openai/codex"
 
 [[tools."npm:@typespec/compiler"]]
 version = "1.10.0"
