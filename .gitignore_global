@@ -34,4 +34,9 @@ mise.local.toml
 .specify
 .roudou
 roudou_log.md
+<<<<<<< HEAD
 .claude/settings.local.json
+||||||| parent of dc53460 (feat: 2026/05/13 from nanaDows WSL)
+=======
+.config/settings.local.json
+>>>>>>> dc53460 (feat: 2026/05/13 from nanaDows WSL)

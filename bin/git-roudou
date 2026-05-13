@@ -168,7 +168,7 @@ system(
   "codex exec " \
     "--cd #{Shellwords.escape(File.join(roudou_root, "worktrees", options[:branch]))} " \
     "-s workspace-write " \
-    "-- 'Read prompt at @#{Shellwords.escape(File.join(tmp_dir, "roudou_prompt.txt"))}' " \
+    "-- 'Read prompt at @#{Shellwords.escape(File.join(tmp_dir, "roudou_prompt.txt"))}, then follow that file' " \
     "2>&1 | tee #{Shellwords.escape(worktree)}/roudou_log.md",
   exception: true
 )

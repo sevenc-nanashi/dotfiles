@@ -174,3 +174,5 @@ require("render-markdown").setup({
 require'treesitter-context'.setup({
   max_lines = 4,
 })
+
+require("copy-reference").setup()

@@ -232,3 +232,4 @@ vim.keymap.set("n", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", 
 vim.keymap.set("i", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", { noremap = false, silent = true })
 vim.keymap.set("i", "<C-Space>", "coc#refresh()", { noremap = true, silent = true, expr = true })
 vim.keymap.set("i", "<M-Space>", "coc#refresh()", { noremap = true, silent = true, expr = true })
+vim.keymap.set("", "gl", "<Cmd>CopyReference line<CR>", { noremap = false, silent = false })

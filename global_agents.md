@@ -27,14 +27,13 @@
 
 # Prohibited CLIs
 
+Note that this restriction only applies to te commands you run on terminal, and does not apply to the commands run by scripts or CI/CD pipelines.
+
 - `find`
   - Please use `fd` instead.
 
 - `grep`
   - Please use `rg` (ripgrep) instead.
-
-- `npm`, `yarn`, `pnpm`, `bun`
-  - Please use commands from `@antfu/ni`, such as `ni` (install), `nun` (uninstall), `nr` (run script), `na` (misc).
 
 - `git merge`
   - Please use `git cmerge` instead.
@@ -54,3 +53,55 @@
 - Even if you noticed unrelated changes, DO NOT ERASE THEM. I was working at the same time.
 - If you're looking for GitHub Issue, please use GitHub MCP.
 - Use Ruby for temporary scripts. (For less token usage)
+
+# Coding Styles
+
+- Do not use fallback, but use assertion.
+```ts
+// Bad
+const rawValue: string | undefined = getValue();
+const value: string = rawValue ?? "";
+
+// Good
+const rawValue: string | undefined = getValue();
+if (rawValue === undefined) {
+  throw new Error("Value is undefined");
+}
+const value: string = rawValue;
+```
+
+- Use validation libraries, instead of writing custom validation logic.
+```ts
+// Bad
+function validateUserInput(input: unknown): MyObject {
+    if (typeof input !== "object" || input === null) {
+        throw new Error("Input must be an object");
+    }
+    if (!("name" in input) || typeof input.name !== "string") {
+        throw new Error("Input must have a name property of type string");
+    }
+    if (!("age" in input) || typeof input.age !== "number") {
+        throw new Error("Input must have an age property of type number");
+    }
+    return input as MyObject;
+}
+
+function userCode(input: unknown) {
+    const validatedInput = validateUserInput(input);
+    // Use validatedInput
+}
+
+// Good
+import * as v from "valibot";
+
+const MyObjectSchema = v.object({
+    name: v.string(),
+    age: v.number(),
+});
+
+function userCode(input: unknown) {
+    const validatedInput = MyObjectSchema.parse(input);
+    // Use validatedInput
+}
+```
+

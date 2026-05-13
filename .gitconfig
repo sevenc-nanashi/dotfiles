@@ -44,6 +44,7 @@
   amend = "commit --amend --no-edit"
   puhs = "push"
   commti = "commit"
+  apply-fixup = "rebase -i --autosquash"
 [push]
 	default = current
 	autoSetupRemote = true

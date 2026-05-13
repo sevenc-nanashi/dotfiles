@@ -69,6 +69,7 @@ call jetpack#add('stevearc/dressing.nvim')
 call jetpack#add('folke/snacks.nvim')
 call jetpack#add('yetone/avante.nvim', { 'do': 'make' })
 call jetpack#add('nvim-treesitter/nvim-treesitter-context')
+call jetpack#add('cajames/copy-reference.nvim')
 call jetpack#end()
 
 set termguicolors
