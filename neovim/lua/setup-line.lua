@@ -65,9 +65,6 @@ require("lualine").setup({
           return ret
         end
       end,
-      function()
-        return Project.root
-      end,
       "encoding",
       function()
         local format = vim.bo.fileformat
@@ -131,7 +128,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
     local root = vim.fn["rootfinder#find"](current_buf)
     local color_loaded = false
-    if Project.root:len() == 0 or string.sub(root, 1, Project.root:len()) == Project.root then
+    if Project.root:len() ~= 0 and string.sub(root, 1, Project.root:len()) == Project.root then
       return
     end
     if
@@ -144,6 +141,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
       end
       Project.color.fg = f:read("l")
       Project.color.bg = f:read("l")
+      vim.g.neovide_title_background_color = Project.color.bg
+      vim.g.neovide_title_text_color = Project.color.fg
       f:close()
       Project.color.loaded = true
       color_loaded = true
