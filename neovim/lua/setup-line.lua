@@ -127,6 +127,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
       return
     end
     local root = vim.fn["rootfinder#find"](current_buf)
+    if root:len() == 0 then
+      return
+    end
     local color_loaded = false
     if Project.root:len() ~= 0 and string.sub(root, 1, Project.root:len()) == Project.root then
       return
