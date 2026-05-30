@@ -7,12 +7,11 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics", function()
-      local file = vim.fn.expand("%:p")
-      if file.match(file, "^term://") then
-        local termid = file.match(file, "^term://.*//[0-9]+:[^;]*;#toggleterm#([0-9]+)$")
-        return "\u{ea85} " .. termid
+      if vim.bo.filetype ~= "toggleterm" then
+        return ""
       end
-      return ""
+      local termid = vim.api.nvim_buf_get_name(0):match("(%d+)$")
+      return "\u{ea85} " .. termid
     end },
     lualine_c = {
       function()
