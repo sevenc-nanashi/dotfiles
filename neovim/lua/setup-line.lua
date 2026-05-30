@@ -45,6 +45,10 @@ require("lualine").setup({
           return "\u{e5fe} " .. pwd
         elseif file:match("^fern://") then
           local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
+          -- Windowsでは`/C:/`のように変換されるため、そのときは最初の1文字を削除する
+          if pwd:match("/[A-Z]:/") then
+            pwd = pwd:sub(2)
+          end
           return "\u{e5fe} " .. pwd
         elseif vim.bo.modifiable == false then
           return "\u{f023} " .. file
