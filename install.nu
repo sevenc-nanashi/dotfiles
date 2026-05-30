@@ -202,7 +202,7 @@ if not (command_exists "nvim") {
     let nvim_install_dir = ($env.NVIM_INSTALL_DIR? | default "~/nvim-nightly") | path expand
     tar -xzf /tmp/nvim.tar.gz -C /tmp
     mkdir $nvim_install_dir
-    mv $"/tmp/nvim-(nvim_variant)"/* $nvim_install_dir
+    mv $"/tmp/nvim-(nvim_variant)/*" $nvim_install_dir
     if not ($nvim_bin | path dirname | path exists) {
       mkdir ($nvim_bin | path dirname)
     }
