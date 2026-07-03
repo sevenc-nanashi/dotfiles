@@ -8,8 +8,6 @@
 
 #include <bits/stdc++.h>
 
-using namespace std;
-
 #define fn auto
 #define let auto
 
@@ -26,17 +24,14 @@ using namespace std;
   for (usize i = 0; i < (usize)a.size(); ++i)                                  \
     if (auto &x = a[i]; true)
 #define enumerate2(x, y, i, a)                                                 \
-  usize i = 0;                                                                 \
-  for (auto it = a.begin(); it != a.end(); ++it, ++i)                          \
-    if (auto &[x, y] = *it; true)
+  for (usize i = 0; i < (usize)a.size(); ++i)                                  \
+    if (auto &[x, y] = a[i]; true)
 #define enumerate3(x, y, z, i, a)                                              \
-  usize i = 0;                                                                 \
-  for (auto it = a.begin(); it != a.end(); ++it, ++i)                          \
-    if (auto &[x, y, z] = *it; true)
+  for (usize i = 0; i < (usize)a.size(); ++i)                                  \
+    if (auto &[x, y, z] = a[i]; true)
 #define enumerate4(w, x, y, z, i, a)                                           \
-  usize i = 0;                                                                 \
-  for (auto it = a.begin(); it != a.end(); ++it, ++i)                          \
-    if (auto &[w, x, y, z] = *it; true)
+  for (usize i = 0; i < (usize)a.size(); ++i)                                  \
+    if (auto &[w, x, y, z] = a[i]; true)
 
 #define rep(i, a) for (int i = 0; i < (a); ++i)
 #define range(i, l, r) for (int i = (l); i < (r); ++i)
@@ -62,6 +57,28 @@ using u32 = uint32_t;
 using u64 = uint64_t;
 using u128 = __uint128_t;
 using usize = std::make_unsigned<std::size_t>::type;
+using f32 = float;
+using f64 = double;
+
+/// メモ：Compareには「どういう要素が優先されるか」を指定する。
+template <typename T, typename Compare = std::less<T>>
+using PriorityQueue = std::priority_queue<T, std::vector<T>, Compare>;
+
+char eol[] = "\n"; // NOLINT: 言うてテンプレにまとまるし...
+
+template <typename T> using Vec = std::vector<T>;
+
+template <typename T> using Vec2 = std::vector<std::vector<T>>;
+
+template <typename T> using Vec3 = std::vector<std::vector<std::vector<T>>>;
+
+template <typename T, typename U> using OrderedMap = std::map<T, U>;
+
+template <typename T, typename U> using Map = std::unordered_map<T, U>;
+
+template <typename T> using OrderedSet = std::set<T>;
+
+template <typename T> using Set = std::unordered_set<T>;
 
 // ----- features/pair.hpp -----
 
@@ -90,55 +107,73 @@ template <typename T, typename U> struct hash<hpair<T, U>> {
 };
 } // namespace std
 
+template <typename T, typename U> using Pair = hpair<T, U>;
+
 // ----- features/input.hpp -----
 
 
 /// 1 変数を読み込む。
 #define input(type, var)                                                       \
   type var;                                                                    \
-  cin >> var;
+  std::cin >> var;
 
 /// 要素数 `n` のベクタを読み込む。
 #define input_vec(type, var, n)                                                \
   std::vector<type> var(n);                                                    \
   for (usize i = 0; i < (usize)(n); ++i) {                                     \
-    cin >> var[i];                                                             \
+    std::cin >> var[i];                                                        \
   }
 
 /// 要素数固定の `std::array` を読み込む。
 #define input_array(type, var, n)                                              \
   std::array<type, n> var;                                                     \
   for (usize i = 0; i < (usize)(n); ++i) {                                     \
-    cin >> var[i];                                                             \
+    std::cin >> var[i];                                                        \
   }
 
 /// 2 要素の `std::pair` を読み込む。
 #define input_pair(type1, type2, var)                                          \
   std::pair<type1, type2> var;                                                 \
-  cin >> var.first >> var.second;
+  std::cin >> var.first >> var.second;
 
 /// 2 要素の `hpair` を読み込む。
 #define input_hpair(type1, type2, var)                                         \
   hpair<type1, type2> var;                                                     \
-  cin >> var.first >> var.second;
+  std::cin >> var.first >> var.second;
 
 /// 要素数 `n` の `std::pair` ベクタを読み込む。
 #define input_vec_pair(type1, type2, var, n)                                   \
   std::vector<std::pair<type1, type2>> var(n);                                 \
   for (usize i = 0; i < (usize)(n); ++i) {                                     \
-    cin >> var[i].first >> var[i].second;                                      \
+    std::cin >> var[i].first >> var[i].second;                                      \
   }
 
 /// 要素数 `n` の `hpair` ベクタを読み込む。
 #define input_vec_hpair(type1, type2, var, n)                                  \
   std::vector<hpair<type1, type2>> var(n);                                     \
   for (usize i = 0; i < (usize)(n); ++i) {                                     \
-    cin >> var[i].first >> var[i].second;                                      \
+    std::cin >> var[i].first >> var[i].second;                                      \
+  }
+
+/// 2 次元配列を読み込む。
+#define input_vec2(type, var, rows, cols)                                      \
+  std::vector<std::vector<type>> var(rows, std::vector<type>(cols));           \
+  for (usize i = 0; i < (usize)(rows); ++i) {                                  \
+    for (usize j = 0; j < (usize)(cols); ++j) {                                \
+      std::cin >> var[i][j];                                                   \
+    }                                                                          \
   }
 
 // ----- features/debug.hpp -----
 
 #include <string>
+
+/// `std::pair` を `(first, second)` 形式で出力する。
+template <typename T, typename U>
+std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
+  os << "(" << p.first << ", " << p.second << ")";
+  return os;
+}
 
 std::ostream &
 operator<<(std::ostream &os, // NOLINT: いうて1ファイルにまとまるし...
@@ -212,13 +247,6 @@ std::ostream &operator<<(std::ostream &os, const std::unordered_set<T> &v) {
     }
   }
   os << "}";
-  return os;
-}
-
-/// `std::pair` を `(first, second)` 形式で出力する。
-template <typename T, typename U>
-std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
-  os << "(" << p.first << ", " << p.second << ")";
   return os;
 }
 
@@ -841,6 +869,208 @@ std::vector<T> vec_map(const V &vec, F &&func) {
 /// コンテナ内の要素をFによって変換する。
 template <typename F, typename V> void vec_map_inplace(V &vec, F &&func) {
   each(x, vec) { x = func(x); }
+}
+
+// ----- features/sort_by.hpp -----
+
+
+/// コンテナを selector の結果で昇順ソートする。
+template <typename V, typename F> void sort_by(V &vec, F &&selector) {
+  std::sort(all(vec), [&](const auto &a, const auto &b) {
+    return std::invoke(selector, a) < std::invoke(selector, b);
+  });
+}
+
+/// コンテナを selector の結果で降順ソートする。
+template <typename V, typename F> void sort_by_desc(V &vec, F &&selector) {
+  std::sort(all(vec), [&](const auto &a, const auto &b) {
+    return std::invoke(selector, a) > std::invoke(selector, b);
+  });
+}
+
+// ----- features/key_packer.hpp -----
+
+
+/// 複数の非負整数を、各値の最大値に基づいて1つの整数キーへ変換する。
+template <typename T = i64> class KeyPacker {
+private:
+  std::vector<T> maxes;
+
+public:
+  explicit KeyPacker(const std::vector<T> &maxes) : maxes(maxes) {
+    each(max, this->maxes) {
+      if (max < 0) {
+        throw std::invalid_argument("max must be non-negative");
+      }
+    }
+  }
+
+  KeyPacker(std::initializer_list<T> maxes)
+      : KeyPacker(std::vector<T>(maxes)) {}
+
+  /// 各次元の最大値への参照を返す。
+  const std::vector<T> &limits() const { return maxes; }
+
+  /// 値列が各次元の範囲内に収まるかを返す。
+  bool within_range(const std::vector<T> &values) const {
+    if (values.size() != maxes.size()) {
+      throw std::invalid_argument(
+          "number of values must match number of maxes");
+    }
+
+    enumerate(value, i, values) {
+      const T max = maxes[i];
+      if (value < 0 || value > max) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool within_range(std::initializer_list<T> values) const {
+    return within_range(std::vector<T>(values));
+  }
+
+  template <typename... Args> bool within_range(Args... values) const {
+    return within_range(std::vector<T>{static_cast<T>(values)...});
+  }
+
+  /// 値列を1つの整数キーに変換する。
+  T pack(const std::vector<T> &values) const {
+    if (values.size() != maxes.size()) {
+      throw std::invalid_argument(
+          "number of values must match number of maxes");
+    }
+
+    T key = 0;
+    T multiplier = 1;
+    enumerate(value, i, values) {
+      const T max = maxes[i];
+      if (value < 0 || value > max) {
+        throw std::invalid_argument("value exceeds max");
+      }
+
+      key += value * multiplier;
+      multiplier *= max + 1;
+    }
+    return key;
+  }
+
+  T pack(std::initializer_list<T> values) const {
+    return pack(std::vector<T>(values));
+  }
+
+  template <typename... Args> T pack(Args... values) const {
+    return pack(std::vector<T>{static_cast<T>(values)...});
+  }
+
+  /// 整数キーを元の値列に戻す。
+  std::vector<T> unpack(T key) const {
+    if (key < 0) {
+      throw std::invalid_argument("key must be non-negative");
+    }
+
+    std::vector<T> values;
+    values.reserve(maxes.size());
+
+    T multiplier = 1;
+    each(max, maxes) {
+      values.push_back((key / multiplier) % (max + 1));
+      multiplier *= max + 1;
+    }
+    return values;
+  }
+};
+
+// ----- features/backtrace_vec.hpp -----
+
+#include <source_location>
+
+/// ローカル実行時のみ `operator[]` の範囲外アクセスを検出する `std::vector`。
+template <typename T, typename Allocator = std::allocator<T>>
+class BacktraceVec : public std::vector<T, Allocator> {
+private:
+  using Base = std::vector<T, Allocator>;
+
+  [[noreturn]] static void
+  throw_out_of_range(typename Base::size_type index,
+                     typename Base::size_type size,
+                     const std::source_location &location) {
+    std::ostringstream oss;
+    oss << "BacktraceVec index out of range: index=" << index
+        << ", size=" << size << ", called from " << location.file_name() << ":"
+        << location.line() << ":" << location.column() << " in "
+        << location.function_name();
+    throw std::out_of_range(oss.str());
+  }
+
+public:
+  using typename Base::allocator_type;
+  using typename Base::const_reference;
+  using typename Base::reference;
+  using typename Base::size_type;
+  using typename Base::value_type;
+
+  using Base::Base;
+
+  reference
+  operator[](size_type index,
+             std::source_location location = std::source_location::current()) {
+#ifndef ONLINE_JUDGE
+    if (index >= this->size()) {
+      throw_out_of_range(index, this->size(), location);
+    }
+#endif
+    return Base::operator[](index);
+  }
+
+  const_reference operator[](
+      size_type index,
+      std::source_location location = std::source_location::current()) const {
+#ifndef ONLINE_JUDGE
+    if (index >= this->size()) {
+      throw_out_of_range(index, this->size(), location);
+    }
+#endif
+    return Base::operator[](index);
+  }
+};
+
+// ----- features/print.hpp -----
+
+
+void print() { std::cout << "\n"; }
+void print(const std::string &s) { std::cout << s << "\n"; }
+void print(const char *s) { std::cout << s << "\n"; }
+template <typename T> void print(const T &value) { std::cout << value << "\n"; }
+template <typename T> void print(const std::vector<T> &vec) {
+  enumerate(x, i, vec) {
+    std::cout << x;
+    if (i + 1 != vec.size()) {
+      std::cout << " ";
+    }
+  }
+  std::cout << "\n";
+}
+template <typename T, typename... Args>
+void print(const T &first, const Args &...args) {
+  std::cout << first;
+  if constexpr (sizeof...(args) > 0) {
+    std::cout << " ";
+    print(args...);
+  } else {
+    std::cout << "\n";
+  }
+}
+template <typename T>
+void print(const std::vector<T> &vec, const std::string &sep) {
+  enumerate(x, i, vec) {
+    std::cout << x;
+    if (i + 1 != vec.size()) {
+      std::cout << sep;
+    }
+  }
+  std::cout << "\n";
 }
 
 // ----- main.cpp -----
