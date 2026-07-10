@@ -305,3 +305,7 @@ esac
 ###-end-nr-completion-###
 
 export MISE_GITHUB_TOKEN=$(gh auth token)
+
+# >>> Codex installer >>>
+export PATH="/home/sevenc7c/.local/bin:$PATH"
+# <<< Codex installer <<<

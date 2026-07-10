@@ -120,5 +120,5 @@ def --env ridk [...args] {
     }
 }
 
-
+use ($nu.default-config-dir | path join external/bash-env.nu)
 # use ($nu.default-config-dir | path join mise.nu)
