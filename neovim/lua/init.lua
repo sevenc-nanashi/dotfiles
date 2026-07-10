@@ -1,12 +1,13 @@
-package.loaded["setup-plugins"] = nil
-package.loaded["setup-line"] = nil
-package.loaded["setup-mapping"] = nil
-package.loaded["setup-neovide"] = nil
-package.loaded["setup-coc-killer"] = nil
-package.loaded["setup-options"] = nil
-require("setup-mapping")
-require("setup-plugins")
-require("setup-line")
-require("setup-neovide")
-require("setup-coc-killer")
-require("setup-options")
+local modules = {
+  "setup-mapping",
+  "setup-plugins",
+  "setup-line",
+  "setup-neovide",
+  "setup-coc-killer",
+  "setup-options",
+}
+
+for _, module in ipairs(modules) do
+  package.loaded[module] = nil
+  require(module)
+end
