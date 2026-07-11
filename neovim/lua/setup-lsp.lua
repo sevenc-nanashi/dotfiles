@@ -51,8 +51,12 @@ local function on_attach(client, bufnr)
 
 end
 
-vim.keymap.set({ "n", "i" }, "<C-D>", vim.diagnostic.goto_next, { noremap = true, silent = true })
-vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.goto_prev, { noremap = true, silent = true })
+vim.keymap.set({ "n", "i" }, "<C-D>", function()
+  vim.diagnostic.jump({ count = 1 })
+end, { noremap = true, silent = true })
+vim.keymap.set({ "n", "i" }, "<C-S-D>", function()
+  vim.diagnostic.jump({ count = -1 })
+end, { noremap = true, silent = true })
 vim.keymap.set("i", "<C-Space>", "<C-X><C-O>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-@>", "<C-X><C-O>", { noremap = true, silent = true })
 vim.keymap.set("i", "<M-Space>", "<C-X><C-O>", { noremap = true, silent = true })

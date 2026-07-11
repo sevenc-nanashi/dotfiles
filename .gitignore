@@ -5,3 +5,4 @@ PowerShell/resources/discord_bot_token.txt
 neovim/coc-settings.json
 neovim/coc-package.json
 ble.sh
+.nvimlog

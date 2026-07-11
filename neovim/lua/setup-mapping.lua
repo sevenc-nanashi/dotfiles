@@ -39,6 +39,53 @@ local function switch_color()
   line.setup_tint()
 end
 
+local function show_lsp_client_output()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #clients == 0 then
+    vim.notify("このバッファに接続している言語サーバーはありません", vim.log.levels.INFO)
+    return
+  end
+
+  vim.ui.select(clients, {
+    prompt = "Language server: ",
+    format_item = function(client)
+      return string.format("%s (id=%d)", client.name, client.id)
+    end,
+  }, function(client)
+    if client == nil then
+      return
+    end
+
+    local lines = {
+      "name: " .. client.name,
+      "id: " .. client.id,
+      "root_dir: " .. (client.root_dir or ""),
+      "server: " .. vim.inspect(client.server_info),
+      "command: " .. vim.inspect(client.config.cmd),
+      "log: " .. vim.lsp.log.get_filename(),
+      "",
+      "messages:",
+    }
+    local messages = client.messages and client.messages.messages or {}
+    if #messages == 0 then
+      table.insert(lines, "(なし)")
+    else
+      for _, message in ipairs(messages) do
+        vim.list_extend(lines, vim.split(vim.inspect(message), "\n"))
+      end
+    end
+
+    vim.cmd("rightbelow vsplit")
+    local buffer = vim.api.nvim_get_current_buf()
+    vim.bo[buffer].buftype = "nofile"
+    vim.bo[buffer].bufhidden = "wipe"
+    vim.bo[buffer].swapfile = false
+    vim.bo[buffer].filetype = "lspinfo"
+    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, lines)
+    vim.bo[buffer].modifiable = false
+  end)
+end
+
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
@@ -90,7 +137,7 @@ vim.keymap.set("i", "<D-v>", "<C-r><C-p>+", { noremap = false, silent = false })
 vim.keymap.set("c", "<D-v>", "<C-r>+", { noremap = false, silent = false })
 vim.keymap.set("t", "<D-v>", '<C-\\><C-n>"+pi', { noremap = false, silent = false })
 vim.keymap.set("", "<Space>b", "<Cmd>Telescope buffers<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>c", "<Cmd>LspInfo<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>c", show_lsp_client_output, { noremap = true, silent = true })
 vim.keymap.set("", "<Space>f", "<Cmd>Telescope find_files hidden=true<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>G", "<Cmd>Telescope live_grep<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>h", "<Cmd>Telescope help_tags<CR>", { noremap = false, silent = false })
@@ -149,4 +196,5 @@ vim.keymap.set("", "gl", "<Cmd>CopyReference line<CR>", { noremap = false, silen
 
 return {
   switch_color = switch_color,
+  show_lsp_client_output = show_lsp_client_output,
 }
