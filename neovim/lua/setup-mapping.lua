@@ -99,11 +99,10 @@ vim.keymap.set("", "<Space>gc", "<Cmd>Telescope git_commits<CR>", { noremap = fa
 vim.keymap.set("", "<Space>gC", "<Cmd>Telescope git_bcommits<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<space>gs", "<Cmd>Telescope git_status<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<space>gS", "<Cmd>Telescope git_stash<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>ss", "<Cmd>Telescope coc document_symbols<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>sS", "<Cmd>Telescope coc workspace_symbols<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>sd", "<Cmd>Telescope coc document_diagnostics<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>sD", "<Cmd>Telescope coc workspace_diagnostics<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<Space>c", "<Cmd>Telescope coc commands<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>ss", "<Cmd>Telescope lsp_document_symbols<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>sS", "<Cmd>Telescope lsp_workspace_symbols<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>sd", "<Cmd>Telescope diagnostics bufnr=0<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>sD", "<Cmd>Telescope diagnostics<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>w", "<Cmd>HopWord<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>l", "<Cmd>HopLineStart<CR>", { noremap = false, silent = false })
 vim.keymap.set("n", "<Space>W", "<Plug>(snipewin)", { noremap = false, silent = false })
@@ -115,17 +114,6 @@ vim.keymap.set("v", "g<C-a>", "g<Plug>(dial-increment)", { noremap = true, silen
 vim.keymap.set("v", "g<C-x>", "g<Plug>(dial-decrement)", { noremap = true, silent = false })
 vim.keymap.set("n", "gx", "<Plug>(openbrowser-smart-search)", { noremap = true, silent = false })
 vim.keymap.set("", "W", "b", { noremap = false, silent = false })
-vim.keymap.set("", "<Leader>R", "<Plug>(coc-rename)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>r", "<Plug>(coc-codeaction-refactor-selected)", { noremap = true, silent = false })
-vim.keymap.set("n", "<C-.>", "<Plug>(coc-codeaction-cursor)", { noremap = true, silent = true })
-vim.keymap.set("", "<Leader>a", "<Plug>(coc-codeaction-selected)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>u", "<Plug>(coc-references-used)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>U", "<Plug>(coc-references)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>f", "<Plug>(coc-definition)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>F", "<Plug>(coc-declaration)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>i", "<Plug>(coc-implementation)", { noremap = true, silent = false })
-vim.keymap.set("", "<Leader>t", "<Plug>(coc-type-definition)", { noremap = true, silent = false })
-
 vim.keymap.set("", "<C-K><C-A>", function()
   local current_file = vim.fn.expand("%:p:h")
   if current_file:sub(1, 6) == "term://" then
@@ -135,6 +123,7 @@ vim.keymap.set("", "<C-K><C-A>", function()
   if #root < 1 then
     root = "."
   end
+
   vim.cmd("Fern " .. vim.fn.fnameescape(root) .. " -drawer -width=40")
 end, { noremap = false, silent = false })
 vim.keymap.set(
@@ -145,21 +134,8 @@ vim.keymap.set(
 )
 vim.keymap.set("", "<C-K><C-X>", switch_color, { noremap = false, silent = false })
 
-vim.keymap.set(
-  "",
-  "<C-K><C-D>",
-  "<Cmd>AvanteToggle<CR>",
-  { noremap = false, silent = false }
-)
-vim.keymap.set(
-  "i",
-  "<C-K><C-D>",
-  "<Cmd>AvanteToggle<CR>",
-  { noremap = false, silent = false }
-)
-
 local is_keycastr_enabled = false
-vim.keymap.set("", "<C-K><C-C>", function()
+vim.keymap.set("", "<C-K><C-D>", function()
   if is_keycastr_enabled then
     require("keycastr").disable()
     is_keycastr_enabled = false
@@ -168,68 +144,4 @@ vim.keymap.set("", "<C-K><C-C>", function()
     is_keycastr_enabled = true
   end
 end, { noremap = false, silent = false })
-vim.keymap.set("", "<C-Tab>", "<Cmd>bn<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<C-S-W>", "<Cmd>bn<bar>bd#<CR>", { noremap = false, silent = false })
-vim.keymap.set("", "<C-S-Tab>", "<Cmd>bp<CR>", { noremap = false, silent = false })
-vim.keymap.set("n", "<M-Left>", "<Cmd>bp<CR>", { noremap = false, silent = true })
-vim.keymap.set("n", "<M-Right>", "<Cmd>bn<CR>", { noremap = false, silent = true })
-vim.keymap.set("", "<A-S-F>", function()
-  vim.fn.CocActionAsync("format", function()
-    vim.cmd("Findent")
-  end)
-end, { noremap = false, silent = true })
-vim.keymap.set("n", "<F12>", function()
-  vim.fn.CocActionAsync("jumpDefinition")
-end, { noremap = true, silent = true })
-vim.keymap.set("i", "<F12>", function()
-  vim.fn.CocActionAsync("jumpDefinition")
-end, { noremap = true, silent = true })
-vim.keymap.set("n", "<F2>", function()
-  vim.fn.CocActionAsync("rename")
-end, { noremap = true, silent = true })
-vim.keymap.set("i", "<F2>", function()
-  vim.fn.CocActionAsync("rename")
-end, { noremap = true, silent = true })
-vim.keymap.set("n", "<M-.>", function()
-  vim.fn.CocActionAsync("doHover")
-end, { noremap = true, silent = true })
--- nnoremap <silent> K :call ShowDocumentation()<CR>
---
--- function! ShowDocumentation()
---   if (index(['vim','help'], &filetype) >= 0)
---     execute 'h '.expand('<cword>')
---   elseif CocAction('hasProvider', 'hover')
---     if coc#float#has_float()
---       call coc#float#jump()
---       nnoremap <buffer> q <Cmd>close<CR>
---     else
---       call CocActionAsync('doHover')
---     endif
---   else
---     call feedkeys('K', 'in')
---   endif
--- endfunction
-vim.keymap.set("n", "K", function()
-  if vim.bo.filetype == "vim" or vim.bo.filetype == "help" then
-    vim.cmd("h " .. vim.fn.expand("<cword>"))
-  elseif vim.fn.CocAction("hasProvider", "hover") then
-    vim.fn.CocActionAsync("doHover")
-  else
-    vim.fn.feedkeys("K", "in")
-  end
-end, { noremap = true, silent = true })
-vim.keymap.set("n", "J", function()
-  if vim.fn["coc#float#has_float"]() == 1 then
-    vim.fn["coc#float#jump"]()
-  end
-end, { noremap = true, silent = true })
-vim.keymap.set("i", "<M-.>", function()
-  vim.fn.CocActionAsync("doHover")
-end, { noremap = true, silent = true })
-vim.keymap.set("", "<C-D>", "<Cmd>call CocAction('diagnosticNext')<CR>", { noremap = false, silent = true })
-vim.keymap.set("i", "<C-D>", "<Cmd>call CocAction('diagnosticNext')<CR>", { noremap = false, silent = true })
-vim.keymap.set("n", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", { noremap = false, silent = true })
-vim.keymap.set("i", "<C-S-D>", "<Cmd>call CocAction('diagnosticPrevious')<CR>", { noremap = false, silent = true })
-vim.keymap.set("i", "<C-Space>", "coc#refresh()", { noremap = true, silent = true, expr = true })
-vim.keymap.set("i", "<M-Space>", "coc#refresh()", { noremap = true, silent = true, expr = true })
 vim.keymap.set("", "gl", "<Cmd>CopyReference line<CR>", { noremap = false, silent = false })

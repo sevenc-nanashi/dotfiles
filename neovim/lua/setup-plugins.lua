@@ -1,11 +1,3 @@
-local cmd
-
-if vim.g.terminal then
-  cmd = vim.g.terminal
-else
-  cmd = vim.o.shell
-end
-
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.glsl", "*.vert", "*.frag", "*.geom", "*.comp" },
   command = "setlocal filetype=glslx",
@@ -25,7 +17,6 @@ require("toggleterm").setup({
   shell = vim.g.terminal or "nu",
 })
 require("nvim-ts-autotag").setup()
-require("litee.lib").setup()
 require("hop").setup()
 -- require("highlight-undo").setup({
 -- 	mappings = {
@@ -147,30 +138,6 @@ require("ibl").setup { indent = { highlight = {
   char = "|"
 } }
 require("full_visual_line").setup({})
-require('avante').setup({
-  input = {
-    provider = "snacks",
-  },
-  provider = "codex-cli",
-  acp_providers = {
-    ["gemini-cli"] = {
-      command = "gemini",
-      args = { "--experimental-acp" },
-      env = {
-        NODE_NO_WARNINGS = "1",
-      },
-    },
-    ["codex-cli"] = {
-      command = "codex-acp.cmd",
-      env = {
-        NODE_NO_WARNINGS = "1",
-      },
-    },
-  }
-})
-require("render-markdown").setup({
-  file_types = { 'avante' },
-})
 require'treesitter-context'.setup({
   max_lines = 4,
 })

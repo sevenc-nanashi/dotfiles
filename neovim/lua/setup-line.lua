@@ -28,7 +28,6 @@ require("lualine").setup({
       end
     },
     lualine_x = {
-      "g:coc_status",
       function()
         local reg = vim.fn.reg_recording()
         if reg == "" then return "" end
@@ -45,7 +44,6 @@ require("lualine").setup({
           return "\u{e5fe} " .. pwd
         elseif file:match("^fern://") then
           local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
-          -- Windowsでは`/C:/`のように変換されるため、そのときは最初の1文字を削除する
           if pwd:match("/[A-Z]:/") then
             pwd = pwd:sub(2)
           end
