@@ -215,14 +215,6 @@ if not (command_exists "nvim") {
   }
 }
 
-print "Installing vim-jetpack"
-let jetpack_path = if $is_windows {
-  $"($env.LOCALAPPDATA)\\nvim-data\\site\\pack\\jetpack\\opt\\vim-jetpack\\plugin\\jetpack.vim"
-} else {
-  "~/.local/share/nvim/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim"
-}
-download https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim $jetpack_path
-
 # Needs sudo
 # TODO: better way to handle Homebrew installation
 # print "Installing Homebrew"
@@ -278,11 +270,11 @@ $env.PATH = ($env.PATH | prepend $mise_shims_dir)
 ^($mise_path) settings lockfile=true
 # ^($mise_path) install
 
-print "Install neovim plugins"
+print "Install and update neovim plugins"
 if $is_linux {
   $env.APPIMAGE_EXTRACT_AND_RUN = "1"
 }
-nvim --headless +JetpackSync +qall
+nvim --headless "+lua vim.pack.update(nil, { force = true })" +qall
 
 # print "Installing carapace overlay"
 # # carapace e>| parse -r 'Config is written to \[(?<config_dir>.+)\]'

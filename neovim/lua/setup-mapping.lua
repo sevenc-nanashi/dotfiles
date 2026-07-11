@@ -90,6 +90,7 @@ vim.keymap.set("i", "<D-v>", "<C-r><C-p>+", { noremap = false, silent = false })
 vim.keymap.set("c", "<D-v>", "<C-r>+", { noremap = false, silent = false })
 vim.keymap.set("t", "<D-v>", '<C-\\><C-n>"+pi', { noremap = false, silent = false })
 vim.keymap.set("", "<Space>b", "<Cmd>Telescope buffers<CR>", { noremap = false, silent = false })
+vim.keymap.set("", "<Space>c", "<Cmd>LspInfo<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>f", "<Cmd>Telescope find_files hidden=true<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>G", "<Cmd>Telescope live_grep<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>h", "<Cmd>Telescope help_tags<CR>", { noremap = false, silent = false })
@@ -145,3 +146,7 @@ vim.keymap.set("", "<C-K><C-D>", function()
   end
 end, { noremap = false, silent = false })
 vim.keymap.set("", "gl", "<Cmd>CopyReference line<CR>", { noremap = false, silent = false })
+
+return {
+  switch_color = switch_color,
+}

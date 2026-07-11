@@ -1,5 +1,12 @@
 local function mise_command(tool, executable, ...)
-  local command = { "mise", "x", tool, "--", executable }
+  local command = {
+    "sh",
+    "-c",
+    'tool="$1"; shift; MISE_CONFIG_FILE=/dev/null exec mise x "$tool" -- "$@"',
+    "sh",
+    tool,
+    executable,
+  }
   vim.list_extend(command, { ... })
   return command
 end
@@ -25,73 +32,130 @@ local function on_attach(client, bufnr)
   map("n", "<F2>", vim.lsp.buf.rename)
   map("i", "<F2>", vim.lsp.buf.rename)
   map({ "n", "i" }, "<M-.>", vim.lsp.buf.hover)
-  map("n", "<C-D>", vim.diagnostic.goto_next)
-  map("i", "<C-D>", vim.diagnostic.goto_next)
-  map("n", "<C-S-D>", vim.diagnostic.goto_prev)
-  map("i", "<C-S-D>", vim.diagnostic.goto_prev)
-  map("i", "<C-Space>", vim.lsp.completion.get)
-  map("i", "<M-Space>", vim.lsp.completion.get)
+  vim.keymap.set("i", "<Up>", function()
+    return vim.fn.pumvisible() == 1 and "<C-p>" or "<Up>"
+  end, { buffer = bufnr, expr = true, silent = true })
+  vim.keymap.set("i", "<Down>", function()
+    return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
+  end, { buffer = bufnr, expr = true, silent = true })
+  vim.keymap.set("i", "<S-Tab>", function()
+    return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+  end, { buffer = bufnr, expr = true, silent = true })
+  vim.keymap.set("i", "<CR>", function()
+    return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+  end, { buffer = bufnr, expr = true, silent = true })
   map("", "<A-S-F>", function()
     vim.lsp.buf.format({ async = false })
     vim.cmd("Findent")
   end)
 
-  vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+end
+
+vim.keymap.set({ "n", "i" }, "<C-D>", vim.diagnostic.goto_next, { noremap = true, silent = true })
+vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.goto_prev, { noremap = true, silent = true })
+vim.keymap.set("i", "<C-Space>", "<C-X><C-O>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-@>", "<C-X><C-O>", { noremap = true, silent = true })
+vim.keymap.set("i", "<M-Space>", "<C-X><C-O>", { noremap = true, silent = true })
+
+local function root_dir(bufnr, on_dir)
+  local root = vim.fn["rootfinder#find"](vim.api.nvim_buf_get_name(bufnr))
+  if root == "" then
+    on_dir()
+    return
+  end
+  vim.api.nvim_set_current_dir(root)
+  on_dir(root)
 end
 
 vim.lsp.config("*", {
   on_attach = on_attach,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
+  root_dir = root_dir,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      local completion_group = vim.api.nvim_create_augroup("lsp-completion-" .. args.buf, { clear = true })
+      vim.api.nvim_create_autocmd("InsertCharPre", {
+        group = completion_group,
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.completion.get()
+        end,
+      })
+    end
+  end,
 })
 
 local servers = {
   ts_ls = {
     cmd = mise_command("npm:typescript-language-server", "typescript-language-server", "--stdio"),
+    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
   },
   jsonls = {
     cmd = mise_command("npm:vscode-langservers-extracted", "vscode-json-language-server", "--stdio"),
+    filetypes = { "json", "jsonc" },
   },
   html = {
     cmd = mise_command("npm:vscode-langservers-extracted", "vscode-html-language-server", "--stdio"),
+    filetypes = { "html" },
   },
   eslint = {
     cmd = mise_command("npm:vscode-langservers-extracted", "vscode-eslint-language-server", "--stdio"),
+    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    auto_start = false,
   },
   yamlls = {
     cmd = mise_command("npm:yaml-language-server", "yaml-language-server", "--stdio"),
+    filetypes = { "yaml" },
   },
   rust_analyzer = {
-    cmd = mise_command("cargo:rust-analyzer", "rust-analyzer"),
+    cmd = mise_command("rust-analyzer", "rust-analyzer"),
+    filetypes = { "rust" },
   },
   clangd = {
     cmd = mise_command("github:clangd/clangd", "clangd"),
+    filetypes = { "c", "cpp", "objc", "objcpp" },
   },
   pyright = {
     cmd = mise_command("npm:pyright", "pyright-langserver", "--stdio"),
+    filetypes = { "python" },
   },
   lua_ls = {
     cmd = mise_command("github:LuaLS/lua-language-server", "lua-language-server"),
+    filetypes = { "lua" },
   },
   astro = {
     cmd = mise_command("npm:@astrojs/language-server", "astro-ls", "--stdio"),
+    filetypes = { "astro" },
   },
   svelte = {
     cmd = mise_command("npm:svelte-language-server", "svelteserver", "--stdio"),
+    filetypes = { "svelte" },
   },
   denols = {
     cmd = mise_command("deno", "deno", "lsp"),
+    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    auto_start = false,
   },
   cmake = {
     cmd = mise_command("pipx:cmake-language-server", "cmake-language-server"),
+    filetypes = { "cmake" },
   },
   protols = {
     cmd = mise_command("github:coder3101/protols", "protols"),
+    filetypes = { "proto" },
   },
   texlab = {
     cmd = mise_command("cargo:texlab", "texlab"),
+    filetypes = { "tex", "plaintex", "bib" },
   },
   ruby_lsp = {
     cmd = mise_command("gem:ruby-lsp", "ruby-lsp"),
+    filetypes = { "ruby" },
   },
 }
 
