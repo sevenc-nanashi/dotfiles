@@ -124,6 +124,10 @@
       "rev": "8701bece920b38ea289b457f902e2ad184131a5d",
       "src": "https://github.com/rcarriga/nvim-notify"
     },
+    "nvim-rulebook": {
+      "rev": "a55b17d0d66ce174c77821564e1c3e744d67d6df",
+      "src": "https://github.com/chrisgrieser/nvim-rulebook"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"

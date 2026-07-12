@@ -157,6 +157,7 @@ vim.keymap.set("", "<Space>ss", "<Cmd>Telescope lsp_document_symbols<CR>", { nor
 vim.keymap.set("", "<Space>sS", "<Cmd>Telescope lsp_workspace_symbols<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sd", "<Cmd>Telescope diagnostics bufnr=0<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>sD", "<Cmd>Telescope diagnostics<CR>", { noremap = false, silent = false })
+vim.keymap.set("n", "<Space>rp", "<Cmd>Rulebook prettifyError<CR>", { noremap = true, silent = true })
 vim.keymap.set("", "<Space>w", "<Cmd>HopWord<CR>", { noremap = false, silent = false })
 vim.keymap.set("", "<Space>l", "<Cmd>HopLineStart<CR>", { noremap = false, silent = false })
 vim.keymap.set("n", "<Space>W", "<Plug>(snipewin)", { noremap = false, silent = false })

@@ -109,7 +109,26 @@ local servers = {
   eslint = {
     cmd = mise_command("npm:vscode-langservers-extracted", "vscode-eslint-language-server", "--stdio"),
     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    auto_start = false,
+  },
+  prettier = {
+    cmd = mise_command("npm:prettier-language-server", "prettier-language-server"),
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "json",
+      "jsonc",
+      "css",
+      "scss",
+      "less",
+      "html",
+      "markdown",
+      "yaml",
+      "graphql",
+      "vue",
+      "svelte",
+    },
   },
   yamlls = {
     cmd = mise_command("npm:yaml-language-server", "yaml-language-server", "--stdio"),
@@ -171,6 +190,42 @@ for name, config in pairs(servers) do
 end
 
 vim.lsp.enable(vim.tbl_keys(servers))
+
+local function restart_lsp(name)
+  assert(vim.lsp.config[name], "Unknown language server: " .. name)
+  vim.lsp.enable(name, false)
+  for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
+    client:stop(true)
+  end
+  vim.defer_fn(function()
+    vim.lsp.enable(name, true)
+  end, 100)
+end
+
+vim.api.nvim_create_user_command("LspRestart", function(args)
+  if args.args ~= "" then
+    restart_lsp(args.args)
+    return
+  end
+
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  vim.ui.select(clients, {
+    prompt = "Restart language server: ",
+    format_item = function(client)
+      return string.format("%s (id=%d)", client.name, client.id)
+    end,
+  }, function(client)
+    if client ~= nil then
+      restart_lsp(client.name)
+    end
+  end)
+end, {
+  nargs = "?",
+  complete = function(_, _, _)
+    return vim.tbl_keys(servers)
+  end,
+  force = true,
+})
 
 vim.keymap.set("n", "K", function()
   if vim.bo.filetype == "vim" or vim.bo.filetype == "help" then

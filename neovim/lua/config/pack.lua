@@ -55,6 +55,7 @@ vim.pack.add({
   github("kana/vim-submode"),
   github("monaqa/dial.nvim"),
   github("rcarriga/nvim-notify"),
+  github("chrisgrieser/nvim-rulebook"),
   github("MunifTanjim/nui.nvim"),
   { src = github("sevenc-nanashi/tint.nvim"), version = "patch-1" },
   github("4513ECHO/vim-snipewin"),
