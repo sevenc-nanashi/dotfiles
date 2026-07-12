@@ -23,6 +23,14 @@ vim.api.nvim_create_autocmd("UILeave", {
   end,
 })
 
+local diagnostic_group = vim.api.nvim_create_augroup("diagnostic-float", { clear = true })
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+  group = diagnostic_group,
+  callback = function()
+    vim.diagnostic.open_float(0, { focus = false, scope = "cursor" })
+  end,
+})
+
 local findent_group = vim.api.nvim_create_augroup("findent", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   group = findent_group,
