@@ -75,13 +75,19 @@ local function show_lsp_client_output()
       end
     end
 
+    local buffer_lines = {}
+    for _, output_line in ipairs(lines) do
+      vim.list_extend(buffer_lines, vim.split(output_line, "\n", { plain = true }))
+    end
+
     vim.cmd("rightbelow vsplit")
+    vim.cmd("enew")
     local buffer = vim.api.nvim_get_current_buf()
     vim.bo[buffer].buftype = "nofile"
     vim.bo[buffer].bufhidden = "wipe"
     vim.bo[buffer].swapfile = false
     vim.bo[buffer].filetype = "lspinfo"
-    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, lines)
+    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, buffer_lines)
     vim.bo[buffer].modifiable = false
   end)
 end

@@ -1,10 +1,9 @@
 local function mise_command(tool, executable, ...)
   local command = {
-    "sh",
-    "-c",
-    'tool="$1"; shift; MISE_CONFIG_FILE=/dev/null exec mise x "$tool" -- "$@"',
-    "sh",
+    "mise",
+    "exec",
     tool,
+    "--",
     executable,
   }
   vim.list_extend(command, { ... })
@@ -136,10 +135,6 @@ local servers = {
     cmd = mise_command("npm:@astrojs/language-server", "astro-ls", "--stdio"),
     filetypes = { "astro" },
   },
-  svelte = {
-    cmd = mise_command("npm:svelte-language-server", "svelteserver", "--stdio"),
-    filetypes = { "svelte" },
-  },
   denols = {
     cmd = mise_command("deno", "deno", "lsp"),
     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
@@ -154,12 +149,16 @@ local servers = {
     filetypes = { "proto" },
   },
   texlab = {
-    cmd = mise_command("cargo:texlab", "texlab"),
+    cmd = mise_command("github:latex-lsp/texlab", "texlab"),
     filetypes = { "tex", "plaintex", "bib" },
   },
   ruby_lsp = {
     cmd = mise_command("gem:ruby-lsp", "ruby-lsp"),
     filetypes = { "ruby" },
+  },
+  version = {
+    cmd = mise_command("github:skanehira/version-lsp", "version-lsp"),
+    filetypes = { "json", "jsonc", "yaml", "toml" },
   },
 }
 

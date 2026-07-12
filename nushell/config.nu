@@ -80,7 +80,7 @@ def --env ridk [...args] {
 
     match $subcmd {
         "enable" | "disable" => {
-            let out = (ridk.cmd ...$args)
+            let out = (^ridk ...$args)
             $out
             | lines
             | parse "{key}={value}"
@@ -91,7 +91,7 @@ def --env ridk [...args] {
 
         "exec" => {
             let env_lines = (
-                ridk.cmd ($args | get 1)
+                ^ridk ($args | get 1)
             )
 
             $env_lines
@@ -107,18 +107,18 @@ def --env ridk [...args] {
                 return
             }
 
-            ridk.cmd ...$rest
+            ^ridk ...$rest
         }
 
         "use" => {
-            ridk.cmd ...($args | skip 1)
+            ^ridk ...($args | skip 1)
         }
 
         _ => {
-            ridk.cmd ...$args
+            ^ridk ...$args
         }
     }
 }
 
-use ($nu.default-config-dir | path join external/bash-env.nu)
+# use ($nu.default-config-dir | path join external/bash-env.nu)
 # use ($nu.default-config-dir | path join mise.nu)
