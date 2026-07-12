@@ -160,6 +160,10 @@ local servers = {
     cmd = mise_command("github:skanehira/version-lsp", "version-lsp"),
     filetypes = { "json", "jsonc", "yaml", "toml" },
   },
+  pkl = {
+    cmd = mise_command("github:colelawrence/pkl-lsp", "pkl-lsp"),
+    filetypes = { "pkl" },
+  }
 }
 
 for name, config in pairs(servers) do
