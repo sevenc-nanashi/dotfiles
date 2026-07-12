@@ -1,3 +1,39 @@
+Project = {
+  name = "",
+  root = "",
+  color = { fg = "#ffffff", bg = "#888888", loaded = false },
+}
+
+local function filename_display()
+  local file = vim.fn.expand("%:p")
+  local modified = vim.bo.modified
+  if file:match("^term://") then
+    local pwd = file:match("^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
+    return { kind = "term", name = pwd, edited = false }
+  elseif file:match("^fern://") then
+    local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
+    if pwd:match("/[A-Z]:/") then
+      pwd = pwd:sub(2)
+    end
+    return { kind = "fern", name = pwd, edited = false }
+  elseif vim.bo.modifiable == false then
+    return { kind = "locked", name = file, edited = false }
+  elseif file == "" then
+    return { kind = "empty", name = "-", edited = false }
+  elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
+    local name = "..." .. file:sub(Project.root:len() + 1, file:len())
+    return { kind = "project", name = name, edited = modified }
+  else
+    return { kind = "file", name = file, edited = modified }
+  end
+end
+
+_G.__dotfiles_filename_display = filename_display
+_G.__dotfiles_title_display = function()
+  local file = filename_display()
+  return Project.name .. " - " .. file.name .. (file.edited and "*" or "")
+end
+
 local devicons = require("nvim-web-devicons")
 require("lualine").setup({
   options = {
@@ -37,34 +73,17 @@ require("lualine").setup({
     lualine_y = {
 
       function()
-        local file = vim.fn.expand("%:p")
-        local modified = vim.bo.modified
-        if file:match("^term://") then
-          local pwd = file:match("^term://(.*)//[0-9]+:[^;]*;#toggleterm#[0-9]+$")
-          return "\u{e5fe} " .. pwd
-        elseif file:match("^fern://") then
-          local pwd = file:match("^fern://drawer:[0-9]+/file://([^;]*);")
-          if pwd:match("/[A-Z]:/") then
-            pwd = pwd:sub(2)
-          end
-          return "\u{e5fe} " .. pwd
-        elseif vim.bo.modifiable == false then
-          return "\u{f023} " .. file
-        elseif file == "" then
-          return "\u{f15b} -"
-        elseif Project.root:len() > 0 and file:sub(1, Project.root:len()) == Project.root then
-          local ret = "\u{e5fe} ..." .. file:sub(Project.root:len() + 1, file:len())
-          if modified then
-            ret = ret .. " \u{f03eb}"
-          end
-          return ret
-        else
-          local ret = "\u{f15b} " .. file
-          if modified then
-            ret = ret .. " \u{f03eb}"
-          end
-          return ret
-        end
+        local file = filename_display()
+        local icons = {
+          term = "\u{ea85}",
+          fern = "\u{e5fe}",
+          locked = "\u{f023}",
+          empty = "\u{f15b}",
+          project = "\u{e5fe}",
+          file = "\u{f15b}",
+        }
+        local edited = file.edited and " \u{f03eb}" or ""
+        return icons[file.kind] .. " " .. file.name .. edited
       end,
       "encoding",
       function()
@@ -101,12 +120,6 @@ require("lualine").setup({
     lualine_z = {}
   },
 })
-
-Project = {
-  name = "",
-  root = "",
-  color = { fg = "#ffffff", bg = "#888888", loaded = false },
-}
 
 local function read_theme_colors(path)
   local file = assert(io.open(path, "r"))
@@ -186,7 +199,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.api.nvim_set_current_dir(root)
     Project.name = name
     Project.root = root
-    vim.opt.titlestring = name .. " - %{expand('%:t')}"
+    vim.opt.titlestring = "%{v:lua.__dotfiles_title_display()}"
     if color_loaded then
       vim.notify(
         "Root changed to "
