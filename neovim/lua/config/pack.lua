@@ -28,7 +28,7 @@ vim.pack.add({
   github("lambdalisue/fern-git-status.vim"),
   github("lambdalisue/fern-mapping-git.vim"),
   github("github/copilot.vim"),
-  github("mhinz/vim-startify"),
+  -- github("mhinz/vim-startify"),
   github("0xAdk/full_visual_line.nvim"),
   github("vim-denops/denops.vim"),
   github("windwp/nvim-ts-autotag"),

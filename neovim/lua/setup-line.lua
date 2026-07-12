@@ -108,6 +108,31 @@ Project = {
   color = { fg = "#ffffff", bg = "#888888", loaded = false },
 }
 
+local function read_theme_colors(path)
+  local file = assert(io.open(path, "r"))
+  local colors = {}
+  for line in file:lines() do
+    if line:match("%S") then
+      table.insert(colors, vim.trim(line))
+    end
+  end
+  file:close()
+
+  assert(#colors == 1 or #colors == 2, "theme.txt must contain one or two colors")
+  if #colors == 2 then
+    return colors[1], colors[2]
+  end
+
+  local hex = colors[1]:match("^#?(%x%x%x%x%x%x)$")
+  assert(hex, "theme.txt color must be a 6-digit hexadecimal color")
+  local red = tonumber(hex:sub(1, 2), 16)
+  local green = tonumber(hex:sub(3, 4), 16)
+  local blue = tonumber(hex:sub(5, 6), 16)
+  local luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255
+  local foreground = luminance >= 0.5 and "#000000" or "#ffffff"
+  return foreground, colors[1]
+end
+
 vim.opt.title = true
 
 vim.api.nvim_create_augroup("bufline", {
@@ -143,8 +168,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
       if f == nil then
         return
       end
-      Project.color.fg = f:read("l")
-      Project.color.bg = f:read("l")
+      Project.color.fg, Project.color.bg = read_theme_colors(root .. "/.vim/theme.txt")
       vim.g.neovide_title_background_color = Project.color.bg
       vim.g.neovide_title_text_color = Project.color.fg
       f:close()
