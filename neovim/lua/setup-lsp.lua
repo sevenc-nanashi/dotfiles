@@ -43,11 +43,6 @@ local function on_attach(client, bufnr)
   vim.keymap.set("i", "<CR>", function()
     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
   end, { buffer = bufnr, expr = true, silent = true })
-  map("", "<A-S-F>", function()
-    vim.lsp.buf.format({ async = false })
-    vim.cmd("Findent")
-  end)
-
 end
 
 vim.keymap.set({ "n", "i" }, "<C-D>", function()
@@ -59,6 +54,10 @@ end, { noremap = true, silent = true })
 vim.keymap.set("i", "<C-Space>", "<C-X><C-O>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-@>", "<C-X><C-O>", { noremap = true, silent = true })
 vim.keymap.set("i", "<M-Space>", "<C-X><C-O>", { noremap = true, silent = true })
+vim.keymap.set("", "<A-S-F>", function()
+  vim.lsp.buf.format({ async = false })
+  vim.cmd("Findent")
+end, { noremap = true, silent = true })
 
 local function root_dir(bufnr, on_dir)
   local root = vim.fn["rootfinder#find"](vim.api.nvim_buf_get_name(bufnr))
