@@ -16,16 +16,6 @@ local function on_attach(client, bufnr)
     vim.keymap.set(mode, lhs, rhs, options)
   end
 
-  map("n", "<Leader>R", vim.lsp.buf.rename)
-  map({ "n", "v" }, "<Leader>r", vim.lsp.buf.code_action)
-  map({ "n", "v" }, "<C-.>", vim.lsp.buf.code_action)
-  map({ "n", "v" }, "<Leader>a", vim.lsp.buf.code_action)
-  map("n", "<Leader>u", vim.lsp.buf.references)
-  map("n", "<Leader>U", vim.lsp.buf.references)
-  map("n", "<Leader>f", vim.lsp.buf.definition)
-  map("n", "<Leader>F", vim.lsp.buf.declaration)
-  map("n", "<Leader>i", vim.lsp.buf.implementation)
-  map("n", "<Leader>t", vim.lsp.buf.type_definition)
   map("n", "<F12>", vim.lsp.buf.definition)
   map("i", "<F12>", vim.lsp.buf.definition)
   map("n", "<F2>", vim.lsp.buf.rename)
@@ -44,6 +34,16 @@ local function on_attach(client, bufnr)
     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
   end, { buffer = bufnr, expr = true, silent = true })
 end
+
+local lsp_keymap_options = { noremap = true, silent = true }
+vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, lsp_keymap_options)
+vim.keymap.set({ "n", "v" }, "<Leader>a", vim.lsp.buf.code_action, lsp_keymap_options)
+vim.keymap.set({ "n", "v" }, "<C-.>", vim.lsp.buf.code_action, lsp_keymap_options)
+vim.keymap.set("n", "<Leader>u", vim.lsp.buf.references, lsp_keymap_options)
+vim.keymap.set("n", "<Leader>f", vim.lsp.buf.definition, lsp_keymap_options)
+vim.keymap.set("n", "<Leader>F", vim.lsp.buf.declaration, lsp_keymap_options)
+vim.keymap.set("n", "<Leader>i", vim.lsp.buf.implementation, lsp_keymap_options)
+vim.keymap.set("n", "<Leader>t", vim.lsp.buf.type_definition, lsp_keymap_options)
 
 vim.keymap.set({ "n", "i" }, "<C-D>", function()
   vim.diagnostic.jump({ count = 1 })
