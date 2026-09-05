@@ -105,3 +105,19 @@ function userCode(input: unknown) {
 }
 ```
 
+
+- Do not add assertions for trusted values, such as values from the database or values from the API response that is guaranteed to be valid.
+
+```lua
+-- Bad
+
+-- my_module.dll exports a function get_value() that returns a value from the database, which is guaranteed to be a positive number.
+local value = require("my_module").get_value()
+assert(type(value) == "number", "Value is not a number")
+assert(value > 0, "Value is not positive")
+do_something_with(value)
+
+-- Good
+local value = require("my_module").get_value()
+do_something_with(value)
+```

@@ -35,6 +35,11 @@ require("telescope").setup({
     },
   },
 })
+require("dressing").setup({
+  select = {
+    backend = "telescope",
+  },
+})
 local augend = require("dial.augend")
 require("dial.config").augends:register_group({
   default = {
