@@ -28,15 +28,11 @@ web-ext-artifacts
 .vs
 .serena
 mise.local.toml
+mise.local.lock
 .junie
 .rgignore
 .codex
 .specify
 .roudou
 roudou_log.md
-<<<<<<< HEAD
-.claude/settings.local.json
-||||||| parent of dc53460 (feat: 2026/05/13 from nanaDows WSL)
-=======
 .config/settings.local.json
->>>>>>> dc53460 (feat: 2026/05/13 from nanaDows WSL)

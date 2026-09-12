@@ -241,6 +241,10 @@ local servers = {
     cmd = mise_command("npm:yaml-language-server", "yaml-language-server", "--stdio"),
     filetypes = { "yaml" },
   },
+  taplo = {
+    cmd = mise_command("taplo", "taplo", "lsp", "stdio"),
+    filetypes = { "toml" },
+  },
   rust_analyzer = {
     cmd = mise_command("rust-analyzer", "rust-analyzer"),
     filetypes = { "rust" },

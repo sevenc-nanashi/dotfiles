@@ -137,7 +137,7 @@ fi
 
 # some more ls aliases
 alias ls="eza"
-alias ll='ls -alF'
+alias ll='ls -al -F=always'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -309,3 +309,12 @@ export MISE_GITHUB_TOKEN=$(gh auth token)
 # >>> Codex installer >>>
 export PATH="/home/sevenc7c/.local/bin:$PATH"
 # <<< Codex installer <<<
+
+ccd() {
+    local root dir
+    root="$(cpg config --root)" || return
+    dir="$(cpg list | fzf)" || return
+    [ -n "$dir" ] && cd -- "$root/$dir"
+}
+
+source <(cpg completion bash)

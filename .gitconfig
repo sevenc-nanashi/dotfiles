@@ -72,3 +72,9 @@
 	enabled = true
 [ghq]
 	root = /home/sevenc7c/ghq
+[lfs]
+	concurrenttransfers = 3
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
