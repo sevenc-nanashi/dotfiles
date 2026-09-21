@@ -312,8 +312,8 @@ export PATH="/home/sevenc7c/.local/bin:$PATH"
 
 ccd() {
     local root dir
-    root="$(cpg config --root)" || return
-    dir="$(cpg list | fzf)" || return
+    root="$(CPG_LOG=none cpg config --root)" || return
+    dir="$(CPG_LOG=none cpg list | fzf)" || return
     [ -n "$dir" ] && cd -- "$root/$dir"
 }
 

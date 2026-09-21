@@ -110,7 +110,7 @@ vim.keymap.set("i", "<C-Space>", "<C-X><C-O>", { noremap = true, silent = true }
 vim.keymap.set("i", "<C-@>", "<C-X><C-O>", { noremap = true, silent = true })
 vim.keymap.set("i", "<M-Space>", "<C-X><C-O>", { noremap = true, silent = true })
 
-local preferred_formatters = { "biome", "prettier" }
+local preferred_formatters = { "biome", "oxfmt", "prettier" }
 
 local function select_formatter(bufnr)
   local clients = vim.lsp.get_clients({ bufnr = bufnr, method = "textDocument/formatting" })
@@ -178,6 +178,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local servers = {
+  oxfmt = {},
   biome = {
     cmd = mise_command("npm:@biomejs/biome", "biome", "lsp-proxy"),
     root_dir = biome_root_dir,

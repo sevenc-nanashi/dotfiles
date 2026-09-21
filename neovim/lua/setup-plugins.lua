@@ -62,6 +62,9 @@ require("gitsigns").setup({
   },
 })
 require("noice").setup({
+  popupmenu = {
+    enabled = false,
+  },
   messages = {
     view = "mini",
     view_error = "mini",
