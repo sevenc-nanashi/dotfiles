@@ -12,6 +12,7 @@ if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
 
+export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
 eval "$($HOME/.local/bin/mise activate bash)"
 
 if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
@@ -24,8 +25,6 @@ if [[ $(type -t LANG_SETUP_LOADED) != function ]]; then
 	else
 		envcache=''
 	fi
-	export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
-
 	. "$HOME/.cargo/env"
 	[ "$STARSHIP_DISABLE" = "true" ] || eval "$(starship init bash)"
 	source ~/.local/share/blesh/ble.sh
@@ -313,7 +312,8 @@ export PATH="/home/sevenc7c/.local/bin:$PATH"
 ccd() {
     local root dir
     root="$(CPG_LOG=none cpg config --root)" || return
-    dir="$(CPG_LOG=none cpg list | fzf)" || return
+    dir="$(CPG_LOG=none cpg list -f '{path}\t{path} ({title})' | fzf --delimiter=$'\t' --with-nth=2..)" || return
+    dir="${dir%%$'\t'*}"
     [ -n "$dir" ] && cd -- "$root/$dir"
 }
 

@@ -1,3 +1,4 @@
+wrappers = { cargo = { command = "mbx", env = { MBX_CARGO_SHIM_MODE = "1" } } }
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
 lockfile = true
@@ -14,7 +15,7 @@ gh = "latest"
 "npm:yarn" = "latest"
 ruby = "latest"
 starship = "latest"
-node = "24"
+node = "26"
 shfmt = "latest"
 ripgrep = "latest"
 "github:nushell/nushell" = "latest"
@@ -39,11 +40,10 @@ watchexec = "latest"
 # codex = "latest"
 git-lfs = "latest"
 "npm:portless" = "latest"
-"npm:prettier-language-server" = "latest"
 "npm:@biomejs/biome" = "latest"
 "npm:@vtsls/language-server" = "latest"
 "npm:@vue/language-server" = "latest"
-"npm:typescript" = "5.9.3"
+"npm:typescript" = "7.0.2"
 tokei = "latest"
 "npm:vite-plus" = "latest"
 aube = "latest"
@@ -56,4 +56,10 @@ pnpm = "latest"
 glab = "latest"
 pinact = "latest"
 "npm:serve" = "14.2.6"
-go = "1.26.4"
+go = "1.27.3"
+"github:openai/tunnel-client" = "0.0.16"
+rust = { version = "latest", mr_boxington = true }
+mr-boxington = "latest"
+crystal = "latest"
+packslip = { version = "latest", identity_prefix = "https://github.com/jdx/packslip/.github/workflows/release.yml@", issuer = "https://token.actions.githubusercontent.com", list_identity_prefix = "https://github.com/jdx/packslip/.github/workflows/packslip-releases.yml@" }
+"npm:node-gyp" = "12.3.0"

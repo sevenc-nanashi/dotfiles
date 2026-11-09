@@ -16,7 +16,7 @@ local function switch_color()
     vim.fn["force_16term#change_color"]()
   end
   if vim.o.background == "light" then
-    vim.api.nvim_set_hl(0, "Normal", { bg = "#f8feff" })
+    vim.api.nvim_set_hl(0, "Normal", { bg = "#f8feff", update = true })
   end
 
   local yellow = vim.api.nvim_get_hl(0, { name = "Yellow" }).fg

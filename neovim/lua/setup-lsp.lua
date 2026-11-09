@@ -43,7 +43,7 @@ local function vue_plugin_location()
   vue_root = vim.trim(vue_root)
 
   local plugins = vim.fn.glob(
-    vue_root .. "/global-aube/*/node_modules/.aube/node_modules/@vue/typescript-plugin",
+    vue_root .. "/node_modules/.mise/node_modules/@vue/typescript-plugin",
     false,
     true
   )
@@ -154,6 +154,13 @@ local function biome_root_dir(bufnr, on_dir)
   on_dir(root)
 end
 
+local function vue_root_dir(bufnr, on_dir)
+  if vim.bo[bufnr].filetype == "vue" and vim.fs.root(bufnr, { "vize.config.ts" }) then
+    return
+  end
+  root_dir(bufnr, on_dir)
+end
+
 vim.lsp.config("*", {
   on_attach = on_attach,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
@@ -178,7 +185,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local servers = {
-  oxfmt = {},
+  oxfmt = { workspace_required = true },
   biome = {
     cmd = mise_command("npm:@biomejs/biome", "biome", "lsp-proxy"),
     root_dir = biome_root_dir,
@@ -187,6 +194,7 @@ local servers = {
   vtsls = {
     cmd = mise_command("npm:@vtsls/language-server", "vtsls", "--stdio"),
     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    root_dir = vue_root_dir,
     settings = {
       vtsls = {
         tsserver = {
@@ -213,6 +221,19 @@ local servers = {
   vue_ls = {
     cmd = vue_command(),
     filetypes = { "vue" },
+    root_dir = vue_root_dir,
+  },
+  vize = {
+    cmd = mise_command("github:ubugeeei/vize", "vize", "lsp"),
+    filetypes = { "vue" },
+    root_dir = function(bufnr, on_dir)
+  local root = vim.fs.root(bufnr, { "vize.config.ts" })
+  if root then
+    on_dir(root)
+  end
+    end,
+    workspace_required = true,
+    init_options = { lint = true, typecheck = true, editor = true, ecosystem = true },
   },
   eslint = {
     cmd = mise_command("npm:vscode-langservers-extracted", "vscode-eslint-language-server", "--stdio"),
@@ -220,6 +241,7 @@ local servers = {
   },
   prettier = {
     cmd = mise_command("npm:prettier-language-server", "prettier-language-server"),
+    -- cmd = { "/home/sevenc7c/ghq/github.com/lttb/prettier-language-server/bin/prettier-language-server" },
     filetypes = {
       "javascript",
       "javascriptreact",
@@ -294,6 +316,14 @@ local servers = {
     cmd = mise_command("gem:ruby-lsp", "ruby-lsp"),
     filetypes = { "ruby" },
   },
+  -- typeprof = {
+  --   cmd = mise_command("gem:typeprof", "typeprof", "--lsp", "--stdio"),
+  --   filetypes = { "ruby", "eruby" },
+  -- },
+  rigor = {
+    cmd = mise_command("gem:rigortype", "rigor", "lsp"),
+    filetypes = { "ruby" },
+  },
   version = {
     cmd = mise_command("github:skanehira/version-lsp", "version-lsp"),
     filetypes = { "json", "jsonc", "yaml", "toml" },
@@ -301,6 +331,10 @@ local servers = {
   pkl = {
     cmd = mise_command("github:colelawrence/pkl-lsp", "pkl-lsp"),
     filetypes = { "pkl" },
+  },
+  gopls = {
+    cmd = mise_command("go:golang.org/x/tools/gopls@latest", "gopls"),
+    filetypes = { "go" },
   }
 }
 

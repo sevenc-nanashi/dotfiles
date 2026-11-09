@@ -10,15 +10,18 @@
 - In most cases, all changes should be done in GitHub PR and squash-merged.
 - Check `git remote -v` to ensure you are pushing to the correct remote repository.
 - It's PROHIBITED to push branches of the remote repository.
+
   - The only exception is when you're trying to fix a broken CI/CD pipeline, and you have to push a branch to the remote repository to fix it.
   - Even in that case, DO NOT PUSH TO the repository that is not owned by me. Run `git remote -v` first to check the owner.
 
 - Branch name should follow the format `{type}/{description}`.
+
   - `type` can be one of the following: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
   - `description` should be a short description of the change, in English and in kebab-case.
 
 - `__gi_*` files are globally ignored files.
   - Please use them to store temporary files, such as checklists, one-time scripts, etc.
+   - But note that they're local rule in this machine, so don't use this for scripts that others might run.
 
 # Allowed CLIs
 
@@ -30,12 +33,15 @@
 Note that this restriction only applies to te commands you run on terminal, and does not apply to the commands run by scripts or CI/CD pipelines.
 
 - `find`
+
   - Please use `fd` instead.
 
 - `grep`
+
   - Please use `rg` (ripgrep) instead.
 
 - `git merge`
+
   - Please use `git cmerge` instead.
     - `git cmerge` is a custom command that merges branches with better commit message.
 
@@ -57,6 +63,7 @@ Note that this restriction only applies to te commands you run on terminal, and 
 # Coding Styles
 
 - Do not use fallback, but use assertion.
+
 ```ts
 // Bad
 const rawValue: string | undefined = getValue();
@@ -71,40 +78,40 @@ const value: string = rawValue;
 ```
 
 - Use validation libraries, instead of writing custom validation logic.
+
 ```ts
 // Bad
 function validateUserInput(input: unknown): MyObject {
-    if (typeof input !== "object" || input === null) {
-        throw new Error("Input must be an object");
-    }
-    if (!("name" in input) || typeof input.name !== "string") {
-        throw new Error("Input must have a name property of type string");
-    }
-    if (!("age" in input) || typeof input.age !== "number") {
-        throw new Error("Input must have an age property of type number");
-    }
-    return input as MyObject;
+  if (typeof input !== "object" || input === null) {
+    throw new Error("Input must be an object");
+  }
+  if (!("name" in input) || typeof input.name !== "string") {
+    throw new Error("Input must have a name property of type string");
+  }
+  if (!("age" in input) || typeof input.age !== "number") {
+    throw new Error("Input must have an age property of type number");
+  }
+  return input as MyObject;
 }
 
 function userCode(input: unknown) {
-    const validatedInput = validateUserInput(input);
-    // Use validatedInput
+  const validatedInput = validateUserInput(input);
+  // Use validatedInput
 }
 
 // Good
 import * as v from "valibot";
 
 const MyObjectSchema = v.object({
-    name: v.string(),
-    age: v.number(),
+  name: v.string(),
+  age: v.number(),
 });
 
 function userCode(input: unknown) {
-    const validatedInput = MyObjectSchema.parse(input);
-    // Use validatedInput
+  const validatedInput = MyObjectSchema.parse(input);
+  // Use validatedInput
 }
 ```
-
 
 - Do not add assertions for trusted values, such as values from the database or values from the API response that is guaranteed to be valid.
 
@@ -121,3 +128,9 @@ do_something_with(value)
 local value = require("my_module").get_value()
 do_something_with(value)
 ```
+
+- Do not add tests unless I explicitly ask you to do so.
+  - Do not add tests for trivial code, such as getters and setters, unless they contain complex logic.
+  - Confirm adding tests if the test will have a lot of mocks or stubs, or if the test will be hard to maintain.
+  - Prefer snapshot tests to value comparison tests for values that may change in the future, such as CLI outputs.
+    - While values that will stay the same, such as return value of a function, should be tested with value comparison tests.
